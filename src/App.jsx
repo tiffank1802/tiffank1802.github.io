@@ -39,6 +39,7 @@ const SkillCategory = ({ category, icon, skills, delay }) => (
 
 const ExperienceCard = ({ exp, delay }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const hasDetail = !!exp.projectDetail;
   return (
     <GlassCard delay={delay} className="experience-card" onClick={() => setIsExpanded(!isExpanded)}>
       <div className="exp-header">
@@ -57,22 +58,55 @@ const ExperienceCard = ({ exp, delay }) => {
       </p>
       <AnimatePresence>
         {isExpanded && (
-          <motion.ul
+          <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="exp-details"
+            className="exp-details-container"
           >
-            {exp.details.map((d, i) => <li key={i}>{d}</li>)}
-          </motion.ul>
+            {hasDetail ? (
+              <div className="exp-detail-rich">
+                <p className="exp-detail-desc">{exp.projectDetail.description}</p>
+
+                {exp.projectDetail.images?.length > 0 && (
+                  <div className="exp-detail-images">
+                    {exp.projectDetail.images.map((img, i) => (
+                      <div key={i} className="exp-detail-image-card" onClick={(e) => e.stopPropagation()}>
+                        <img src={img.url} alt={img.caption} loading="lazy" />
+                        <span className="exp-detail-img-caption">{img.caption}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="exp-detail-links">
+                  {exp.projectDetail.links.map((link, i) => (
+                    <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="btn btn-detail-link" onClick={(e) => e.stopPropagation()}>
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <motion.ul
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="exp-details"
+              >
+                {exp.details.map((d, i) => <li key={i}>{d}</li>)}
+              </motion.ul>
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
       <div className="exp-tags">
         {exp.tags.map((tag, i) => <span key={i} className="project-tag">{tag}</span>)}
       </div>
       <div className="exp-expand">
-        {isExpanded ? '▲ Réduire' : '▼ Voir les détails'}
+        {isExpanded ? '▲ Réduire' : hasDetail ? '▼ Voir le projet détaillé' : '▼ Voir les détails'}
       </div>
     </GlassCard>
   );
@@ -259,6 +293,8 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('about');
   const [viewingPdf, setViewingPdf] = useState(null);
 
+  const BUCKET = 'https://huggingface.co/buckets/ktongue/DEM_MCM/resolve/main';
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['about', 'skills', 'experience', 'projects', 'academic', 'contact'];
@@ -356,6 +392,21 @@ export default function App() {
         'Pipelines numériques complets en Python (NumPy, SciPy, PyTorch, Matplotlib).',
       ],
       tags: ['DEM', 'Markov', 'Python', 'PyTorch', 'UQ', 'DoE'],
+      projectDetail: {
+        description: "Couplage simulations DEM (Discrete Element Method) avec chaînes de Markov inhomogènes pour caractériser et prédire la ségrégation granulaire dans un mélangeur à tambour rotatif. Neuf méthodes de partitionnement spatial (cartésien, cylindrique, Voronoï, octree, physique, adaptatif, etc.) sont comparées systématiquement. Les matrices de transition sont construites à partir des trajectoires DEM et propagées pour prédire l'évolution du mélange. Une application Streamlit interactive permet de visualiser les résultats en 3D.",
+        repo: 'https://github.com/tiffank1802/MyStudio',
+        bucket: 'https://huggingface.co/buckets/ktongue/DEM_MCM',
+        images: [
+          {
+            url: `${BUCKET}/_Good/Experiment/postraitement/voronoi_simulations/voronoi_10cells_NLT3_step157_dt3_tau157_start250/images/etats/etats_espece_small_voronoi_10cells_NLT3_step157_dt3_tau157_start250.png`,
+            caption: 'États des espèces — partitionnement Voronoi 10 cellules'
+          },
+        ],
+        links: [
+          { label: '🐙 Code source (GitHub)', url: 'https://github.com/tiffank1802/MyStudio' },
+          { label: '☁️ Données brutes (bucket HF)', url: 'https://huggingface.co/buckets/ktongue/DEM_MCM' },
+        ],
+      },
     },
     {
       icon: '🔬',
@@ -782,6 +833,16 @@ export default function App() {
         .exp-tags, .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
         .project-tag { padding: 3px 9px; font-size: 10px; font-weight: 600; background: rgba(107, 143, 197, 0.08); border: 1px solid rgba(107, 143, 197, 0.12); border-radius: 100px; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
         .exp-expand { font-size: 11px; color: var(--text-tertiary); text-align: center; margin-top: 6px; }
+        .exp-details-container { overflow: hidden; }
+        .exp-detail-rich { padding: 12px 0; }
+        .exp-detail-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; }
+        .exp-detail-images { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+        .exp-detail-image-card { border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+        .exp-detail-image-card img { width: 100%; height: auto; display: block; }
+        .exp-detail-img-caption { display: block; padding: 8px 12px; font-size: 10px; color: var(--text-tertiary); background: rgba(0,0,0,0.2); }
+        .exp-detail-links { display: flex; flex-direction: column; gap: 6px; }
+        .btn-detail-link { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 500; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-family: inherit; background: rgba(107, 143, 197, 0.08); color: var(--accent); }
+        .btn-detail-link:hover { background: rgba(107, 143, 197, 0.15); }
 
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; }
         .project-card { cursor: pointer; }
