@@ -1,67 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const LiquidGlassSVG = () => (
-  <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-    <defs>
-      <filter id="liquid-glass">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="2" />
-        <feDisplacementMap in="SourceGraphic" scale="8" />
-      </filter>
-      <filter id="glass-blur">
-        <feGaussianBlur stdDeviation="20" />
-      </filter>
-    </defs>
-  </svg>
-);
-
-const GlassCard = ({ children, className = '', delay = 0, style = {} }) => {
-  const cardRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
+const GlassCard = ({ children, className = '', delay = 0 }) => {
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
+      transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       className={`glass-card ${className}`}
-      style={style}
     >
-      <div
-        className="glass-highlight"
-        style={{
-          background: isHovered
-            ? `radial-gradient(300px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.15), transparent 60%)`
-            : 'none',
-        }}
-      />
-      <div className="glass-reflection" />
-      <div className="glass-border" />
       {children}
     </motion.div>
   );
 };
-
-const BackgroundOrbs = () => (
-  <div className="background-orbs">
-    <motion.div className="orb orb-1" animate={{ x: [0, 100, -50, 0], y: [0, -80, 60, 0], scale: [1, 1.2, 0.9, 1] }} transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }} />
-    <motion.div className="orb orb-2" animate={{ x: [0, -120, 80, 0], y: [0, 60, -100, 0], scale: [1, 0.8, 1.3, 1] }} transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }} />
-    <motion.div className="orb orb-3" animate={{ x: [0, 60, -100, 0], y: [0, -120, 40, 0], scale: [1, 1.1, 0.85, 1] }} transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }} />
-    <motion.div className="orb orb-4" animate={{ x: [0, -80, 120, 0], y: [0, 100, -60, 0], scale: [1, 0.9, 1.2, 1] }} transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }} />
-  </div>
-);
 
 const SkillCategory = ({ category, icon, skills, delay }) => (
   <GlassCard delay={delay} className="skill-category-card">
@@ -71,16 +23,7 @@ const SkillCategory = ({ category, icon, skills, delay }) => (
     </div>
     <div className="skill-tags">
       {skills.map((skill, i) => (
-        <motion.span
-          key={skill}
-          className="skill-tag"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: delay + i * 0.04 }}
-          viewport={{ once: true }}
-        >
-          {skill}
-        </motion.span>
+        <span key={skill} className="skill-tag">{skill}</span>
       ))}
     </div>
   </GlassCard>
@@ -173,7 +116,7 @@ const Navigation = ({ activeSection }) => {
   return (
     <motion.nav className="glass-nav" initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.6 }}>
       <div className="nav-brand">
-        <span className="nav-logo">⚙</span>
+        <span className="nav-logo">KT</span>
         <span className="nav-name">Kevin Tongue</span>
       </div>
       <div className="nav-links">
@@ -261,7 +204,7 @@ export default function App() {
       icon: '🎓',
       title: 'Stage de Master — Couplage Déterministe-Stochastique (DEM + Markov)',
       org: 'IMT Mines Albi & IMT Mines Saint-Étienne',
-      orgLogos: ['/logos/mines-albi.png', '/logos/mines-stetienne.png'],
+      orgLogos: ['/logos/albi.png', '/logos/emse.png'],
       date: 'Mar. 2026 – Sep. 2026',
       location: 'Albi / Saint-Étienne',
       details: [
@@ -419,189 +362,171 @@ export default function App() {
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-          --glass-bg: rgba(255, 255, 255, 0.06);
-          --glass-border: rgba(255, 255, 255, 0.12);
-          --text-primary: rgba(255, 255, 255, 0.95);
-          --text-secondary: rgba(255, 255, 255, 0.65);
-          --text-tertiary: rgba(255, 255, 255, 0.4);
-          --accent: #7c6aef;
-          --accent-2: #4ecdc4;
-          --accent-3: #ff6b9d;
+          --glass-bg: rgba(255, 255, 255, 0.55);
+          --glass-border: rgba(255, 255, 255, 0.5);
+          --text-primary: #1a1a2e;
+          --text-secondary: #555;
+          --text-tertiary: #999;
+          --accent: #4a6fa5;
+          --accent-light: #e8f0fe;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #0a0a0f;
+          background: #f5f7fb;
           color: var(--text-primary);
           overflow-x: hidden;
           min-height: 100vh;
         }
 
-        .background-orbs {
-          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-          z-index: 0; pointer-events: none; overflow: hidden;
-        }
-
-        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; }
-        .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, #7c6aef 0%, transparent 70%); top: -10%; left: -10%; }
-        .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #4ecdc4 0%, transparent 70%); top: 40%; right: -10%; }
-        .orb-3 { width: 450px; height: 450px; background: radial-gradient(circle, #ff6b9d 0%, transparent 70%); bottom: -5%; left: 30%; }
-        .orb-4 { width: 350px; height: 350px; background: radial-gradient(circle, #f7b731 0%, transparent 70%); top: 20%; left: 50%; }
-
         .glass-card {
           position: relative;
           background: var(--glass-bg);
-          backdrop-filter: blur(40px) saturate(180%);
-          -webkit-backdrop-filter: blur(40px) saturate(180%);
+          backdrop-filter: blur(16px) saturate(140%);
+          -webkit-backdrop-filter: blur(16px) saturate(140%);
           border: 1px solid var(--glass-border);
-          border-radius: 24px;
+          border-radius: 20px;
           padding: 28px;
-          overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: all 0.3s ease;
           cursor: default;
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
         }
 
         .glass-card:hover {
-          background: rgba(255, 255, 255, 0.09);
-          border-color: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(124, 106, 239, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.7);
+          border-color: rgba(255, 255, 255, 0.6);
+          transform: translateY(-1px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
-
-        .glass-highlight { position: absolute; inset: 0; border-radius: 24px; pointer-events: none; transition: background 0.15s ease; z-index: 1; }
-        .glass-reflection { position: absolute; top: 0; left: 0; right: 0; height: 50%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%); border-radius: 24px 24px 0 0; pointer-events: none; z-index: 1; }
-        .glass-border { position: absolute; inset: 0; border-radius: 24px; pointer-events: none; z-index: 1; background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; -webkit-mask-composite: xor; padding: 1px; }
 
         .glass-nav {
           position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
-          display: flex; align-items: center; gap: 32px; padding: 14px 28px;
-          background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(40px) saturate(180%);
-          -webkit-backdrop-filter: blur(40px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 100px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+          display: flex; align-items: center; gap: 32px; padding: 12px 24px;
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(20px) saturate(160%);
+          -webkit-backdrop-filter: blur(20px) saturate(160%);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+          border-radius: 100px;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
         }
 
         .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
-        .nav-logo { font-size: 20px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-logo { font-size: 15px; font-weight: 800; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 8px; }
         .nav-links { display: flex; gap: 4px; }
-        .nav-link { padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.3s ease; }
-        .nav-link:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.08); }
-        .nav-link.active { color: var(--text-primary); background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 20px rgba(124, 106, 239, 0.15); }
+        .nav-link { padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.2s ease; }
+        .nav-link:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.5); }
+        .nav-link.active { color: var(--accent); background: rgba(255, 255, 255, 0.7); }
 
         .main-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         .hero-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 100px; }
         .hero-content { text-align: center; max-width: 800px; }
 
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; background: rgba(124, 106, 239, 0.12); border: 1px solid rgba(124, 106, 239, 0.25); border-radius: 100px; font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 28px; backdrop-filter: blur(20px); }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; background: rgba(74, 111, 165, 0.08); border: 1px solid rgba(74, 111, 165, 0.15); border-radius: 100px; font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 28px; }
         .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        .hero-title { font-size: clamp(42px, 7vw, 80px); font-weight: 700; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.03em; }
-        .hero-title .gradient-text { background: linear-gradient(135deg, #7c6aef 0%, #4ecdc4 50%, #ff6b9d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 200% auto; animation: gradient-shift 4s ease infinite; }
-        @keyframes gradient-shift { 0%, 100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+        .hero-title { font-size: clamp(38px, 6vw, 72px); font-weight: 700; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.03em; color: var(--text-primary); }
 
-        .hero-subtitle { font-size: clamp(16px, 2.2vw, 20px); color: var(--text-secondary); line-height: 1.6; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-subtitle { font-size: clamp(15px, 2vw, 18px); color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
 
-        .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border-radius: 100px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; font-family: inherit; }
-        .btn-primary { background: linear-gradient(135deg, var(--accent), #5a4fd4); color: white; box-shadow: 0 4px 20px rgba(124, 106, 239, 0.35); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124, 106, 239, 0.5); }
-        .btn-glass { background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(20px); color: var(--text-primary); border: 1px solid rgba(255, 255, 255, 0.12); }
-        .btn-glass:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 26px; border-radius: 100px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; font-family: inherit; }
+        .btn-primary { background: var(--accent); color: white; box-shadow: 0 2px 8px rgba(74, 111, 165, 0.2); }
+        .btn-primary:hover { background: #3d5f8f; transform: translateY(-1px); }
+        .btn-card { background: rgba(255, 255, 255, 0.5); color: var(--text-primary); border: 1px solid rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px); }
+        .btn-card:hover { background: rgba(255, 255, 255, 0.7); }
 
-        .section { padding: 100px 0; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 12px; }
-        .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
-        .section-desc { font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        .section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 48px; }
+        .section-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 10px; }
+        .section-title { font-size: clamp(26px, 3.5vw, 40px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; color: var(--text-primary); }
+        .section-desc { font-size: 15px; color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
 
         .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
-        .about-text { font-size: 16px; line-height: 1.8; color: var(--text-secondary); }
+        .about-text { font-size: 15px; line-height: 1.8; color: var(--text-secondary); }
         .about-text strong { color: var(--text-primary); }
 
-        .info-card { padding: 32px 24px; }
-        .info-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 14px; }
+        .info-card { padding: 28px 24px; }
+        .info-item { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: 14px; }
         .info-item:last-child { margin-bottom: 0; }
-        .info-icon { font-size: 18px; }
-        .info-label { color: var(--text-tertiary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+        .info-icon { font-size: 18px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: rgba(74, 111, 165, 0.06); border-radius: 10px; }
+        .info-label { color: var(--text-tertiary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
         .info-value { color: var(--text-primary); font-weight: 500; }
         .info-logos { display: inline-flex; align-items: center; gap: 4px; margin-right: 6px; vertical-align: middle; }
-        .info-logo { height: 1.2em; width: auto; opacity: 0.85; }
+        .info-logo { height: 1.1em; width: auto; }
 
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .skill-category-card { padding: 24px; }
-        .skill-category-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-        .skill-category-icon { font-size: 28px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border-radius: 14px; flex-shrink: 0; }
-        .skill-category-title { font-size: 16px; font-weight: 700; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .skill-tag { padding: 6px 12px; font-size: 12px; font-weight: 500; background: rgba(124, 106, 239, 0.08); border: 1px solid rgba(124, 106, 239, 0.18); border-radius: 100px; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; transition: all 0.3s ease; }
-        .skill-tag:hover { background: rgba(124, 106, 239, 0.18); border-color: rgba(124, 106, 239, 0.35); transform: translateY(-1px); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+        .skill-category-card { padding: 22px; }
+        .skill-category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .skill-category-icon { font-size: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(74, 111, 165, 0.06); border-radius: 12px; flex-shrink: 0; }
+        .skill-category-title { font-size: 15px; font-weight: 700; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skill-tag { padding: 5px 11px; font-size: 11px; font-weight: 500; background: rgba(74, 111, 165, 0.07); border: 1px solid rgba(74, 111, 165, 0.12); border-radius: 100px; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; transition: all 0.2s ease; }
+        .skill-tag:hover { background: rgba(74, 111, 165, 0.12); }
 
-        .experience-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; }
+        .experience-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
         .experience-card { cursor: pointer; }
-        .exp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
-        .exp-icon { font-size: 28px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border-radius: 14px; flex-shrink: 0; }
+        .exp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; gap: 12px; }
+        .exp-icon { font-size: 26px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: rgba(74, 111, 165, 0.06); border-radius: 12px; flex-shrink: 0; }
         .exp-meta { text-align: right; }
-        .exp-date { display: block; font-size: 12px; color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .exp-date { display: block; font-size: 11px; color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
         .exp-location { display: block; font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
-        .exp-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-        .exp-org { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; font-style: italic; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-        .exp-org-logo { height: 1.4em; width: auto; opacity: 0.85; }
-        .exp-details { list-style: none; padding: 14px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border-left: 2px solid var(--accent); margin-bottom: 14px; overflow: hidden; }
-        .exp-details li { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px; padding-left: 16px; position: relative; }
+        .exp-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+        .exp-org { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .exp-org-logo { height: 1.3em; width: auto; }
+        .exp-details { list-style: none; padding: 12px 14px; background: rgba(74, 111, 165, 0.04); border-radius: 10px; border-left: 2px solid var(--accent); margin-bottom: 12px; overflow: hidden; }
+        .exp-details li { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 5px; padding-left: 14px; position: relative; }
         .exp-details li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
         .exp-details li:last-child { margin-bottom: 0; }
-        .exp-tags, .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-        .project-tag { padding: 4px 10px; font-size: 11px; font-weight: 600; background: rgba(78, 205, 196, 0.1); border: 1px solid rgba(78, 205, 196, 0.25); border-radius: 100px; color: var(--accent-2); font-family: 'JetBrains Mono', monospace; }
-        .exp-expand { font-size: 11px; color: var(--text-tertiary); text-align: center; margin-top: 8px; }
+        .exp-tags, .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+        .project-tag { padding: 3px 9px; font-size: 10px; font-weight: 600; background: rgba(74, 111, 165, 0.07); border: 1px solid rgba(74, 111, 165, 0.12); border-radius: 100px; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+        .exp-expand { font-size: 11px; color: var(--text-tertiary); text-align: center; margin-top: 6px; }
 
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; }
         .project-card { cursor: pointer; }
-        .project-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-        .project-icon { font-size: 32px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border-radius: 16px; }
-        .project-links a { color: var(--text-tertiary); transition: color 0.3s; padding: 6px; border-radius: 8px; display: inline-flex; }
-        .project-links a:hover { color: var(--accent-2); background: rgba(255, 255, 255, 0.08); }
-        .project-title { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
-        .project-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; }
-        .project-details { overflow: hidden; margin-bottom: 14px; }
-        .project-details p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; padding: 14px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border-left: 2px solid var(--accent-2); }
+        .project-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .project-icon { font-size: 28px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: rgba(74, 111, 165, 0.06); border-radius: 14px; }
+        .project-links a { color: var(--text-tertiary); transition: color 0.2s; padding: 6px; border-radius: 8px; display: inline-flex; }
+        .project-links a:hover { color: var(--accent); background: rgba(74, 111, 165, 0.06); }
+        .project-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .project-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
+        .project-details { overflow: hidden; margin-bottom: 12px; }
+        .project-details p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding: 12px 14px; background: rgba(74, 111, 165, 0.04); border-radius: 10px; border-left: 2px solid var(--accent); }
 
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .contact-info { padding: 36px; }
-        .contact-item { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+        .contact-info { padding: 32px; }
+        .contact-item { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
         .contact-item:last-child { margin-bottom: 0; }
-        .contact-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(124, 106, 239, 0.1); border: 1px solid rgba(124, 106, 239, 0.2); border-radius: 12px; font-size: 20px; flex-shrink: 0; }
-        .contact-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
-        .contact-value { font-size: 14px; font-weight: 500; }
-        .contact-value a { color: var(--text-primary); text-decoration: none; transition: color 0.3s; }
+        .contact-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(74, 111, 165, 0.07); border: 1px solid rgba(74, 111, 165, 0.1); border-radius: 10px; font-size: 18px; flex-shrink: 0; }
+        .contact-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+        .contact-value { font-size: 13px; font-weight: 500; }
+        .contact-value a { color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
         .contact-value a:hover { color: var(--accent); }
 
-        .cv-card { padding: 36px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .cv-icon { font-size: 48px; margin-bottom: 16px; }
-        .cv-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
-        .cv-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6; }
-        .cv-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #4ade80; margin-bottom: 18px; }
+        .cv-card { padding: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .cv-icon { font-size: 42px; margin-bottom: 14px; }
+        .cv-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .cv-desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5; }
+        .cv-status { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #4ade80; margin-bottom: 16px; }
         .cv-status .dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
 
-        .footer { text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 255, 255, 0.06); margin-top: 60px; }
-        .footer-text { font-size: 13px; color: var(--text-tertiary); }
+        .footer { text-align: center; padding: 36px 0; border-top: 1px solid rgba(0, 0, 0, 0.04); margin-top: 48px; }
+        .footer-text { font-size: 12px; color: var(--text-tertiary); }
 
         @media (max-width: 768px) {
-          .glass-nav { width: calc(100% - 32px); justify-content: space-between; padding: 12px 16px; gap: 8px; }
+          .glass-nav { width: calc(100% - 32px); justify-content: space-between; padding: 10px 14px; gap: 6px; }
           .nav-name { display: none; }
-          .nav-link { padding: 6px 10px; font-size: 11px; }
+          .nav-link { padding: 5px 8px; font-size: 10px; }
           .about-grid, .contact-grid { grid-template-columns: 1fr; }
           .projects-grid, .experience-grid, .skills-grid { grid-template-columns: 1fr; }
           .hero-actions { flex-direction: column; align-items: center; }
         }
       `}</style>
 
-      <LiquidGlassSVG />
-      <BackgroundOrbs />
       <Navigation activeSection={activeSection} />
 
       <div className="main-content">
@@ -616,7 +541,7 @@ export default function App() {
 
             <motion.h1 className="hero-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
               Kevin Tongue<br />
-              <span className="gradient-text">Ingénieur Mécanique</span>
+              Ingénieur Mécanique
             </motion.h1>
 
             <motion.p className="hero-subtitle" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
@@ -632,7 +557,7 @@ export default function App() {
                   <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                 </svg>
               </a>
-              <a href="cv.pdf" download className="btn btn-glass">
+              <a href="cv.pdf" download className="btn btn-card">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                   <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
@@ -681,7 +606,7 @@ export default function App() {
           </div>
           <div className="skills-grid">
             {skillCategories.map((cat, i) => (
-              <SkillCategory key={cat.category} {...cat} delay={i * 0.05} />
+              <SkillCategory key={cat.category} {...cat} delay={i * 0.04} />
             ))}
           </div>
         </section>
@@ -698,7 +623,7 @@ export default function App() {
           </div>
           <div className="experience-grid">
             {experiences.map((exp, i) => (
-              <ExperienceCard key={exp.title} exp={exp} delay={i * 0.08} />
+              <ExperienceCard key={exp.title} exp={exp} delay={i * 0.06} />
             ))}
           </div>
         </section>
@@ -715,7 +640,7 @@ export default function App() {
           </div>
           <div className="projects-grid">
             {projects.map((project, i) => (
-              <ProjectCard key={project.title} project={project} delay={i * 0.1} />
+              <ProjectCard key={project.title} project={project} delay={i * 0.08} />
             ))}
           </div>
         </section>
