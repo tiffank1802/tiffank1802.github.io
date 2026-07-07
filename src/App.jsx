@@ -796,7 +796,12 @@ export default function App() {
         .main-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         .hero-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 100px; }
-        .hero-content { text-align: center; max-width: 800px; }
+        .hero-content-glass {
+          text-align: center;
+          max-width: 720px;
+          width: 100%;
+          padding: 48px 40px;
+        }
 
         .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; background: rgba(107, 143, 197, 0.08); border: 1px solid rgba(107, 143, 197, 0.15); border-radius: 100px; font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 28px; }
         .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
@@ -1012,7 +1017,7 @@ export default function App() {
 
       <div className="main-content">
         <section id="about" className="hero-section">
-          <div className="hero-content">
+          <GlassCard className="hero-content-glass">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <div className="hero-badge">
                 <span className="dot" />
@@ -1046,7 +1051,7 @@ export default function App() {
                 Télécharger CV
               </a>
             </motion.div>
-          </div>
+          </GlassCard>
         </section>
 
         <section className="section">
