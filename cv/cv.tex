@@ -1,0 +1,149 @@
+%-------------------------
+% CV en LaTeX - tiffank1802
+% Modifiez ce fichier et le PDF sera automatiquement regenere
+%-------------------------
+\documentclass[a4paper,11pt]{article}
+
+%-------- Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+%-------- Marges
+\geometry{margin=2cm}
+
+%-------- Couleurs
+\definecolor{primary}{HTML}{7c6aef}
+\definecolor{secondary}{HTML}{4ecdc4}
+\definecolor{dark}{HTML}{1a1a2e}
+\definecolor{grey}{HTML}{666666}
+
+%-------- Liens
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=primary
+}
+
+%-------- Sections
+\titleformat{\section}
+  {\Large\bfseries\color{dark}}
+  {}{0em}{}[\vspace{-0.5em}\rule{\textwidth}{0.5pt}\vspace{-0.3em}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+
+%-------- Commandes personnalisees
+\newcommand{\skill}[2]{%
+  \begin{tabular}{@{}p{3.5cm}p{10cm}}%
+    \textcolor{primary}{\textbf{#1}} & #2%
+  \end{tabular}\\[0.3em]%
+}
+
+\newcommand{\experience}[4]{%
+  \textbf{#1} \hfill \textcolor{grey}{#4}\\
+  \textit{#2} \hfill \textcolor{grey}{#3}\\[0.2em]%
+}
+
+\newcommand{\projectitem}[3]{%
+  \textbf{#1} -- \textit{#2}\\
+  #3\\[0.3em]%
+}
+
+%-------- Document
+\begin{document}
+
+%-------- Header
+\begin{center}
+  \huge \textbf{\textcolor{primary}{Tiffan K.}} \\[0.5em]
+  \large \textcolor{dark}{Developpeur Full-Stack} \\[0.8em]
+  \small
+  \faEnvelope\ \href{mailto:tiffank1802@gmail.com}{tiffank1802@gmail.com} \quad
+  \faPhone\ +33 6 00 00 00 00 \quad
+  \faMapMarkerAlt\ Paris, France \\[0.3em]
+  \faGithub\ \href{https://github.com/tiffank1802}{github.com/tiffank1802} \quad
+  \faLinkedin\ \href{https://linkedin.com/in/tiffank1802}{linkedin.com/in/tiffank1802}
+\end{center}
+
+%-------- Profil
+\section{Profil}
+Developpeur Full-Stack passionne avec plus de 5 ans d'experience dans la conception et le developpement d'applications web modernes et scalables. Expertise en JavaScript/TypeScript, React, Node.js et architectures cloud-native.
+
+%-------- Experience
+\section{Experience Professionnelle}
+
+\experience{Senior Full-Stack Developer}{TechCorp, Paris}{2022 -- Present}{CDI}
+\begin{itemize}[leftmargin=1em, nosep]
+  \item Conception et developpement d'une plateforme SaaS multi-tenant traitee par plus de 50 000 utilisateurs
+  \item Mise en place d'une architecture microservices avec Docker et Kubernetes
+  \item Migration de l'infrastructure vers AWS avec reduction de 40\% des couts
+  \item Encadrement d'une equipe de 4 developpeurs juniors
+\end{itemize}
+
+\vspace{0.3em}
+\experience{Developpeur Full-Stack}{StartupLab, Lyon}{2020 -- 2022}{CDI}
+\begin{itemize}[leftmargin=1em, nosep]
+  \item Developpement d'applications React/Next.js avec TypeScript
+  \item Creation d'APIs RESTful et GraphQL avec Node.js et PostgreSQL
+  \item Integration continue et deploiement automatise avec GitHub Actions
+  \item Participation a la conception UI/UX et au design system
+\end{itemize}
+
+\vspace{0.3em}
+\experience{Developpeur Junior}{WebAgency, Lyon}{2019 -- 2020}{Stage + CDD}
+\begin{itemize}[leftmargin=1em, nosep]
+  \item Maintenance et evolution de sites web clients
+  \item Developpement de composants React reutilisables
+  \item Integration de maquettes Figma en CSS/SCSS
+\end{itemize}
+
+%-------- Competences
+\section{Competences Techniques}
+
+\skill{Langages}{JavaScript/TypeScript, Python, HTML/CSS, SQL, GLSL}
+\skill{Frameworks}{React, Next.js, Node.js, Express, Three.js}
+\skill{Base de donnees}{PostgreSQL, MongoDB, Redis, Prisma}
+\skill{Cloud \& DevOps}{AWS, Docker, Kubernetes, CI/CD, GitHub Actions}
+\skill{Outils}{Git, Figma, Webpack/Vite, Prometheus, Grafana}
+
+%-------- Projets
+\section{Projets}
+
+\projectitem{Plateforme SaaS}{Next.js, TypeScript, PostgreSQL, AWS}{
+  Application multi-tenant avec architecture microservices, dashboard analytique temps reel et pipeline CI/CD complet.
+}
+
+\projectitem{Moteur de Rendu 3D}{Three.js, WebGL, GLSL, TypeScript}{
+  Moteur de rendu WebGL personnalise avec systeme de particules, eclairage PBR et post-processing.
+}
+
+\projectitem{API Gateway Intelligent}{Node.js, Kafka, Redis, Prometheus}{
+  Gateway API avec rate limiting adaptatif, caching distribue et observabilite complete.
+}
+
+%-------- Formation
+\section{Formation}
+
+\textbf{Master en Informatique} \hfill \textcolor{grey}{2017 -- 2019}\\
+Universite de Lyon \\
+Specialite : Genie Logiciel et Systemes Distribues
+
+\vspace{0.3em}
+\textbf{Licence en Informatique} \hfill \textcolor{grey}{2014 -- 2017}\\
+Universite de Lyon
+
+%-------- Langues
+\section{Langues}
+\begin{tabular}{@{}p{3.5cm}p{10cm}}
+  \textcolor{primary}{\textbf{Francais}} & Langue maternelle \\
+  \textcolor{primary}{\textbf{Anglais}} & Courant (C1) - TOEIC 950
+\end{tabular}
+
+%-------- Centres d'interet
+\section{Centres d'interet}
+D\u{e}veloppement open-source, Intelligence artificielle, Design system, Running, Photographie
+
+\end{document}
