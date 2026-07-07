@@ -18,7 +18,12 @@ const GlassCard = ({ children, className = '', delay = 0 }) => {
       viewport={{ once: true }}
       className={`glass-card ${className}`}
     >
-      {children}
+      <div className="glass-filter" />
+      <div className="glass-overlay" />
+      <div className="glass-specular" />
+      <div className="glass-content-wrap">
+        {children}
+      </div>
     </motion.div>
   );
 };
@@ -311,17 +316,6 @@ export default function App() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const feImage = document.querySelector('#dispMap');
-    if (!feImage) return;
-    fetch('https://essykings.github.io/JavaScript/map.png')
-      .then((r) => r.blob())
-      .then((blob) => {
-        feImage.setAttribute('href', URL.createObjectURL(blob));
-      })
-      .catch(() => {});
   }, []);
 
   const skillCategories = [
@@ -719,25 +713,56 @@ export default function App() {
 
         .glass-card {
           position: relative;
-          background: var(--glass-bg);
-          backdrop-filter: blur(14px) saturate(130%);
-          -webkit-backdrop-filter: blur(14px) saturate(130%);
+          padding: 28px;
           border: 1px solid var(--glass-border);
           border-radius: 20px;
-          padding: 28px;
           transition: all 0.4s ease;
           cursor: default;
         }
 
-        @supports (backdrop-filter: url(#glass)) {
+        @supports (filter: url(#lg-dist)) {
           .glass-card {
-            backdrop-filter: url(#glass);
-            -webkit-backdrop-filter: url(#glass);
+            backdrop-filter: none;
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.08);
+          }
+          .glass-filter {
+            position: absolute; inset: 0; z-index: 0;
+            border-radius: inherit;
+            backdrop-filter: blur(0px);
+            filter: url(#lg-dist);
+            isolation: isolate;
+            pointer-events: none;
+          }
+          .glass-overlay {
+            position: absolute; inset: 0; z-index: 1;
+            border-radius: inherit;
+            background: var(--glass-bg);
+            pointer-events: none;
+          }
+          .glass-specular {
+            position: absolute; inset: 0; z-index: 2;
+            border-radius: inherit;
+            overflow: hidden;
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.35), inset 0 0 8px rgba(255,255,255,0.1);
+            pointer-events: none;
+          }
+          .glass-card > :not(.glass-filter):not(.glass-overlay):not(.glass-specular) {
+            position: relative;
+            z-index: 3;
           }
         }
 
+        @supports not (filter: url(#lg-dist)) {
+          .glass-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(14px) saturate(130%);
+            -webkit-backdrop-filter: blur(14px) saturate(130%);
+          }
+          .glass-filter, .glass-overlay, .glass-specular { display: none; }
+        }
+
         .glass-card:hover {
-          background: linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.02) 100%);
           border-color: rgba(255, 255, 255, 0.18);
           transform: translateY(-2px);
           box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
@@ -753,10 +778,10 @@ export default function App() {
           border-radius: 100px;
         }
 
-        @supports (backdrop-filter: url(#glass)) {
+        @supports (filter: url(#lg-dist)) {
           .glass-nav {
-            backdrop-filter: url(#glass);
-            -webkit-backdrop-filter: url(#glass);
+            backdrop-filter: blur(0px);
+            filter: url(#lg-dist-light);
           }
         }
 
@@ -945,10 +970,15 @@ export default function App() {
       `}</style>
 
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        <filter id="glass" x="-20%" y="-20%" width="140%" height="140%" primitiveUnits="objectBoundingBox">
-          <feImage id="dispMap" x="0" y="0" width="100%" height="100%" result="map" />
-          <feGaussianBlur in="SourceGraphic" stdDeviation="0.015" result="blur" />
-          <feDisplacementMap in="blur" in2="map" scale="0.04" xChannelSelector="R" yChannelSelector="G" />
+        <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+          <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="lg-dist-light" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.005 0.005" numOctaves="1" seed="42" result="noise" />
+          <feGaussianBlur in="noise" stdDeviation="1.5" result="blurred" />
+          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="35" xChannelSelector="R" yChannelSelector="G" />
         </filter>
       </svg>
 
