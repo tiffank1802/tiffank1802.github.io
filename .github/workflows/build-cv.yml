@@ -21,15 +21,16 @@ jobs:
       - name: Compile LaTeX to PDF
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: cv.tex
-          work_in_root_file_dir: true
-          compiler: xelatex
+          root_file: cv/cv.tex
+          latexmk_use_xelatex: true
+          latexmk_shell_escape: true
           args: -interaction=nonstopmode -file-line-error
 
       - name: Copy PDF to public and root
         run: |
           cp cv/cv.pdf public/cv.pdf
           cp cv/cv.pdf cv.pdf
+          ls -lh cv/cv.pdf public/cv.pdf
 
       - name: Commit PDF
         uses: stefanzweifel/git-auto-commit-action@v5
