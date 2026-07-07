@@ -21,6 +21,7 @@ const GlassCard = ({ children, className = '', delay = 0 }) => {
       <div className="glass-filter" />
       <div className="glass-overlay" />
       <div className="glass-specular" />
+      <div className="glass-border-highlight" />
       <div className="glass-content-wrap">
         {children}
       </div>
@@ -739,16 +740,47 @@ export default function App() {
             position: absolute; inset: 0; z-index: 1;
             border-radius: inherit;
             background: var(--glass-bg);
+            mix-blend-mode: soft-light;
             pointer-events: none;
           }
           .glass-specular {
             position: absolute; inset: 0; z-index: 2;
             border-radius: inherit;
             overflow: hidden;
-            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.35), inset 0 0 8px rgba(255,255,255,0.1);
             pointer-events: none;
           }
-          .glass-card > :not(.glass-filter):not(.glass-overlay):not(.glass-specular) {
+          .glass-specular::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(
+              180deg,
+              rgba(255,255,255,0.35) 0%,
+              rgba(255,255,255,0.10) 25%,
+              transparent 55%
+            );
+            pointer-events: none;
+          }
+          .glass-specular::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(
+              90deg,
+              rgba(255,255,255,0.12) 0%,
+              transparent 40%
+            );
+            pointer-events: none;
+          }
+          .glass-border-highlight {
+            position: absolute; inset: 0; z-index: 2;
+            border-radius: inherit;
+            border: 1px solid rgba(255,255,255,0.18);
+            pointer-events: none;
+          }
+          .glass-card > :not(.glass-filter):not(.glass-overlay):not(.glass-specular):not(.glass-border-highlight) {
             position: relative;
             z-index: 3;
           }
@@ -760,13 +792,16 @@ export default function App() {
             backdrop-filter: blur(14px) saturate(130%);
             -webkit-backdrop-filter: blur(14px) saturate(130%);
           }
-          .glass-filter, .glass-overlay, .glass-specular { display: none; }
+          .glass-filter, .glass-overlay, .glass-specular, .glass-border-highlight { display: none; }
         }
 
         .glass-card:hover {
-          border-color: rgba(255, 255, 255, 0.18);
+          border-color: transparent;
           transform: translateY(-2px);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+        .glass-card:hover .glass-border-highlight {
+          border-color: rgba(255,255,255,0.30);
         }
 
         .glass-nav {
@@ -995,15 +1030,31 @@ export default function App() {
       `}</style>
 
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
-          <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
-          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G" />
+        <defs>
+          <radialGradient id="lens-mask" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#fff" stop-opacity="1" />
+            <stop offset="30%" stop-color="#fff" stop-opacity="1" />
+            <stop offset="100%" stop-color="#000" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="lens-mask-light" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#fff" stop-opacity="1" />
+            <stop offset="50%" stop-color="#fff" stop-opacity="1" />
+            <stop offset="100%" stop-color="#000" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <filter id="lg-dist" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.009 0.009" numOctaves="3" seed="92" result="noise" />
+          <feGaussianBlur in="noise" stdDeviation="2.5" result="blurred" />
+          <feImage href="#lens-mask" result="lens" />
+          <feComposite in="blurred" in2="lens" operator="in" result="lensedNoise" />
+          <feDisplacementMap in="SourceGraphic" in2="lensedNoise" scale="80" xChannelSelector="R" yChannelSelector="G" />
         </filter>
-        <filter id="lg-dist-light" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.005 0.005" numOctaves="1" seed="42" result="noise" />
+        <filter id="lg-dist-light" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.005 0.005" numOctaves="2" seed="42" result="noise" />
           <feGaussianBlur in="noise" stdDeviation="1.5" result="blurred" />
-          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="35" xChannelSelector="R" yChannelSelector="G" />
+          <feImage href="#lens-mask-light" result="lens" />
+          <feComposite in="blurred" in2="lens" operator="in" result="lensedNoise" />
+          <feDisplacementMap in="SourceGraphic" in2="lensedNoise" scale="40" xChannelSelector="R" yChannelSelector="G" />
         </filter>
       </svg>
 
