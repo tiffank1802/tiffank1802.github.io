@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'cv/cv.tex'
+      - 'cv/awesome-cv.cls'
+      - 'cv/fonts/**'
       - '.github/workflows/build-cv.yml'
   workflow_dispatch:
 
@@ -16,12 +18,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX to PDF
+      - name: Compile LaTeX to PDF (xelatex, 2 passes)
         uses: dante-ev/latex-action@2021-A
         with:
-          root_file: cv/cv.tex
+          root_file: cv.tex
           working_directory: cv/
-          compiler: pdflatex
+          compiler: xelatex
           args: -interaction=nonstopmode -file-line-error
 
       - name: Copy PDF to public and root

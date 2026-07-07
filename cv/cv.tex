@@ -1,149 +1,291 @@
-%-------------------------
-% CV en LaTeX - tiffank1802
-% Modifiez ce fichier et le PDF sera automatiquement regenere
-%-------------------------
-\documentclass[a4paper,11pt]{article}
+% !TEX TS-program = xelatex
+\documentclass[11pt, a4paper]{awesome-cv}
 
-%-------- Packages
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{geometry}
-\usepackage{hyperref}
-\usepackage{xcolor}
-\usepackage{fontawesome5}
-\usepackage{titlesec}
-\usepackage{enumitem}
+\geometry{left=1.4cm, top=1.1cm, right=1.4cm, bottom=1.1cm, footskip=.5cm}
+\fontdir[fonts/]
 
-%-------- Marges
-\geometry{margin=2cm}
+\colorlet{awesome}{awesome-red}
+\setbool{acvSectionColorHighlight}{true}
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
 
-%-------- Couleurs
-\definecolor{primary}{HTML}{7c6aef}
-\definecolor{secondary}{HTML}{4ecdc4}
-\definecolor{dark}{HTML}{1a1a2e}
-\definecolor{grey}{HTML}{666666}
+\name{Kevin}{Tongue}
+\position{Double Degree – Mechanical Engineering \& Master in Numerical Solid Mechanics}
+\address{65, Rue Jean Parot, 42000 Saint-Étienne, France}
+\mobile{(+33) 6 98 06 37 69}
+\email{tonguekevin00@gmail.com}
+\github{tiffank1802}
+\linkedin{tongue-kevin-52b100330}
 
-%-------- Liens
-\hypersetup{
-  colorlinks=true,
-  linkcolor=primary,
-  urlcolor=primary
-}
-
-%-------- Sections
-\titleformat{\section}
-  {\Large\bfseries\color{dark}}
-  {}{0em}{}[\vspace{-0.5em}\rule{\textwidth}{0.5pt}\vspace{-0.3em}]
-\titlespacing{\section}{0pt}{1em}{0.5em}
-
-%-------- Commandes personnalisees
-\newcommand{\skill}[2]{%
-  \begin{tabular}{@{}p{3.5cm}p{10cm}}%
-    \textcolor{primary}{\textbf{#1}} & #2%
-  \end{tabular}\\[0.3em]%
-}
-
-\newcommand{\experience}[4]{%
-  \textbf{#1} \hfill \textcolor{grey}{#4}\\
-  \textit{#2} \hfill \textcolor{grey}{#3}\\[0.2em]%
-}
-
-\newcommand{\projectitem}[3]{%
-  \textbf{#1} -- \textit{#2}\\
-  #3\\[0.3em]%
-}
-
-%-------- Document
 \begin{document}
+\makecvheader
 
-%-------- Header
-\begin{center}
-  \huge \textbf{\textcolor{primary}{Tiffan K.}} \\[0.5em]
-  \large \textcolor{dark}{Developpeur Full-Stack} \\[0.8em]
-  \small
-  \faEnvelope\ \href{mailto:tiffank1802@gmail.com}{tiffank1802@gmail.com} \quad
-  \faPhone\ +33 6 00 00 00 00 \quad
-  \faMapMarkerAlt\ Paris, France \\[0.3em]
-  \faGithub\ \href{https://github.com/tiffank1802}{github.com/tiffank1802} \quad
-  \faLinkedin\ \href{https://linkedin.com/in/tiffank1802}{linkedin.com/in/tiffank1802}
-\end{center}
+%-------------------------------------------------------------------------------
+%  EDUCATION
+%-------------------------------------------------------------------------------
+\cvsection{Education}
+\begin{cventries}
 
-%-------- Profil
-\section{Profil}
-Developpeur Full-Stack passionne avec plus de 5 ans d'experience dans la conception et le developpement d'applications web modernes et scalables. Expertise en JavaScript/TypeScript, React, Node.js et architectures cloud-native.
+  \cventry
+    {Double Degree – Engineering in Mechanical Engineering \& Master 2 in Numerical Solid Mechanics}
+    {Centrale Lyon – ENISE \& École Nationale Supérieure Polytechnique de Yaoundé (ENSPY)}
+    {Saint-Étienne, France / Yaoundé, Cameroon}
+    {2020 -- 2026 (expected)}
+    {
+      \begin{cvitems}
+        \item \textbf{Specialisation:} Mechanical design, advanced numerical simulation, and computational mechanics.
+        \item \textbf{Key courses (Master):} Finite Element Method, Continuum Mechanics, Fracture Mechanics, Structural Dynamics, Nonlinear Mechanics, Uncertainty Quantification, Design of Experiments, Residual Stress Analysis, Fluid Dynamics, Heat Transfer, Materials Science.
+        \item \textbf{Key courses (Engineering):} Solid Mechanics, Thermodynamics, Machine Design, Manufacturing Processes, System Dynamics, Signal Processing, Applied Mathematics.
+      \end{cvitems}
+    }
 
-%-------- Experience
-\section{Experience Professionnelle}
+\end{cventries}
 
-\experience{Senior Full-Stack Developer}{TechCorp, Paris}{2022 -- Present}{CDI}
-\begin{itemize}[leftmargin=1em, nosep]
-  \item Conception et developpement d'une plateforme SaaS multi-tenant traitee par plus de 50 000 utilisateurs
-  \item Mise en place d'une architecture microservices avec Docker et Kubernetes
-  \item Migration de l'infrastructure vers AWS avec reduction de 40\% des couts
-  \item Encadrement d'une equipe de 4 developpeurs juniors
-\end{itemize}
+%-------------------------------------------------------------------------------
+%  RESEARCH & PROFESSIONAL EXPERIENCE
+%-------------------------------------------------------------------------------
+\cvsection{Research \& Professional Experience}
+\begin{cventries}
 
-\vspace{0.3em}
-\experience{Developpeur Full-Stack}{StartupLab, Lyon}{2020 -- 2022}{CDI}
-\begin{itemize}[leftmargin=1em, nosep]
-  \item Developpement d'applications React/Next.js avec TypeScript
-  \item Creation d'APIs RESTful et GraphQL avec Node.js et PostgreSQL
-  \item Integration continue et deploiement automatise avec GitHub Actions
-  \item Participation a la conception UI/UX et au design system
-\end{itemize}
+  \cventry
+    {Master Internship – Deterministic–Stochastic Coupling for Granular Segregation (DEM + Markov Chains)}
+    {IMT Mines Albi \& IMT Mines Saint-Étienne}
+    {Albi / Saint-Étienne, France}
+    {Mar. 2026 -- Sep. 2026}
+    {
+      \begin{cvitems}
+        \item Coupled Discrete Element Method (DEM) simulations with an inhomogeneous Markov chain model to statistically characterise granular segregation dynamics in mixing devices.
+        \item Extracted particle-scale transition probabilities from DEM outputs; developed stochastic models linking microscopic particle dynamics to macroscopic distributions.
+        \item Designed and executed a Design of Experiments (DoE) plan and performed Monte Carlo sensitivity analysis for uncertainty quantification (UQ).
+        \item Implemented end-to-end numerical pipelines in Python (NumPy, SciPy, PyTorch, Matplotlib) including data fusion, signal processing, and model validation.
+      \end{cvitems}
+    }
 
-\vspace{0.3em}
-\experience{Developpeur Junior}{WebAgency, Lyon}{2019 -- 2020}{Stage + CDD}
-\begin{itemize}[leftmargin=1em, nosep]
-  \item Maintenance et evolution de sites web clients
-  \item Developpement de composants React reutilisables
-  \item Integration de maquettes Figma en CSS/SCSS
-\end{itemize}
+  \cventry
+    {Research Project – Nonlinear FEM Solver for Fatigue Failure Prediction (Dang Van Criterion)}
+    {Centrale Lyon – ENISE}
+    {Saint-Étienne, France}
+    {Oct. 2025 -- Mar. 2026}
+    {
+      \begin{cvitems}
+        \item Implemented a 3D nonlinear finite element solver in Python/C++ covering static, modal, and transient dynamic analyses.
+        \item Applied and validated the Dang Van multiaxial fatigue criterion, including critical plane determination (Agard et al.\ optimisation methodology).
+        \item Validated results against analytical benchmarks and Abaqus reference solutions; produced structured technical documentation.
+        \item Deployed as a web application: \texttt{huggingface.co/spaces/ktongue/simulations\_apps}
+      \end{cvitems}
+    }
 
-%-------- Competences
-\section{Competences Techniques}
+  \cventry
+    {Research Project – Physics-Informed Neural Networks (PINN) for Material Identification}
+    {Centrale Lyon – ENISE (collaboration with LTDS Laboratory)}
+    {Saint-Étienne, France}
+    {2025}
+    {
+      \begin{cvitems}
+        \item Built a Physics-Informed Neural Network (PINN) in PyTorch coupling deep learning with physical constraints (elasticity, heat equation, plasticity criteria).
+        \item Performed inverse identification of constitutive law parameters from compression test data provided by the LTDS laboratory; validated the identified law via FEM simulations.
+        \item Implemented data-driven surrogate modelling pipeline: preprocessing, training loop, hyperparameter tuning, and result visualisation.
+        \item Deployed at: \texttt{huggingface.co/spaces/ktongue/material\_identification}
+      \end{cvitems}
+    }
 
-\skill{Langages}{JavaScript/TypeScript, Python, HTML/CSS, SQL, GLSL}
-\skill{Frameworks}{React, Next.js, Node.js, Express, Three.js}
-\skill{Base de donnees}{PostgreSQL, MongoDB, Redis, Prisma}
-\skill{Cloud \& DevOps}{AWS, Docker, Kubernetes, CI/CD, GitHub Actions}
-\skill{Outils}{Git, Figma, Webpack/Vite, Prometheus, Grafana}
+  \cventry
+    {Laboratory Coursework – Surface Integrity and Residual Stress Characterisation in Machining}
+    {Centrale Lyon – ENISE}
+    {Saint-Étienne, France}
+    {2023 -- 2024}
+    {
+      \begin{cvitems}
+        \item Measured residual stresses induced by machining operations using laser-based spectroscopy techniques, and correlated results with cutting parameters and tool wear state.
+        \item Conducted experimental micro-hardness mapping (Vickers micro-indentation) on machined 42CrMo4 steel specimens, comparing surface and core hardness across new vs.\ worn cutting inserts and parallel vs.\ perpendicular cutting directions.
+        \item Characterised microstructure and tool wear mechanisms using Scanning Electron Microscopy (SEM) and Energy-Dispersive X-ray Spectroscopy (EDXS) to identify coating degradation and material composition changes at cutting edges.
+        \item Analysed the influence of machining operations on surface integrity (hardness gradients, microstructural alteration, residual stress state) to define recommendations ensuring part integrity.
+      \end{cvitems}
+    }
 
-%-------- Projets
-\section{Projets}
+  \cventry
+    {Academic Project – Microstructure Partitioning Model (Image Segmentation)}
+    {École des Mines de Saint-Étienne}
+    {Saint-Étienne, France}
+    {Feb. -- Jun. 2025}
+    {
+      \begin{cvitems}
+        \item Processed and segmented microstructural images using Python (NumPy, OpenCV, SciPy); performed geometric feature extraction and statistical characterisation of material phases.
+        \item Developed modular segmentation and classification algorithms applicable to materials with heterogeneous microstructures.
+      \end{cvitems}
+    }
 
-\projectitem{Plateforme SaaS}{Next.js, TypeScript, PostgreSQL, AWS}{
-  Application multi-tenant avec architecture microservices, dashboard analytique temps reel et pipeline CI/CD complet.
-}
+  \cventry
+    {Academic Project – Design of a Food Industry Lifting Trolley}
+    {Centrale Lyon – ENISE}
+    {Saint-Étienne, France}
+    {Mar. -- Jun. 2025}
+    {
+      \begin{cvitems}
+        \item Pre-dimensioning study, strength of materials calculations, and 3D CAD modelling (SolidWorks); ran static finite element simulation (SolidWorks Simulation) to validate structural integrity.
+        \item Produced full technical documentation including functional analysis, tolerancing, and manufacturing drawings.
+      \end{cvitems}
+    }
 
-\projectitem{Moteur de Rendu 3D}{Three.js, WebGL, GLSL, TypeScript}{
-  Moteur de rendu WebGL personnalise avec systeme de particules, eclairage PBR et post-processing.
-}
+  \cventry
+    {Academic Project – Web Application for Library Management}
+    {École des Mines de Saint-Étienne}
+    {Saint-Étienne, France}
+    {Feb. -- Jun. 2025}
+    {
+      \begin{cvitems}
+        \item Designed and developed a full-stack library management web application using Symfony (PHP); implemented MVC architecture, database design, and user authentication.
+      \end{cvitems}
+    }
 
-\projectitem{API Gateway Intelligent}{Node.js, Kafka, Redis, Prometheus}{
-  Gateway API avec rate limiting adaptatif, caching distribue et observabilite complete.
-}
+  \cventry
+    {Academic Project – Design of a Gardening Assistance Cart}
+    {Centrale Lyon – ENISE}
+    {Saint-Étienne, France}
+    {Sep. -- Dec. 2024}
+    {
+      \begin{cvitems}
+        \item Mechanical design and CAD modelling with SolidWorks and CATIA; functional analysis, ergonomic study, component selection, and technical documentation.
+      \end{cvitems}
+    }
 
-%-------- Formation
-\section{Formation}
+  \cventry
+    {Engineering Internship – Industrial Diagnostics \& Preventive Maintenance}
+    {SOPECAM (Société de Presse et d'Éditions du Cameroun)}
+    {Yaoundé, Cameroon}
+    {May 2024 -- Sep. 2024}
+    {
+      \begin{cvitems}
+        \item Investigated root causes of pump failures on KBA newspaper printing machines; proposed corrective and preventive maintenance strategies.
+        \item Designed a software package for managing the preventive maintenance schedule of printing press pumps.
+        \item Instrumented machines with vibration and temperature sensors; performed signal processing and failure mode analysis (FMEA approach).
+      \end{cvitems}
+    }
 
-\textbf{Master en Informatique} \hfill \textcolor{grey}{2017 -- 2019}\\
-Universite de Lyon \\
-Specialite : Genie Logiciel et Systemes Distribues
+  \cventry
+    {Technician Internship – Design \& Manufacturing of a 3-Axis CNC Machine}
+    {FabLab – École Nationale Supérieure Polytechnique de Yaoundé (ENSPY)}
+    {Yaoundé, Cameroon}
+    {May -- Sep. 2023}
+    {
+      \begin{cvitems}
+        \item Full CAD design (SolidWorks: assemblies, sheet metal, machining preparation) and manufacturing of a 3-axis CNC machine for prototyping and educational use.
+        \item Structural sizing, component selection (linear guides, stepper motors, belt transmission), and assembly supervision.
+      \end{cvitems}
+    }
 
-\vspace{0.3em}
-\textbf{Licence en Informatique} \hfill \textcolor{grey}{2014 -- 2017}\\
-Universite de Lyon
+\end{cventries}
 
-%-------- Langues
-\section{Langues}
-\begin{tabular}{@{}p{3.5cm}p{10cm}}
-  \textcolor{primary}{\textbf{Francais}} & Langue maternelle \\
-  \textcolor{primary}{\textbf{Anglais}} & Courant (C1) - TOEIC 950
-\end{tabular}
+%-------------------------------------------------------------------------------
+%  TECHNICAL SKILLS
+%-------------------------------------------------------------------------------
+\cvsection{Technical Skills}
+\begin{cvskills}
 
-%-------- Centres d'interet
-\section{Centres d'interet}
-D\u{e}veloppement open-source, Intelligence artificielle, Design system, Running, Photographie
+  \cvskill
+    {Mechanics \& Materials}
+    {Continuum mechanics, fracture mechanics, fatigue (Dang Van, Goodman), thermo-elasticity, cohesive zone models (CZM – basics), residual stress analysis (laser spectroscopy), constitutive law identification, multi-scale modelling.}
+
+  \cvskill
+    {Materials Characterisation}
+    {Vickers micro-indentation hardness testing, Scanning Electron Microscopy (SEM), Energy-Dispersive X-ray Spectroscopy (EDXS), microstructure analysis, surface integrity assessment in machining.}
+
+  \cvskill
+    {Finite Element Methods}
+    {Abaqus (static, dynamic, thermal), SolidWorks Simulation, ANSYS Workbench (basics), Cast3M (basics), custom nonlinear FEM solver (Python/C++): static, modal, and transient analyses.}
+
+  \cvskill
+    {Discrete \& Stochastic Methods}
+    {Discrete Element Method (DEM/LIGGGHTS), Markov chain modelling, Monte Carlo simulation, Design of Experiments (DoE), uncertainty quantification, surrogate modelling.}
+
+  \cvskill
+    {AI \& Machine Learning}
+    {Physics-Informed Neural Networks (PINNs, PyTorch), inverse parameter identification, data-driven microstructure generation, deep learning for scientific computing.}
+
+  \cvskill
+    {Scientific Programming}
+    {Python (NumPy, SciPy, PyTorch, Matplotlib, OpenCV, Pandas), C/C++, MATLAB (Simulink, Computer Vision, Power System toolboxes), Fortran (basics), Java, LaTeX, Git/GitHub.}
+
+  \cvskill
+    {CAD \& Design}
+    {SolidWorks (assemblies, sheet metal, simulation), CATIA V5 (part design, surfacing, PLM), 3DExperience platform.}
+
+  \cvskill
+    {Signal Processing \& Instrumentation}
+    {Sensors (accelerometers, thermocouples, IMU, encoders), data acquisition, vibration analysis, GR\&R, Cp/Cpk process capability analysis.}
+
+  \cvskill
+    {Web \& Software Development}
+    {Python-based web applications (Gradio, Hugging Face Spaces), Symfony/PHP (MVC web apps), basic HTML/CSS.}
+
+  \cvskill
+    {Languages}
+    {French (native), English (B2 – professional technical proficiency, TOEIC), German (beginner).}
+
+\end{cvskills}
+
+%-------------------------------------------------------------------------------
+%  CERTIFICATIONS & EXTRACURRICULAR
+%-------------------------------------------------------------------------------
+\cvsection{Certifications \& Activities}
+
+\begin{cventries}
+
+  \cventry
+    {Core Member – Robotics Club}
+    {Centrale Lyon – ENISE}
+    {Saint-Étienne, France}
+    {Nov. 2024 -- Present}
+    {
+      \begin{cvitems}
+        \item Integration of sensors (IMU, encoders, temperature sensors), real-time data processing, firmware development, and collaborative project management.
+      \end{cvitems}
+    }
+
+\end{cventries}
+
+\begin{cvhonors}
+  \cvhonor
+    {MATLAB Certified}
+    {MATLAB Onramp, Simulink Onramp, Computer Vision Onramp, Power System Onramp}
+    {MathWorks}
+    {2024--2025}
+  \cvhonor
+    {Google Advanced Data Analytics}
+    {Professional Certificate – data analysis, Python, statistics, machine learning}
+    {Google / Coursera}
+    {2024}
+  \cvhonor
+    {IBM Data Analyst}
+    {Professional Certificate – data analysis, visualisation, SQL, Python}
+    {IBM / Coursera}
+    {2024}
+\end{cvhonors}
+
+%-------------------------------------------------------------------------------
+%  DEPLOYED PROJECTS
+%-------------------------------------------------------------------------------
+\cvsection{Open-Source \& Deployed Projects}
+\begin{cvhonors}
+  \cvhonor
+    {FEM Fatigue Solver}
+    {Nonlinear 3D FEM solver with Dang Van fatigue criterion – Python/C++ backend, interactive web interface}
+    {\texttt{huggingface.co/spaces/ktongue/simulations\_apps}}
+    {2026}
+  \cvhonor
+    {PINN Material Identification}
+    {Physics-Informed Neural Network for inverse identification of constitutive law parameters from compression tests}
+    {\texttt{huggingface.co/spaces/ktongue/material\_identification}}
+    {2025}
+\end{cvhonors}
+
+%-------------------------------------------------------------------------------
+%  ADDITIONAL INFORMATION
+%-------------------------------------------------------------------------------
+\cvsection{Additional Information}
+\begin{cvitems}
+  \item \textbf{Availability:} September/October 2026 – full geographic mobility (France and internationally).
+  \item \textbf{Research interests:} Computational mechanics, granular media, fracture and fatigue, inverse problems, scientific machine learning, non-destructive evaluation (NDE), multi-physics simulation.
+  \item \textbf{Soft skills:} Scientific rigour, analytical mindset, research autonomy, fast learner, team player, problem-solving orientation.
+\end{cvitems}
 
 \end{document}
