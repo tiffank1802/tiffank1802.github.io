@@ -98,7 +98,12 @@ const ExperienceCard = ({ exp, delay }) => {
         </div>
       </div>
       <h3 className="exp-title">{exp.title}</h3>
-      <p className="exp-org">{exp.org}</p>
+      <p className="exp-org">
+        {exp.orgLogos?.map((logo, i) => (
+          <img key={i} src={logo} alt="" className="exp-org-logo" />
+        ))}
+        {exp.org}
+      </p>
       <AnimatePresence>
         {isExpanded && (
           <motion.ul
@@ -256,6 +261,7 @@ export default function App() {
       icon: '🎓',
       title: 'Stage de Master — Couplage Déterministe-Stochastique (DEM + Markov)',
       org: 'IMT Mines Albi & IMT Mines Saint-Étienne',
+      orgLogos: ['/logos/mines-albi.png', '/logos/mines-stetienne.png'],
       date: 'Mar. 2026 – Sep. 2026',
       location: 'Albi / Saint-Étienne',
       details: [
@@ -270,6 +276,7 @@ export default function App() {
       icon: '🔬',
       title: 'Projet de Recherche — Solveur EF 3D Non Linéaire (Critère de Dang Van)',
       org: 'Centrale Lyon – ENISE',
+      orgLogos: ['/logos/centrale-lyon.png'],
       date: 'Oct. 2025 – Mar. 2026',
       location: 'Saint-Étienne',
       details: [
@@ -284,6 +291,7 @@ export default function App() {
       icon: '🧠',
       title: "Projet de Recherche — PINNs pour l'Identification de Matériaux",
       org: 'Centrale Lyon – ENISE (collab. LTDS)',
+      orgLogos: ['/logos/centrale-lyon.png'],
       date: '2025',
       location: 'Saint-Étienne',
       details: [
@@ -298,6 +306,7 @@ export default function App() {
       icon: '🔩',
       title: 'Projets Académiques — Tribologie et Contacts Mécaniques',
       org: 'Centrale Lyon – ENISE',
+      orgLogos: ['/logos/centrale-lyon.png'],
       date: 'Jan. – Fév. 2026',
       location: 'Saint-Étienne',
       details: [
@@ -312,6 +321,7 @@ export default function App() {
       icon: '🚜',
       title: 'Projet Académique — Reconception Axe de Roue Motrice (Tracteur Enfant)',
       org: 'Centrale Lyon – ENISE',
+      orgLogos: ['/logos/centrale-lyon.png'],
       date: '2025 – 2026',
       location: 'Saint-Étienne',
       details: [
@@ -325,6 +335,7 @@ export default function App() {
       icon: '🏭',
       title: 'Stage Ingénieur — Diagnostics Industriels & Maintenance Préventive',
       org: 'SOPECAM',
+      orgLogos: [],
       date: 'Mai 2024 – Sep. 2024',
       location: 'Yaoundé, Cameroun',
       details: [
@@ -338,6 +349,7 @@ export default function App() {
       icon: '🤖',
       title: 'Stage Technicien — Conception & Fabrication CNC 3 Axes',
       org: 'FabLab – ENSPY',
+      orgLogos: ['/logos/enspy.png'],
       date: 'Mai – Sep. 2023',
       location: 'Yaoundé, Cameroun',
       details: [
@@ -517,6 +529,8 @@ export default function App() {
         .info-icon { font-size: 18px; }
         .info-label { color: var(--text-tertiary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
         .info-value { color: var(--text-primary); font-weight: 500; }
+        .info-logos { display: inline-flex; align-items: center; gap: 4px; margin-right: 6px; vertical-align: middle; }
+        .info-logo { height: 1.2em; width: auto; opacity: 0.85; }
 
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .skill-category-card { padding: 24px; }
@@ -535,7 +549,8 @@ export default function App() {
         .exp-date { display: block; font-size: 12px; color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
         .exp-location { display: block; font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
         .exp-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-        .exp-org { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; font-style: italic; }
+        .exp-org { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; font-style: italic; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .exp-org-logo { height: 1.4em; width: auto; opacity: 0.85; }
         .exp-details { list-style: none; padding: 14px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border-left: 2px solid var(--accent); margin-bottom: 14px; overflow: hidden; }
         .exp-details li { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px; padding-left: 16px; position: relative; }
         .exp-details li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
@@ -645,7 +660,7 @@ export default function App() {
               </p>
             </GlassCard>
             <GlassCard className="info-card" delay={0.1}>
-              <div className="info-item"><span className="info-icon">🎓</span><div><div className="info-label">Formation</div><div className="info-value">Centrale Lyon–ENISE & ENSPY</div></div></div>
+              <div className="info-item"><span className="info-icon">🎓</span><div><div className="info-label">Formation</div><div className="info-value"><span className="info-logos"><img src="/logos/centrale-lyon.png" alt="" className="info-logo" /><img src="/logos/enspy.png" alt="" className="info-logo" /></span> Centrale Lyon–ENISE & ENSPY</div></div></div>
               <div className="info-item"><span className="info-icon">📍</span><div><div className="info-label">Localisation</div><div className="info-value">Saint-Étienne, France</div></div></div>
               <div className="info-item"><span className="info-icon">🌍</span><div><div className="info-label">Mobilité</div><div className="info-value">France & International</div></div></div>
               <div className="info-item"><span className="info-icon">🗣️</span><div><div className="info-label">Langues</div><div className="info-value">FR (natif) · EN (B2) · DE</div></div></div>
