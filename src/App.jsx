@@ -1,5 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Document, Page, pdfjs } from 'react-pdf';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
 
 const GlassCard = ({ children, className = '', delay = 0 }) => {
   return (
@@ -131,7 +139,7 @@ const Navigation = ({ activeSection }) => {
   );
 };
 
-const AcademicCard = ({ work, delay }) => {
+const AcademicCard = ({ work, delay, onView }) => {
   const hasFile = !!work.file;
   const hasLink = !!work.link;
   return (
@@ -148,13 +156,21 @@ const AcademicCard = ({ work, delay }) => {
       </div>
       <div className="acad-actions">
         {hasFile ? (
-          <a href={work.file} download className="btn btn-download">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Télécharger ({work.size})
-          </a>
+          <>
+            <button onClick={() => onView(work)} className="btn btn-download">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 10 10"/>
+              </svg>
+              Voir
+            </button>
+            <a href={work.file} download className="btn btn-download">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Télécharger ({work.size})
+            </a>
+          </>
         ) : hasLink ? (
           <a href={work.link} target="_blank" rel="noopener noreferrer" className="btn btn-download">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -171,8 +187,77 @@ const AcademicCard = ({ work, delay }) => {
   );
 };
 
+const PdfModal = ({ work, onClose }) => {
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  const options = useMemo(() => ({
+    cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
+    cMapPacked: true,
+    standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts/`,
+  }), []);
+
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="pdf-overlay" onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.93, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.93, opacity: 0 }}
+        className="pdf-modal" onClick={(e) => e.stopPropagation()}
+      >
+        <div className="pdf-header">
+          <span className="pdf-title">{work.title}</span>
+          <div className="pdf-header-actions">
+            <a href={work.file} download className="btn btn-download">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              PDF
+            </a>
+            <button className="btn-close" onClick={onClose}>✕</button>
+          </div>
+        </div>
+        <div className="pdf-viewer">
+          <Document
+            file={work.file}
+            onLoadSuccess={({ numPages: n }) => { setNumPages(n); setLoading(false); }}
+            onLoadError={() => setLoading(false)}
+            loading={<div className="pdf-status">Chargement du document…</div>}
+            error={<div className="pdf-status">Erreur de chargement du PDF.</div>}
+            options={options}
+          >
+            <Page pageNumber={pageNumber} renderTextLayer renderAnnotationLayer className="pdf-page" />
+          </Document>
+        </div>
+        {numPages && (
+          <div className="pdf-footer">
+            <button className="btn btn-page" onClick={() => setPageNumber(Math.max(1, pageNumber - 1))} disabled={pageNumber <= 1}>◀ Prev</button>
+            <span className="pdf-page-info">{pageNumber} / {numPages}</span>
+            <button className="btn btn-page" onClick={() => setPageNumber(Math.min(numPages, pageNumber + 1))} disabled={pageNumber >= numPages}>Next ▶</button>
+          </div>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+};
+
 export default function App() {
   const [activeSection, setActiveSection] = useState('about');
+  const [viewingPdf, setViewingPdf] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -723,6 +808,51 @@ export default function App() {
         .btn-download { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 100px; font-size: 11px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; font-family: inherit; background: rgba(107, 143, 197, 0.12); color: var(--accent); }
         .btn-download:hover { background: rgba(107, 143, 197, 0.2); }
 
+        .pdf-overlay {
+          position: fixed; inset: 0; z-index: 2000;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          display: flex; align-items: center; justify-content: center;
+          padding: 20px;
+        }
+        .pdf-modal {
+          display: flex; flex-direction: column;
+          background: linear-gradient(135deg, rgba(20,25,40,0.98) 0%, rgba(15,20,35,0.98) 100%);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 16px;
+          max-width: 95vw; max-height: 95vh;
+          width: 100%; height: 100%;
+          overflow: hidden;
+        }
+        .pdf-header {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 16px 20px; gap: 12px;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          flex-shrink: 0;
+        }
+        .pdf-title { font-size: 14px; font-weight: 600; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pdf-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .pdf-viewer {
+          flex: 1; overflow-y: auto; display: flex; justify-content: center;
+          padding: 16px; background: rgba(0,0,0,0.3);
+        }
+        .pdf-viewer .react-pdf__Document { display: flex; justify-content: center; }
+        .pdf-viewer .react-pdf__Page { box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+        .pdf-viewer .react-pdf__Page canvas { max-width: 100%; height: auto !important; }
+        .pdf-status { color: var(--text-secondary); font-size: 14px; padding: 40px; text-align: center; }
+        .pdf-footer {
+          display: flex; align-items: center; justify-content: center; gap: 16px;
+          padding: 12px 20px; flex-shrink: 0;
+          border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .pdf-page-info { font-size: 12px; color: var(--text-tertiary); font-family: 'JetBrains Mono', monospace; min-width: 60px; text-align: center; }
+        .btn-page { padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.06); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; font-family: inherit; transition: all 0.2s; }
+        .btn-page:hover:not(:disabled) { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+        .btn-page:disabled { opacity: 0.3; cursor: default; }
+        .btn-close { width: 32px; height: 32px; border-radius: 50%; font-size: 16px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); color: var(--text-secondary); border: none; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .btn-close:hover { background: rgba(255, 75, 75, 0.2); color: #ff6b6b; }
+
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
         .contact-info { padding: 32px; }
         .contact-item { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
@@ -897,7 +1027,7 @@ export default function App() {
           </div>
           <div className="academic-grid">
             {academicWorks.map((work, i) => (
-              <AcademicCard key={work.title} work={work} delay={i * 0.04} />
+              <AcademicCard key={work.title} work={work} delay={i * 0.04} onView={setViewingPdf} />
             ))}
           </div>
         </section>
@@ -979,6 +1109,12 @@ export default function App() {
           </p>
         </footer>
       </div>
+
+      <AnimatePresence>
+        {viewingPdf && (
+          <PdfModal work={viewingPdf} onClose={() => setViewingPdf(null)} />
+        )}
+      </AnimatePresence>
     </>
   );
 }
