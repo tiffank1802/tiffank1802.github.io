@@ -110,6 +110,7 @@ const Navigation = ({ activeSection }) => {
     { id: 'skills', label: 'Compétences' },
     { id: 'experience', label: 'Expérience' },
     { id: 'projects', label: 'Projets' },
+    { id: 'academic', label: 'Rapports' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -130,12 +131,52 @@ const Navigation = ({ activeSection }) => {
   );
 };
 
+const AcademicCard = ({ work, delay }) => {
+  const hasFile = !!work.file;
+  const hasLink = !!work.link;
+  return (
+    <GlassCard delay={delay} className="academic-card">
+      <div className="acad-header">
+        <span className="acad-icon">{work.icon}</span>
+        <span className="acad-semester">{work.semester}</span>
+      </div>
+      <h3 className="acad-title">{work.title}</h3>
+      <p className="acad-category">{work.category}</p>
+      <p className="acad-desc">{work.description}</p>
+      <div className="acad-tags">
+        {work.tags.map((t, i) => <span key={i} className="project-tag">{t}</span>)}
+      </div>
+      <div className="acad-actions">
+        {hasFile ? (
+          <a href={work.file} download className="btn btn-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Télécharger ({work.size})
+          </a>
+        ) : hasLink ? (
+          <a href={work.link} target="_blank" rel="noopener noreferrer" className="btn btn-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+        ) : null}
+        <span className="acad-date">{work.date}</span>
+      </div>
+    </GlassCard>
+  );
+};
+
 export default function App() {
   const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['about', 'skills', 'experience', 'projects', 'contact'];
+      const sections = ['about', 'skills', 'experience', 'projects', 'academic', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -171,7 +212,7 @@ export default function App() {
     {
       category: 'Simulation & Éléments Finis',
       icon: '🔬',
-      skills: ['Abaqus', 'SolidWorks Simulation', 'ANSYS Workbench', 'Cast3M', 'Solveur 3D Python/C++', 'Statique', 'Modale', 'Dynamique transitoire', 'Thermique'],
+      skills: ['Abaqus', 'SolidWorks Simulation', 'ANSYS Workbench', 'Cast3M', 'PyMAPDL', 'Solveur 3D Python/C++', 'Statique', 'Modale', 'Dynamique transitoire', 'Thermique', 'FE²', 'Homogénéisation', 'RVE', 'PBC'],
     },
     {
       category: 'Mécanique des Structures',
@@ -181,7 +222,7 @@ export default function App() {
     {
       category: 'Tribologie & Contacts',
       icon: '⚙️',
-      skills: ['Contact Hertzien', 'JKR (Adhésif)', 'Tresca', 'Von Mises', 'Tabor', 'Boussinesq', 'Multi-régime', 'Coefficient de frottement'],
+      skills: ['Contact Hertzien', 'JKR (Adhésif)', 'Tresca', 'Von Mises', 'Tabor', 'Boussinesq', 'Bourlet', 'Multi-régime', 'Raideur de contact', 'Coefficient de frottement', 'Élastomères'],
     },
     {
       category: 'Fabrication & Procédés',
@@ -204,9 +245,14 @@ export default function App() {
       skills: ['PINNs (PyTorch)', 'Identification inverse', 'Deep learning scientifique', 'Data-driven', 'Hyperparameter tuning'],
     },
     {
+      category: 'Finance & Gestion',
+      icon: '📊',
+      skills: ['DCF', 'LBO', 'Analyse financière', 'Modélisation Excel', 'Python financier'],
+    },
+    {
       category: 'Programmation',
       icon: '💻',
-      skills: ['Python', 'NumPy', 'SciPy', 'PyTorch', 'Matplotlib', 'OpenCV', 'Pandas', 'C/C++', 'MATLAB', 'Simulink', 'LaTeX', 'Git/GitHub', 'Gradio'],
+      skills: ['Python', 'NumPy', 'SciPy', 'PyTorch', 'Matplotlib', 'OpenCV', 'Pandas', 'C/C++', 'MATLAB', 'Simulink', 'SymPy', 'PyMAPDL', 'LaTeX', 'Git/GitHub', 'Gradio'],
     },
   ];
 
@@ -359,6 +405,132 @@ export default function App() {
       description: 'Application full-stack Symfony (PHP) avec architecture MVC et authentification.',
       details: 'Conception base de données, contrôleurs, vues Twig, gestion des utilisateurs et des emprunts.',
       tags: ['Symfony', 'PHP', 'MVC', 'MySQL'],
+    },
+  ];
+
+  const academicWorks = [
+    {
+      icon: '📐', category: 'Dimensionnement',
+      semester: 'S9',
+      title: 'Conception d\'essieu de tracteur — Analyse EF',
+      description: 'Analyse EF complète (SolidWorks Simulation) d\'un essieu de tracteur enfant soumis à rupture répétée : concentration de contraintes, contraintes résiduelles, coefficient de sécurité porté de 0,67 à 2,4. Inclut gamme de fabrication et PLM/SGDT.',
+      file: '/rapports/dimensionnement_s9_calcul.pdf',
+      size: '11 MB',
+      date: 'S9 — 2025/26',
+      tags: ['SolidWorks Simulation', 'Von Mises', 'PLM', 'SGDT', 'Gamme fabrication'],
+    },
+    {
+      icon: '🏗️', category: 'Dimensionnement',
+      semester: 'S9',
+      title: 'Optimisation Topologique d\'un Piston',
+      description: 'Étude et optimisation topologique d\'un piston sous 3DExperience. Conception allégée avec maintien des performances mécaniques.',
+      file: null,
+      link: 'https://github.com/tiffank1802/ENISE/tree/main/dimensionnement_des_structures-S9',
+      size: null,
+      date: 'S9 — 2025/26',
+      tags: ['3DExperience', 'Optimisation Topologique', 'Conception'],
+    },
+    {
+      icon: '🔥', category: 'Dimensionnement',
+      semester: 'S9',
+      title: 'Couplage Thermo-Mécanique (ANSYS)',
+      description: 'Modélisation d\'un flux mobile sur plaque rectangulaire sous ANSYS Workbench. Couplage multiphysique thermique-mécanique par éléments finis.',
+      file: null,
+      link: 'https://github.com/tiffank1802/ENISE/tree/main/dimensionnement_des_structures-S9',
+      size: null,
+      date: 'S9 — 2025/26',
+      tags: ['ANSYS Workbench', 'Couplage Thermo-Mécanique', 'PyMAPDL'],
+    },
+    {
+      icon: '📐', category: 'Dimensionnement',
+      semester: 'S8',
+      title: 'Dynamique des Structures & EF 1D/2D',
+      description: 'Application de la MEF : études 1D (propagation d\'onde) et 2D (plaque avec trou central, éléments P1). Analyse modale et dynamique transitoire avec MATLAB.',
+      file: '/rapports/dimensionnement_s8_dynamique.pdf',
+      size: '8.1 MB',
+      date: 'S8 — 2025',
+      tags: ['MATLAB', 'MEF 1D/2D', 'Éléments P1', 'Dynamique'],
+    },
+    {
+      icon: '⚙️', category: 'Dimensionnement',
+      semester: 'S9',
+      title: 'Dynamique des Structures S9',
+      description: 'Analyse dynamique des structures : modes propres, fréquences, réponse temporelle. Notebook SymPy et simulations avancées.',
+      file: '/rapports/dimensionnement_s9_dynamique.pdf',
+      size: '4.8 MB',
+      date: 'S9 — 2025/26',
+      tags: ['SymPy', 'Dynamique', 'MEF', 'Analyse modale'],
+    },
+    {
+      icon: '🔬', category: 'Tribologie',
+      semester: 'S8/S9',
+      title: 'Contact Hertzien Sphère-Plan',
+      description: 'Analyse complète du contact élastique sphère-plan : pression hertzienne, zone de contact, contraintes internes. Étude paramétrique sur 6 matériaux.',
+      file: '/rapports/tribologie_principal.pdf',
+      size: '718 KB',
+      date: 'S8 — 2025',
+      tags: ['Hertz', 'Contact', 'Pression', 'Python'],
+    },
+    {
+      icon: '🔬', category: 'Tribologie',
+      semester: 'S8',
+      title: 'Contact Hertzien — 12 Configurations (DM1)',
+      description: 'Étude paramétrique du contact sphère-plan pour 12 configurations : variation du matériau et du rayon. Comparaison Tresca/Von Mises, profils de pression et carte de Bourlet.',
+      file: '/rapports/tribologie_dm1.pdf',
+      size: '1 MB',
+      date: 'S8 — 2025',
+      tags: ['Hertz', 'Tresca', 'Von Mises', 'Bourlet', '12 cas'],
+    },
+    {
+      icon: '🔬', category: 'Tribologie',
+      semester: 'S9',
+      title: 'Analyse Complète Contacts Non-Adhésifs (DM3)',
+      description: 'Analyse des régimes élastique, élasto-plastique et plastique. Raideurs de contact, limites élastiques, comparaison multi-matériaux.',
+      file: '/rapports/tribologie_dm3.pdf',
+      size: '5.2 MB',
+      date: 'S9 — 2025/26',
+      tags: ['Multi-régime', 'Raideur', 'Limite élastique', 'Tabor'],
+    },
+    {
+      icon: '🔬', category: 'Tribologie',
+      semester: 'S9',
+      title: 'Effets des Efforts sur les Limites Élastiques (DM31)',
+      description: 'Analyse des effets des efforts et pressions sur les limites élastiques pour 6 matériaux. Visualisation des seuils de plasticité.',
+      file: '/rapports/tribologie_dm31.pdf',
+      size: '1.5 MB',
+      date: 'S9 — 2025/26',
+      tags: ['Limite élastique', 'Plasticité', 'Python', 'Analyse'],
+    },
+    {
+      icon: '🔬', category: 'Tribologie',
+      semester: 'S9',
+      title: 'Contacts Adhésifs JKR sur Élastomères (DM4)',
+      description: 'Modélisation du contact adhésif sphère-plan sur élastomères silicone (théorie JKR). Essais d\'indentation et de frottement, courbes expérimentales.',
+      file: '/rapports/tribologie_dm4.pdf',
+      size: '714 KB',
+      date: 'S9 — 2025/26',
+      tags: ['JKR', 'Adhésif', 'Élastomère', 'Frottement'],
+    },
+    {
+      icon: '🧮', category: 'Méthodes Numériques',
+      semester: 'S9',
+      title: 'Homogénéisation FE² — Matériaux Composites',
+      description: 'Homogénéisation par moyenne volumique d\'un composite tissé (TRC) sous Abaqus. Modélisation RVE avec conditions aux limites périodiques (PBCs), approche FE² multi-échelle.',
+      file: null,
+      link: 'https://github.com/tiffank1802/ENISE/tree/main/Methodes%20numeriques%20avancees',
+      size: null,
+      date: 'S9 — 2025/26',
+      tags: ['FE²', 'Homogénéisation', 'Abaqus', 'RVE', 'PBC', 'Composite'],
+    },
+    {
+      icon: '📊', category: 'Finances',
+      semester: 'S8',
+      title: 'Acquisition Bricorama — DCF & LBO',
+      description: 'Analyse financière complète de l\'acquisition de Bricorama France : valorisation DCF, montage LBO, modélisation Python/Excel, rapports détaillés.',
+      file: '/rapports/finances_rapport_final.pdf',
+      size: '749 KB',
+      date: 'S8 — 2025',
+      tags: ['DCF', 'LBO', 'Finance', 'Python', 'Excel'],
     },
   ];
 
@@ -537,6 +709,20 @@ export default function App() {
         .project-details { overflow: hidden; margin-bottom: 12px; }
         .project-details p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding: 12px 14px; background: rgba(107, 143, 197, 0.06); border-radius: 10px; border-left: 2px solid var(--accent); }
 
+        .academic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+        .academic-card { display: flex; flex-direction: column; }
+        .acad-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 12px; }
+        .acad-icon { font-size: 26px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(107, 143, 197, 0.08); border-radius: 12px; flex-shrink: 0; }
+        .acad-semester { font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 100px; background: rgba(107, 143, 197, 0.12); color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+        .acad-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; line-height: 1.3; }
+        .acad-category { font-size: 11px; color: var(--text-tertiary); font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .acad-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; flex: 1; }
+        .acad-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
+        .acad-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .acad-date { font-size: 10px; color: var(--text-tertiary); font-family: 'JetBrains Mono', monospace; }
+        .btn-download { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 100px; font-size: 11px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; font-family: inherit; background: rgba(107, 143, 197, 0.12); color: var(--accent); }
+        .btn-download:hover { background: rgba(107, 143, 197, 0.2); }
+
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
         .contact-info { padding: 32px; }
         .contact-item { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
@@ -695,6 +881,23 @@ export default function App() {
           <div className="projects-grid">
             {projects.map((project, i) => (
               <ProjectCard key={project.title} project={project} delay={i * 0.08} />
+            ))}
+          </div>
+        </section>
+
+        <section id="academic" className="section">
+          <div className="section-header">
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+              <p className="section-label">Travaux Académiques</p>
+              <h2 className="section-title">Rapports ENISE — Semestres 8 & 9</h2>
+              <p className="section-desc">
+                Rapports de projets, analyses et simulations réalisés durant ma formation à Centrale Lyon – ENISE.
+              </p>
+            </motion.div>
+          </div>
+          <div className="academic-grid">
+            {academicWorks.map((work, i) => (
+              <AcademicCard key={work.title} work={work} delay={i * 0.04} />
             ))}
           </div>
         </section>
