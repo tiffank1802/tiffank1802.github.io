@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs>
+  <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/>
+    <stop offset="50%" stop-color="rgba(107,143,197,0.25)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.08)"/>
+  </linearGradient>
+  <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="rgba(255,255,255,0.05)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.40)"/>
+  </linearGradient>
+  <radialGradient id="gr" cx="35%" cy="35%" r="65%">
+    <stop offset="0%" stop-color="rgba(255,255,255,0.50)"/>
+    <stop offset="60%" stop-color="rgba(107,143,197,0.15)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+  </radialGradient>
+</defs>
+<filter id="sh"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgba(0,0,0,0.3)"/></filter><filter id="sh2"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.25)"/></filter>
+<rect x="2" y="2" width="60" height="60" rx="14" fill="url(#gr)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+<rect x="18" y="6" width="28" height="52" rx="6" fill="none" stroke="url(#g1)" stroke-width="2"/>
+<rect x="22" y="10" width="20" height="32" rx="2" fill="none" stroke="url(#g2)" stroke-width="1.2" opacity="0.3"/>
+<line x1="28" y1="48" x2="36" y2="48" stroke="url(#g1)" stroke-width="2"/>
+<circle cx="32" cy="44" r="1.5" fill="url(#g1)"/>
+</svg>

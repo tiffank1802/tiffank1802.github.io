@@ -88,6 +88,7 @@ const ExperienceCard = ({ exp, delay }) => {
                 <div className="exp-detail-links">
                   {exp.projectDetail.links.map((link, i) => (
                     <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="btn btn-detail-link" onClick={(e) => e.stopPropagation()}>
+                      {link.icon && <img src={`/icons/${link.icon}.svg`} alt="" className="icon-svg-inline" />}
                       {link.label}
                     </a>
                   ))}
@@ -321,59 +322,59 @@ export default function App() {
   const skillCategories = [
     {
       category: 'Conception & CAO',
-      icon: '📐',
+      icon: <img src="/icons/compass.svg" alt="" className="icon-svg" />,
       skills: ['SolidWorks', 'CATIA V5', '3DExperience', 'Sheet Metal', 'Simulation', 'Sustainability/ACV', 'Cotation fonctionnelle', 'DXF'],
     },
     {
       category: 'Simulation & Éléments Finis',
-      icon: '🔬',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />,
       skills: ['Abaqus', 'SolidWorks Simulation', 'ANSYS Workbench', 'Cast3M', 'PyMAPDL', 'Solveur 3D Python/C++', 'Statique', 'Modale', 'Dynamique transitoire', 'Thermique', 'FE²', 'Homogénéisation', 'RVE', 'PBC'],
     },
     {
       category: 'Mécanique des Structures',
-      icon: '🏗️',
+      icon: <img src="/icons/truss.svg" alt="" className="icon-svg" />,
       skills: ['Milieux Continus', 'Mécanique de la Rupture', 'Fatigue Multiaxiale', 'Dang Van', 'Goodman', 'Dynamique des Structures', 'Mécanique Non Linéaire', 'Contraintes Résiduelles', 'Thermo-élasticité'],
     },
     {
       category: 'Tribologie & Contacts',
-      icon: '⚙️',
+      icon: <img src="/icons/gear.svg" alt="" className="icon-svg" />,
       skills: ['Contact Hertzien', 'JKR (Adhésif)', 'Tresca', 'Von Mises', 'Tabor', 'Boussinesq', 'Bourlet', 'Multi-régime', 'Raideur de contact', 'Coefficient de frottement', 'Élastomères'],
     },
     {
       category: 'Fabrication & Procédés',
-      icon: '🔧',
+      icon: <img src="/icons/cnc.svg" alt="" className="icon-svg" />,
       skills: ['Soudure', 'Pliage', 'Découpe laser', 'Tournage', 'Fraisage', 'Injection', 'Fonderie', 'Gammes de fabrication'],
     },
     {
       category: 'Instrumentation & Signal',
-      icon: '📡',
+      icon: <img src="/icons/signal.svg" alt="" className="icon-svg" />,
       skills: ['Accéléromètres', 'Thermocouples', 'IMU', 'Codeurs', 'Analyse vibratoire', 'AMDEC', 'GR&R', 'Cp/Cpk', 'Spectroscopie laser'],
     },
     {
       category: 'Méthodes Stochastiques',
-      icon: '🎲',
+      icon: <img src="/icons/dice.svg" alt="" className="icon-svg" />,
       skills: ['DEM / LIGGGHTS', 'Chaînes de Markov', 'Monte Carlo', "Plan d'Expériences", "Quantification d'incertitude", 'Surrogate modelling'],
     },
     {
       category: 'IA & Machine Learning',
-      icon: '🧠',
+      icon: <img src="/icons/neurons.svg" alt="" className="icon-svg" />,
       skills: ['PINNs (PyTorch)', 'Identification inverse', 'Deep learning scientifique', 'Data-driven', 'Hyperparameter tuning'],
     },
     {
       category: 'Finance & Gestion',
-      icon: '📊',
+      icon: <img src="/icons/finance.svg" alt="" className="icon-svg" />,
       skills: ['DCF', 'LBO', 'Analyse financière', 'Modélisation Excel', 'Python financier'],
     },
     {
       category: 'Programmation',
-      icon: '💻',
+      icon: <img src="/icons/code.svg" alt="" className="icon-svg" />,
       skills: ['Python', 'NumPy', 'SciPy', 'PyTorch', 'Matplotlib', 'OpenCV', 'Pandas', 'C/C++', 'MATLAB', 'Simulink', 'SymPy', 'PyMAPDL', 'LaTeX', 'Git/GitHub', 'Gradio'],
     },
   ];
 
   const experiences = [
     {
-      icon: '🎓',
+      icon: <img src="/icons/grad-cap.svg" alt="" className="icon-svg" />,
       title: 'Stage de Master — Couplage Déterministe-Stochastique (DEM + Markov)',
       org: 'IMT Mines Albi & IMT Mines Saint-Étienne',
       orgLogos: ['/logos/albi.png', '/logos/emse.png'],
@@ -397,13 +398,13 @@ export default function App() {
           },
         ],
         links: [
-          { label: '🐙 Code source (GitHub)', url: 'https://github.com/tiffank1802/MyStudio' },
-          { label: '☁️ Données brutes (bucket HF)', url: 'https://huggingface.co/buckets/ktongue/DEM_MCM' },
+          { label: 'Code source (GitHub)', url: 'https://github.com/tiffank1802/MyStudio', icon: 'github' },
+          { label: 'Données brutes (bucket HF)', url: 'https://huggingface.co/buckets/ktongue/DEM_MCM', icon: 'huggingface' },
         ],
       },
     },
     {
-      icon: '🔬',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />,
       title: 'Projet de Recherche — Solveur EF 3D Non Linéaire (Critère de Dang Van)',
       org: 'Centrale Lyon – ENISE',
       orgLogos: ['/logos/centrale-lyon.png'],
@@ -418,7 +419,7 @@ export default function App() {
       tags: ['FEM', 'Python', 'C++', 'Dang Van', 'Fatigue', 'Hugging Face'],
     },
     {
-      icon: '🧠',
+      icon: <img src="/icons/neurons.svg" alt="" className="icon-svg" />,
       title: "Projet de Recherche — PINNs pour l'Identification de Matériaux",
       org: 'Centrale Lyon – ENISE (collab. LTDS)',
       orgLogos: ['/logos/centrale-lyon.png'],
@@ -433,7 +434,7 @@ export default function App() {
       tags: ['PINN', 'PyTorch', 'Inverse', 'Deep Learning', 'LTDS'],
     },
     {
-      icon: '🔩',
+      icon: <img src="/icons/gear.svg" alt="" className="icon-svg" />,
       title: 'Projets Académiques — Tribologie et Contacts Mécaniques',
       org: 'Centrale Lyon – ENISE',
       orgLogos: ['/logos/centrale-lyon.png'],
@@ -448,7 +449,7 @@ export default function App() {
       tags: ['Hertz', 'JKR', 'Tribologie', 'Python', 'FEM'],
     },
     {
-      icon: '🚜',
+      icon: <img src="/icons/axle.svg" alt="" className="icon-svg" />,
       title: 'Projet Académique — Reconception Axe de Roue Motrice (Tracteur Enfant)',
       org: 'Centrale Lyon – ENISE',
       orgLogos: ['/logos/centrale-lyon.png'],
@@ -462,7 +463,7 @@ export default function App() {
       tags: ['SolidWorks', 'FEM', 'Fatigue', 'Conception'],
     },
     {
-      icon: '🏭',
+      icon: <img src="/icons/factory.svg" alt="" className="icon-svg" />,
       title: 'Stage Ingénieur — Diagnostics Industriels & Maintenance Préventive',
       org: 'SOPECAM',
       orgLogos: [],
@@ -476,7 +477,7 @@ export default function App() {
       tags: ['AMDEC', 'Capteurs', 'Signal', 'Maintenance'],
     },
     {
-      icon: '🤖',
+      icon: <img src="/icons/cnc.svg" alt="" className="icon-svg" />,
       title: 'Stage Technicien — Conception & Fabrication CNC 3 Axes',
       org: 'FabLab – ENSPY',
       orgLogos: ['/logos/enspy.png'],
@@ -493,7 +494,7 @@ export default function App() {
 
   const projects = [
     {
-      icon: '🔬',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />,
       title: 'FEM Fatigue Solver',
       description: "Solveur EF 3D non linéaire avec critère de fatigue de Dang Van — interface web interactive.",
       details: 'Backend Python/C++, analyses statique/modale/transitoire, détermination du plan critique, validation Abaqus.',
@@ -501,7 +502,7 @@ export default function App() {
       link: 'https://huggingface.co/spaces/ktongue/simulations_apps',
     },
     {
-      icon: '🧠',
+      icon: <img src="/icons/neurons.svg" alt="" className="icon-svg" />,
       title: 'PINN Material Identification',
       description: "Réseau de neurones physiquement informé pour l'identification inverse de lois de comportement.",
       details: 'Couplage PyTorch + contraintes physiques (élasticité, chaleur, plasticité). Données essais compression LTDS.',
@@ -509,28 +510,28 @@ export default function App() {
       link: 'https://huggingface.co/spaces/ktongue/material_identification',
     },
     {
-      icon: '🏗️',
+      icon: <img src="/icons/truss.svg" alt="" className="icon-svg" />,
       title: 'Diable Élévateur Motorisé',
       description: 'Conception complète d\'un diable pour industrie agroalimentaire (sacs 25 kg, cycle ≤ 3 s).',
       details: 'Matrice de choix multicritères, notice de calcul, liasse de définition SolidWorks, ACV avec Sustainability.',
       tags: ['SolidWorks', 'ACV', 'Sheet Metal', 'Cahier des charges'],
     },
     {
-      icon: '🔩',
+      icon: <img src="/icons/grain.svg" alt="" className="icon-svg" />,
       title: 'Modèle de Partitionnement Microstructural',
       description: 'Segmentation d\'images microstructurales et caractérisation statistique des phases.',
       details: 'Traitement d\'images Python (NumPy, OpenCV, SciPy), extraction de caractéristiques géométriques.',
       tags: ['Python', 'OpenCV', 'Segmentation', 'Matériaux'],
     },
     {
-      icon: '⚙️',
+      icon: <img src="/icons/gear.svg" alt="" className="icon-svg" />,
       title: 'Architecture PLM — Micro-Moteur',
       description: "Gestion du cycle de vie d'un micro-moteur : structure documentaire PLM complète.",
       details: 'Recensement des documents par composant, processus de validation adapté à chaque mode de fabrication.',
       tags: ['PLM', '3DExperience', 'Cycle de vie'],
     },
     {
-      icon: '📚',
+      icon: <img src="/icons/books.svg" alt="" className="icon-svg" />,
       title: 'Application Web — Gestion de Bibliothèque',
       description: 'Application full-stack Symfony (PHP) avec architecture MVC et authentification.',
       details: 'Conception base de données, contrôleurs, vues Twig, gestion des utilisateurs et des emprunts.',
@@ -540,7 +541,7 @@ export default function App() {
 
   const academicWorks = [
     {
-      icon: '📐', category: 'Dimensionnement',
+      icon: <img src="/icons/compass.svg" alt="" className="icon-svg" />, category: 'Dimensionnement',
       semester: 'S9',
       title: 'Conception d\'essieu de tracteur — Analyse EF',
       description: 'Analyse EF complète (SolidWorks Simulation) d\'un essieu de tracteur enfant soumis à rupture répétée : concentration de contraintes, contraintes résiduelles, coefficient de sécurité porté de 0,67 à 2,4. Inclut gamme de fabrication et PLM/SGDT.',
@@ -550,7 +551,7 @@ export default function App() {
       tags: ['SolidWorks Simulation', 'Von Mises', 'PLM', 'SGDT', 'Gamme fabrication'],
     },
     {
-      icon: '🏗️', category: 'Dimensionnement',
+      icon: <img src="/icons/truss.svg" alt="" className="icon-svg" />, category: 'Dimensionnement',
       semester: 'S9',
       title: 'Optimisation Topologique d\'un Piston',
       description: 'Étude et optimisation topologique d\'un piston sous 3DExperience. Conception allégée avec maintien des performances mécaniques.',
@@ -561,7 +562,7 @@ export default function App() {
       tags: ['3DExperience', 'Optimisation Topologique', 'Conception'],
     },
     {
-      icon: '🔥', category: 'Dimensionnement',
+      icon: <img src="/icons/flame.svg" alt="" className="icon-svg" />, category: 'Dimensionnement',
       semester: 'S9',
       title: 'Couplage Thermo-Mécanique (ANSYS)',
       description: 'Modélisation d\'un flux mobile sur plaque rectangulaire sous ANSYS Workbench. Couplage multiphysique thermique-mécanique par éléments finis.',
@@ -572,7 +573,7 @@ export default function App() {
       tags: ['ANSYS Workbench', 'Couplage Thermo-Mécanique', 'PyMAPDL'],
     },
     {
-      icon: '📐', category: 'Dimensionnement',
+      icon: <img src="/icons/compass.svg" alt="" className="icon-svg" />, category: 'Dimensionnement',
       semester: 'S8',
       title: 'Dynamique des Structures & EF 1D/2D',
       description: 'Application de la MEF : études 1D (propagation d\'onde) et 2D (plaque avec trou central, éléments P1). Analyse modale et dynamique transitoire avec MATLAB.',
@@ -582,7 +583,7 @@ export default function App() {
       tags: ['MATLAB', 'MEF 1D/2D', 'Éléments P1', 'Dynamique'],
     },
     {
-      icon: '⚙️', category: 'Dimensionnement',
+      icon: <img src="/icons/gear.svg" alt="" className="icon-svg" />, category: 'Dimensionnement',
       semester: 'S9',
       title: 'Dynamique des Structures S9',
       description: 'Analyse dynamique des structures : modes propres, fréquences, réponse temporelle. Notebook SymPy et simulations avancées.',
@@ -592,7 +593,7 @@ export default function App() {
       tags: ['SymPy', 'Dynamique', 'MEF', 'Analyse modale'],
     },
     {
-      icon: '🔬', category: 'Tribologie',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: 'Tribologie',
       semester: 'S8/S9',
       title: 'Contact Hertzien Sphère-Plan',
       description: 'Analyse complète du contact élastique sphère-plan : pression hertzienne, zone de contact, contraintes internes. Étude paramétrique sur 6 matériaux.',
@@ -602,7 +603,7 @@ export default function App() {
       tags: ['Hertz', 'Contact', 'Pression', 'Python'],
     },
     {
-      icon: '🔬', category: 'Tribologie',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: 'Tribologie',
       semester: 'S8',
       title: 'Contact Hertzien — 12 Configurations (DM1)',
       description: 'Étude paramétrique du contact sphère-plan pour 12 configurations : variation du matériau et du rayon. Comparaison Tresca/Von Mises, profils de pression et carte de Bourlet.',
@@ -612,7 +613,7 @@ export default function App() {
       tags: ['Hertz', 'Tresca', 'Von Mises', 'Bourlet', '12 cas'],
     },
     {
-      icon: '🔬', category: 'Tribologie',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: 'Tribologie',
       semester: 'S9',
       title: 'Analyse Complète Contacts Non-Adhésifs (DM3)',
       description: 'Analyse des régimes élastique, élasto-plastique et plastique. Raideurs de contact, limites élastiques, comparaison multi-matériaux.',
@@ -622,7 +623,7 @@ export default function App() {
       tags: ['Multi-régime', 'Raideur', 'Limite élastique', 'Tabor'],
     },
     {
-      icon: '🔬', category: 'Tribologie',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: 'Tribologie',
       semester: 'S9',
       title: 'Effets des Efforts sur les Limites Élastiques (DM31)',
       description: 'Analyse des effets des efforts et pressions sur les limites élastiques pour 6 matériaux. Visualisation des seuils de plasticité.',
@@ -632,7 +633,7 @@ export default function App() {
       tags: ['Limite élastique', 'Plasticité', 'Python', 'Analyse'],
     },
     {
-      icon: '🔬', category: 'Tribologie',
+      icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: 'Tribologie',
       semester: 'S9',
       title: 'Contacts Adhésifs JKR sur Élastomères (DM4)',
       description: 'Modélisation du contact adhésif sphère-plan sur élastomères silicone (théorie JKR). Essais d\'indentation et de frottement, courbes expérimentales.',
@@ -642,7 +643,7 @@ export default function App() {
       tags: ['JKR', 'Adhésif', 'Élastomère', 'Frottement'],
     },
     {
-      icon: '🧮', category: 'Méthodes Numériques',
+      icon: <img src="/icons/fe2.svg" alt="" className="icon-svg" />, category: 'Méthodes Numériques',
       semester: 'S9',
       title: 'Homogénéisation FE² — Matériaux Composites',
       description: 'Homogénéisation par moyenne volumique d\'un composite tissé (TRC) sous Abaqus. Modélisation RVE avec conditions aux limites périodiques (PBCs), approche FE² multi-échelle.',
@@ -653,7 +654,7 @@ export default function App() {
       tags: ['FE²', 'Homogénéisation', 'Abaqus', 'RVE', 'PBC', 'Composite'],
     },
     {
-      icon: '📊', category: 'Finances',
+      icon: <img src="/icons/finance.svg" alt="" className="icon-svg" />, category: 'Finances',
       semester: 'S8',
       title: 'Acquisition Bricorama — DCF & LBO',
       description: 'Analyse financière complète de l\'acquisition de Bricorama France : valorisation DCF, montage LBO, modélisation Python/Excel, rapports détaillés.',
@@ -951,7 +952,26 @@ export default function App() {
 
         .cv-card { padding: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .cv-icon { font-size: 42px; margin-bottom: 14px; }
-        .cv-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        
+        .icon-svg {
+          width: 60%;
+          height: 60%;
+          display: block;
+          filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+          transition: filter 0.3s ease, transform 0.3s ease;
+        }
+        .icon-svg:hover {
+          filter: drop-shadow(0 0 8px rgba(107,143,197,0.5));
+          transform: scale(1.15);
+        }
+        .icon-svg-inline {
+          width: 14px;
+          height: 14px;
+          vertical-align: middle;
+          margin-right: 4px;
+          filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
+        }
+.cv-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
         .cv-desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5; }
         .cv-status { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #4ade80; margin-bottom: 16px; }
         .cv-status .dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
@@ -1046,11 +1066,11 @@ export default function App() {
               </p>
             </GlassCard>
             <GlassCard className="info-card" delay={0.1}>
-              <div className="info-item"><span className="info-icon">🎓</span><div><div className="info-label">Formation</div><div className="info-value"><span className="info-logos"><img src="/logos/centrale-lyon.png" alt="" className="info-logo" /><img src="/logos/enspy.png" alt="" className="info-logo" /></span> Centrale Lyon–ENISE & ENSPY</div></div></div>
-              <div className="info-item"><span className="info-icon">📍</span><div><div className="info-label">Localisation</div><div className="info-value">Saint-Étienne, France</div></div></div>
-              <div className="info-item"><span className="info-icon">🌍</span><div><div className="info-label">Mobilité</div><div className="info-value">France & International</div></div></div>
-              <div className="info-item"><span className="info-icon">🗣️</span><div><div className="info-label">Langues</div><div className="info-value">FR (natif) · EN (B2) · DE</div></div></div>
-              <div className="info-item"><span className="info-icon">📅</span><div><div className="info-label">Disponibilité</div><div className="info-value">Sept./Oct. 2026</div></div></div>
+              <div className="info-item"><span className="info-icon"><img src="/icons/grad-cap.svg" alt="" className="icon-svg" /></span><div><div className="info-label">Formation</div><div className="info-value"><span className="info-logos"><img src="/logos/centrale-lyon.png" alt="" className="info-logo" /><img src="/logos/enspy.png" alt="" className="info-logo" /></span> Centrale Lyon–ENISE & ENSPY</div></div></div>
+              <div className="info-item"><span className="info-icon"><img src="/icons/compass.svg" alt="" className="icon-svg" /></span><div><div className="info-label">Localisation</div><div className="info-value">Saint-Étienne, France</div></div></div>
+              <div className="info-item"><span className="info-icon"><img src="/icons/contact.svg" alt="" className="icon-svg" /></span><div><div className="info-label">Mobilité</div><div className="info-value">France & International</div></div></div>
+              <div className="info-item"><span className="info-icon"><img src="/icons/contact.svg" alt="" className="icon-svg" /></span><div><div className="info-label">Langues</div><div className="info-value">FR (natif) · EN (B2) · DE</div></div></div>
+              <div className="info-item"><span className="info-icon"><img src="/icons/books.svg" alt="" className="icon-svg" /></span><div><div className="info-label">Disponibilité</div><div className="info-value">Sept./Oct. 2026</div></div></div>
             </GlassCard>
           </div>
         </section>
@@ -1137,35 +1157,35 @@ export default function App() {
           <div className="contact-grid">
             <GlassCard className="contact-info" delay={0}>
               <div className="contact-item">
-                <div className="contact-icon">📧</div>
+                <div className="contact-icon"><img src="/icons/envelope.svg" alt="" className="icon-svg" /></div>
                 <div>
                   <div className="contact-label">Email</div>
                   <div className="contact-value"><a href="mailto:tonguekevin00@gmail.com">tonguekevin00@gmail.com</a></div>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">📱</div>
+                <div className="contact-icon"><img src="/icons/phone.svg" alt="" className="icon-svg" /></div>
                 <div>
                   <div className="contact-label">Téléphone</div>
                   <div className="contact-value"><a href="tel:+33698063769">+33 6 98 06 37 69</a></div>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">💼</div>
+                <div className="contact-icon"><img src="/icons/briefcase.svg" alt="" className="icon-svg" /></div>
                 <div>
                   <div className="contact-label">LinkedIn</div>
                   <div className="contact-value"><a href="https://linkedin.com/in/tongue-kevin-52b100330" target="_blank" rel="noopener noreferrer">tongue-kevin-52b100330</a></div>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">🐙</div>
+                <div className="contact-icon"><img src="/icons/github.svg" alt="" className="icon-svg" /></div>
                 <div>
                   <div className="contact-label">GitHub</div>
                   <div className="contact-value"><a href="https://github.com/tiffank1802" target="_blank" rel="noopener noreferrer">tiffank1802</a></div>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">🤗</div>
+                <div className="contact-icon"><img src="/icons/huggingface.svg" alt="" className="icon-svg" /></div>
                 <div>
                   <div className="contact-label">Hugging Face</div>
                   <div className="contact-value"><a href="https://huggingface.co/ktongue" target="_blank" rel="noopener noreferrer">huggingface.co/ktongue</a></div>
@@ -1174,7 +1194,7 @@ export default function App() {
             </GlassCard>
 
             <GlassCard className="cv-card" delay={0.1}>
-              <div className="cv-icon">📄</div>
+              <div className="cv-icon"><img src="/icons/books.svg" alt="" className="icon-svg" /></div>
               <h3 className="cv-title">Mon CV</h3>
               <p className="cv-desc">
                 Téléchargez mon CV mis à jour automatiquement. Généré depuis LaTeX via GitHub Actions.

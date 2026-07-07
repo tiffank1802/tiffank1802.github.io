@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs>
+  <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/>
+    <stop offset="50%" stop-color="rgba(107,143,197,0.25)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.08)"/>
+  </linearGradient>
+  <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="rgba(255,255,255,0.05)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.40)"/>
+  </linearGradient>
+  <radialGradient id="gr" cx="35%" cy="35%" r="65%">
+    <stop offset="0%" stop-color="rgba(255,255,255,0.50)"/>
+    <stop offset="60%" stop-color="rgba(107,143,197,0.15)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+  </radialGradient>
+</defs>
+<filter id="sh"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgba(0,0,0,0.3)"/></filter><filter id="sh2"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.25)"/></filter>
+<rect x="2" y="2" width="60" height="60" rx="14" fill="url(#gr)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+<rect x="10" y="16" width="44" height="30" rx="6" fill="none" stroke="url(#g1)" stroke-width="2"/>
+<rect x="18" y="22" width="12" height="8" rx="2" fill="url(#g2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+<rect x="34" y="22" width="12" height="8" rx="2" fill="url(#g2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+<path d="M24 30 L24 46 M40 30 L40 46" stroke="url(#g1)" stroke-width="2"/>
+<rect x="8" y="42" width="8" height="6" rx="1" fill="none" stroke="url(#g2)" stroke-width="1.2" opacity="0.5"/>
+<rect x="48" y="42" width="8" height="6" rx="1" fill="none" stroke="url(#g2)" stroke-width="1.2" opacity="0.5"/>
+<path d="M32 8 L32 16" stroke="url(#g1)" stroke-width="2"/>
+<path d="M26 8 L38 8" stroke="url(#g2)" stroke-width="1.5" opacity="0.5"/>
+</svg>
