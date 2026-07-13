@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { LanguageProvider } from './context/LanguageContext';
 import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
 import SkillsPage from './pages/SkillsPage';
@@ -12,7 +13,7 @@ export default function App() {
   const location = useLocation();
 
   return (
-    <>
+    <LanguageProvider>
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <defs>
           <radialGradient id="lens-mask" cx="50%" cy="50%" r="55%">
@@ -58,10 +59,10 @@ export default function App() {
 
         <footer className="footer">
           <p className="footer-text">
-            &copy; {new Date().getFullYear()} Kevin Tongue — Conçu et développé avec passion. Propulsé par React & GitHub Pages.
+            &copy; {new Date().getFullYear()} Kevin Tongue — Propulsé par React & GitHub Pages.
           </p>
         </footer>
       </div>
-    </>
+    </LanguageProvider>
   );
 }
