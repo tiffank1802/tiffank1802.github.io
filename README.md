@@ -1,53 +1,38 @@
-# tiffank1802.github.io
+# 👨‍💻 Kevin Tongue
 
-Portfolio personnel developpe avec React, Vite et Framer Motion.
-Effet Liquid Glass inspire du design Apple.
+**Ingénieur en Génie Mécanique — Master en Simulation Numérique du Solide**  
+Centrale Lyon – ENISE | IMT Mines Albi & Saint-Étienne
 
-## Structure
+---
 
-```
-├── .github/workflows/
-│   ├── deploy.yml      # Build + Deploy vers GitHub Pages
-│   └── build-cv.yml    # Compilation automatique du CV LaTeX
-├── cv/
-│   └── cv.tex          # Source LaTeX du CV (modifiez ici)
-├── public/
-│   └── cv.pdf          # PDF genere automatiquement
-├── src/
-│   └── App.jsx         # Composant principal
-├── index.html
-├── package.json
-└── vite.config.js
-```
+### 🇬🇧 English
 
-## Installation
+Mechanical engineering student specializing in **numerical simulation**, **finite elements**, and **structural mechanics**. My work bridges **deterministic and stochastic methods** (DEM + Markov chains), **physics-informed deep learning** (PINNs), and **multiaxial fatigue** (Dang Van criterion). I'm passionate about using computation to understand and predict the mechanical behavior of materials and structures.
 
-```bash
-npm install
-npm run dev
-```
+**Core expertise:** FEM, DEM, PINNs, tribology, fatigue, homogenization, Python/PyTorch, CAD (SolidWorks, CATIA), Abaqus, ANSYS.
 
-## CV automatique
+📬 kevin.tongue@etu.enise.fr  
+🔗 [linkedin.com/in/ktongue](https://linkedin.com/in/ktongue)  
+🐙 [github.com/tiffank1802](https://github.com/tiffank1802)  
+🤗 [huggingface.co/ktongue](https://huggingface.co/ktongue)
 
-Le CV est ecrit en LaTeX (`cv/cv.tex`). A chaque `push` modifiant ce fichier,
-GitHub Actions compile automatiquement le PDF et le commit dans :
-- `public/cv.pdf` (inclus dans le build du site)
-- `cv.pdf` (racine)
+---
 
-Il suffit donc de modifier `cv/cv.tex` pour que le CV se mette a jour
-automatiquement sur le site.
+### 🇫🇷 Français
 
-## Deploiement
+Étudiant en génie mécanique, spécialisé en **simulation numérique**, **éléments finis** et **mécanique des structures**. Mes projets combinent **méthodes déterministes et stochastiques** (DEM + chaînes de Markov), **deep learning physique** (PINNs) et **fatigue multiaxiale** (critère de Dang Van). Passionné par l'utilisation du calcul pour comprendre et prédire le comportement mécanique des matériaux et des structures.
 
-Tout push sur `main` declenche le workflow GitHub Actions qui :
-1. Installe les dependances
-2. Build l'application
-3. Deploie sur GitHub Pages
+**Expertises clés :** MEF, DEM, PINNs, tribologie, fatigue, homogénéisation, Python/PyTorch, CAO (SolidWorks, CATIA), Abaqus, ANSYS.
 
-Le site est accessible sur : https://tiffank1802.github.io
+📬 kevin.tongue@etu.enise.fr  
+🔗 [linkedin.com/in/ktongue](https://linkedin.com/in/ktongue)  
+🐙 [github.com/tiffank1802](https://github.com/tiffank1802)  
+🤗 [huggingface.co/ktongue](https://huggingface.co/ktongue)
 
-## Personnalisation
+---
 
-- Modifiez `src/App.jsx` pour changer les competences, projets et informations
-- Modifiez `cv/cv.tex` pour mettre a jour le CV
-- Les workflows sont dans `.github/workflows/`
+### ⚙️ Site
+
+Portfolio personnel — [tiffank1802.github.io](https://tiffank1802.github.io)  
+Construit avec **React**, **Vite** et **Framer Motion**. Thème Liquid Glass. Déployé sur GitHub Pages.  
+Le CV (LaTeX) est automatiquement compilé via GitHub Actions à chaque push.
