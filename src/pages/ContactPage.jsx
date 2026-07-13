@@ -71,11 +71,11 @@ const ContactPage = () => {
 
         <GlassCard delay={0.15}>
           <h2 className="section-title" style={{ marginBottom: 20 }}>{isFr ? 'À propos de ce site' : 'About this site'}</h2>
-          <p className="about-text" style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>
-            {isFr
+          <p className="about-text" style={{ fontSize: '0.9rem', lineHeight: 1.6 }} dangerouslySetInnerHTML={{
+            __html: isFr
               ? 'Site web statique construit avec <strong>React</strong>, <strong>Vite</strong> et <strong>Framer Motion</strong>. Thème <strong>Liquid Glass</strong> avec distorsion lensée (SVG filters) et reflets spéculaires. Déployé sur <strong>GitHub Pages</strong>.'
-              : 'Static website built with <strong>React</strong>, <strong>Vite</strong> and <strong>Framer Motion</strong>. <strong>Liquid Glass</strong> theme with lensed distortion (SVG filters) and specular highlights. Deployed on <strong>GitHub Pages</strong>.'}
-          </p>
+              : 'Static website built with <strong>React</strong>, <strong>Vite</strong> and <strong>Framer Motion</strong>. <strong>Liquid Glass</strong> theme with lensed distortion (SVG filters) and specular highlights. Deployed on <strong>GitHub Pages</strong>.'
+          }} />
         </GlassCard>
       </div>
     </section>
