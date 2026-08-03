@@ -33,10 +33,11 @@ const GlassCard = ({ children, className = '', delay = 0, mouseTracking = false 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="glass-filter" />
-      <div className="glass-overlay" />
-      <div className="glass-specular" />
-      <div className="glass-border-highlight" />
+      {/* Conteneur 1 : le châssis (ombre et isolation) — .glass-card lui-même */}
+      {/* Conteneur 2 : le corps en verre (flou et réfraction) */}
+      <div className="glass-body" />
+      {/* Conteneur 3 : le reflet (bordure brillante et brillance supérieure) */}
+      <div className="glass-surface" />
       <div className="glass-content-wrap">{children}</div>
     </motion.div>
   );

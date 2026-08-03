@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { t } from '../i18n/translations';
 import GlassCard from '../components/GlassCard';
+import Icon from '../components/Icon';
+import { LuArrowRight, LuDownload } from 'react-icons/lu';
 
 const HomePage = () => {
   const { lang } = useLanguage();
@@ -10,6 +12,17 @@ const HomePage = () => {
     <>
       <section id="about" className="hero-section">
         <GlassCard className="hero-content-glass">
+          <motion.div
+            className="hero-photo-wrap"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="hero-photo-frame">
+              <img src="/moi.jpg" alt="Kevin Tongue" className="hero-photo" />
+            </div>
+          </motion.div>
+
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="hero-badge">
               <span className="dot" />
@@ -29,15 +42,10 @@ const HomePage = () => {
           <motion.div className="hero-actions" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}>
             <a href="/projects" className="btn btn-primary">
               {t('hero_btn_projects', lang)}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-              </svg>
+              <LuArrowRight size={16} />
             </a>
             <a href="cv.pdf" download className="btn btn-card">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
+              <LuDownload size={16} />
               {t('hero_btn_cv', lang)}
             </a>
           </motion.div>
@@ -58,7 +66,7 @@ const HomePage = () => {
           </GlassCard>
           <GlassCard className="info-card" delay={0.1}>
             <div className="info-item">
-              <span className="info-icon"><img src="/icons/grad-cap.svg" alt="" className="icon-svg" /></span>
+              <span className="info-icon"><Icon name="grad-cap" className="icon-svg" /></span>
               <div>
                 <div className="info-label">{t('info_education', lang)}</div>
                 <div className="info-value">
@@ -71,28 +79,28 @@ const HomePage = () => {
               </div>
             </div>
             <div className="info-item">
-              <span className="info-icon"><img src="/icons/compass.svg" alt="" className="icon-svg" /></span>
+              <span className="info-icon"><Icon name="compass" className="icon-svg" /></span>
               <div>
                 <div className="info-label">{t('info_location', lang)}</div>
                 <div className="info-value">Saint-Étienne, France</div>
               </div>
             </div>
             <div className="info-item">
-              <span className="info-icon"><img src="/icons/contact.svg" alt="" className="icon-svg" /></span>
+              <span className="info-icon"><Icon name="mobility" className="icon-svg" /></span>
               <div>
                 <div className="info-label">{t('info_mobility', lang)}</div>
                 <div className="info-value">France & International</div>
               </div>
             </div>
             <div className="info-item">
-              <span className="info-icon"><img src="/icons/contact.svg" alt="" className="icon-svg" /></span>
+              <span className="info-icon"><Icon name="languages" className="icon-svg" /></span>
               <div>
                 <div className="info-label">{t('info_languages', lang)}</div>
                 <div className="info-value">FR (natif) · EN (B2) · DE</div>
               </div>
             </div>
             <div className="info-item">
-              <span className="info-icon"><img src="/icons/books.svg" alt="" className="icon-svg" /></span>
+              <span className="info-icon"><Icon name="books" className="icon-svg" /></span>
               <div>
                 <div className="info-label">{t('info_availability', lang)}</div>
                 <div className="info-value">Sept./Oct. 2026</div>

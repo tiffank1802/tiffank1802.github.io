@@ -1,61 +1,63 @@
+import Icon from './components/Icon';
+
 const BUCKET = 'https://huggingface.co/buckets/ktongue/DEM_MCM/resolve/main';
 
 export const skillCategories = [
   {
     category: { fr: 'Conception & CAO', en: 'Design & CAD' },
-    icon: <img src="/icons/compass.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="compass" className="icon-svg" />,
     skills: ['SolidWorks', 'CATIA V5', '3DExperience', 'Sheet Metal', 'Simulation', 'Sustainability/ACV', { fr: 'Cotation fonctionnelle', en: 'Functional Tolerancing' }, 'DXF'],
   },
   {
     category: { fr: 'Simulation & Éléments Finis', en: 'Simulation & Finite Elements' },
-    icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="sphere" className="icon-svg" />,
     skills: ['Abaqus', 'SolidWorks Simulation', 'ANSYS Workbench', 'Cast3M', 'PyMAPDL', { fr: 'Solveur 3D Python/C++', en: '3D Python/C++ Solver' }, { fr: 'Statique', en: 'Static' }, { fr: 'Modale', en: 'Modal' }, { fr: 'Dynamique transitoire', en: 'Transient Dynamics' }, { fr: 'Thermique', en: 'Thermal' }, 'FE²', { fr: 'Homogénéisation', en: 'Homogenization' }, 'RVE', 'PBC'],
   },
   {
     category: { fr: 'Mécanique des Structures', en: 'Structural Mechanics' },
-    icon: <img src="/icons/truss.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="truss" className="icon-svg" />,
     skills: [{ fr: 'Milieux Continus', en: 'Continuum Mechanics' }, { fr: 'Mécanique de la Rupture', en: 'Fracture Mechanics' }, { fr: 'Fatigue Multiaxiale', en: 'Multiaxial Fatigue' }, 'Dang Van', 'Goodman', { fr: 'Dynamique des Structures', en: 'Structural Dynamics' }, { fr: 'Mécanique Non Linéaire', en: 'Nonlinear Mechanics' }, { fr: 'Contraintes Résiduelles', en: 'Residual Stresses' }, { fr: 'Thermo-élasticité', en: 'Thermoelasticity' }],
   },
   {
     category: { fr: 'Tribologie & Contacts', en: 'Tribology & Contacts' },
-    icon: <img src="/icons/gear.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="gear" className="icon-svg" />,
     skills: [{ fr: 'Contact Hertzien', en: 'Hertzian Contact' }, { fr: 'JKR (Adhésif)', en: 'JKR (Adhesive)' }, 'Tresca', 'Von Mises', 'Tabor', 'Boussinesq', 'Bourlet', { fr: 'Multi-régime', en: 'Multi-regime' }, { fr: 'Raideur de contact', en: 'Contact Stiffness' }, { fr: 'Coefficient de frottement', en: 'Friction Coefficient' }, { fr: 'Élastomères', en: 'Elastomers' }],
   },
   {
     category: { fr: 'Fabrication & Procédés', en: 'Manufacturing & Processes' },
-    icon: <img src="/icons/cnc.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="cnc" className="icon-svg" />,
     skills: [{ fr: 'Soudure', en: 'Welding' }, { fr: 'Pliage', en: 'Bending' }, { fr: 'Découpe laser', en: 'Laser Cutting' }, { fr: 'Tournage', en: 'Turning' }, { fr: 'Fraisage', en: 'Milling' }, { fr: 'Injection', en: 'Injection Molding' }, { fr: 'Fonderie', en: 'Casting' }, { fr: 'Gammes de fabrication', en: 'Manufacturing Routes' }],
   },
   {
     category: { fr: 'Instrumentation & Signal', en: 'Instrumentation & Signal' },
-    icon: <img src="/icons/signal.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="signal" className="icon-svg" />,
     skills: [{ fr: 'Accéléromètres', en: 'Accelerometers' }, { fr: 'Thermocouples', en: 'Thermocouples' }, 'IMU', { fr: 'Codeurs', en: 'Encoders' }, { fr: 'Analyse vibratoire', en: 'Vibration Analysis' }, 'AMDEC', 'GR&R', 'Cp/Cpk', { fr: 'Spectroscopie laser', en: 'Laser Spectroscopy' }],
   },
   {
     category: { fr: 'Méthodes Stochastiques', en: 'Stochastic Methods' },
-    icon: <img src="/icons/dice.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="dice" className="icon-svg" />,
     skills: ['DEM / LIGGGHTS', { fr: 'Chaînes de Markov', en: 'Markov Chains' }, 'Monte Carlo', { fr: "Plan d'Expériences", en: 'Design of Experiments' }, { fr: "Quantification d'incertitude", en: 'Uncertainty Quantification' }, 'Surrogate modelling'],
   },
   {
     category: { fr: 'IA & Machine Learning', en: 'AI & Machine Learning' },
-    icon: <img src="/icons/neurons.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="neurons" className="icon-svg" />,
     skills: ['PINNs (PyTorch)', { fr: 'Identification inverse', en: 'Inverse Identification' }, { fr: 'Deep learning scientifique', en: 'Scientific Deep Learning' }, 'Data-driven', 'Hyperparameter tuning'],
   },
   {
     category: { fr: 'Finance & Gestion', en: 'Finance & Management' },
-    icon: <img src="/icons/finance.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="finance" className="icon-svg" />,
     skills: ['DCF', 'LBO', { fr: 'Analyse financière', en: 'Financial Analysis' }, { fr: 'Modélisation Excel', en: 'Excel Modeling' }, { fr: 'Python financier', en: 'Financial Python' }],
   },
   {
     category: { fr: 'Programmation', en: 'Programming' },
-    icon: <img src="/icons/code.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="code" className="icon-svg" />,
     skills: ['Python', 'NumPy', 'SciPy', 'PyTorch', 'Matplotlib', 'OpenCV', 'Pandas', 'C/C++', 'MATLAB', 'Simulink', 'SymPy', 'PyMAPDL', 'LaTeX', 'Git/GitHub', 'Gradio'],
   },
 ];
 
 export const experiences = [
   {
-    icon: <img src="/icons/grad-cap.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="grad-cap" className="icon-svg" />,
     title: { fr: 'Stage de Master — Couplage Déterministe-Stochastique (DEM + Markov)', en: 'Master Internship — Deterministic-Stochastic Coupling (DEM + Markov)' },
     org: 'IMT Mines Albi & IMT Mines Saint-Étienne',
     orgLogos: ['/logos/albi.png', '/logos/emse.png'],
@@ -85,7 +87,7 @@ export const experiences = [
     },
   },
   {
-    icon: <img src="/icons/chart.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="chart" className="icon-svg" />,
     title: { fr: 'Projet de Recherche — Solveur EF 3D Non Linéaire (Critère de Dang Van)', en: 'Research Project — Nonlinear 3D FE Solver (Dang Van Criterion)' },
     org: 'Centrale Lyon – ENISE',
     orgLogos: ['/logos/centrale-lyon.png'],
@@ -100,7 +102,7 @@ export const experiences = [
     tags: ['FEM', 'Python', 'C++', 'Dang Van', 'Fatigue', 'Hugging Face'],
   },
   {
-    icon: <img src="/icons/neurons.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="neurons" className="icon-svg" />,
     title: { fr: "Projet de Recherche — PINNs pour l'Identification de Matériaux", en: 'Research Project — PINNs for Material Identification' },
     org: 'Centrale Lyon – ENISE (collab. LTDS)',
     orgLogos: ['/logos/centrale-lyon.png'],
@@ -115,7 +117,7 @@ export const experiences = [
     tags: ['PINN', 'PyTorch', 'Inverse', 'Deep Learning', 'LTDS'],
   },
   {
-    icon: <img src="/icons/gear.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="gear" className="icon-svg" />,
     title: { fr: 'Projets Académiques — Tribologie et Contacts Mécaniques', en: 'Academic Projects — Tribology and Mechanical Contacts' },
     org: 'Centrale Lyon – ENISE',
     orgLogos: ['/logos/centrale-lyon.png'],
@@ -130,7 +132,7 @@ export const experiences = [
     tags: ['Hertz', 'JKR', 'Tribologie', 'Python', 'FEM'],
   },
   {
-    icon: <img src="/icons/axle.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="axle" className="icon-svg" />,
     title: { fr: 'Projet Académique — Reconception Axe de Roue Motrice (Tracteur Enfant)', en: 'Academic Project — Drive Wheel Axle Redesign (Kids Tractor)' },
     org: 'Centrale Lyon – ENISE',
     orgLogos: ['/logos/centrale-lyon.png'],
@@ -144,7 +146,7 @@ export const experiences = [
     tags: ['SolidWorks', 'FEM', 'Fatigue', 'Conception'],
   },
   {
-    icon: <img src="/icons/factory.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="factory" className="icon-svg" />,
     title: { fr: 'Stage Ingénieur — Diagnostics Industriels & Maintenance Préventive', en: 'Engineering Internship — Industrial Diagnostics & Preventive Maintenance' },
     org: 'SOPECAM',
     orgLogos: [],
@@ -158,7 +160,7 @@ export const experiences = [
     tags: ['AMDEC', 'Capteurs', 'Signal', 'Maintenance'],
   },
   {
-    icon: <img src="/icons/cnc.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="cnc" className="icon-svg" />,
     title: { fr: 'Stage Technicien — Conception & Fabrication CNC 3 Axes', en: 'Technician Internship — 3-Axis CNC Design & Manufacturing' },
     org: 'FabLab – ENSPY',
     orgLogos: ['/logos/enspy.png'],
@@ -175,7 +177,7 @@ export const experiences = [
 
 export const projects = [
   {
-    icon: <img src="/icons/chart.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="chart" className="icon-svg" />,
     title: 'FEM Fatigue Solver',
     description: { fr: "Solveur EF 3D non linéaire avec critère de fatigue de Dang Van — interface web interactive.", en: "Nonlinear 3D FE solver with Dang Van fatigue criterion — interactive web interface." },
     details: { fr: 'Backend Python/C++, analyses statique/modale/transitoire, détermination du plan critique, validation Abaqus.', en: 'Python/C++ backend, static/modal/transient analyses, critical plane determination, Abaqus validation.' },
@@ -183,7 +185,7 @@ export const projects = [
     link: 'https://huggingface.co/spaces/ktongue/simulations_apps',
   },
   {
-    icon: <img src="/icons/neurons.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="neurons" className="icon-svg" />,
     title: 'PINN Material Identification',
     description: { fr: "Réseau de neurones physiquement informé pour l'identification inverse de lois de comportement.", en: "Physics-informed neural network for inverse identification of constitutive laws." },
     details: { fr: 'Couplage PyTorch + contraintes physiques (élasticité, chaleur, plasticité). Données essais compression LTDS.', en: 'PyTorch coupling + physical constraints (elasticity, heat, plasticity). LTDS compression test data.' },
@@ -191,28 +193,28 @@ export const projects = [
     link: 'https://huggingface.co/spaces/ktongue/ID_Mat_PINNs',
   },
   {
-    icon: <img src="/icons/cart-lift.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="cart-lift" className="icon-svg" />,
     title: { fr: 'Diable Élévateur Motorisé', en: 'Motorized Hand Truck' },
     description: { fr: "Conception complète d'un diable pour industrie agroalimentaire (sacs 25 kg, cycle \u2264 3 s).", en: "Complete design of a hand truck for the agri-food industry (25 kg bags, cycle \u2264 3 s)." },
     details: { fr: 'Matrice de choix multicritères, notice de calcul, liasse de définition SolidWorks, ACV avec Sustainability.', en: 'Multi-criteria decision matrix, calculation report, SolidWorks definition package, LCA with Sustainability.' },
     tags: ['SolidWorks', 'ACV', 'Sheet Metal', { fr: 'Cahier des charges', en: 'Specifications' }],
   },
   {
-    icon: <img src="/icons/grain.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="grain" className="icon-svg" />,
     title: { fr: 'Modèle de Partitionnement Microstructural', en: 'Microstructural Partitioning Model' },
     description: { fr: "Segmentation d'images microstructurales et caractérisation statistique des phases.", en: "Microstructural image segmentation and statistical phase characterization." },
     details: { fr: "Traitement d'images Python (NumPy, OpenCV, SciPy), extraction de caractéristiques géométriques.", en: "Python image processing (NumPy, OpenCV, SciPy), geometric feature extraction." },
     tags: ['Python', 'OpenCV', { fr: 'Segmentation', en: 'Segmentation' }, { fr: 'Matériaux', en: 'Materials' }],
   },
   {
-    icon: <img src="/icons/engine.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="engine" className="icon-svg" />,
     title: { fr: 'Architecture PLM — Micro-Moteur', en: 'PLM Architecture — Micro-Motor' },
     description: { fr: "Gestion du cycle de vie d'un micro-moteur : structure documentaire PLM complète.", en: "Lifecycle management of a micro-motor: complete PLM document structure." },
     details: { fr: 'Recensement des documents par composant, processus de validation adapté à chaque mode de fabrication.', en: 'Document inventory by component, validation process adapted to each manufacturing method.' },
     tags: ['PLM', '3DExperience', { fr: 'Cycle de vie', en: 'Lifecycle' }],
   },
   {
-    icon: <img src="/icons/books.svg" alt="" className="icon-svg" />,
+    icon: <Icon name="books" className="icon-svg" />,
     title: { fr: 'Application Web — Gestion de Bibliothèque', en: 'Web App — Library Management' },
     description: { fr: 'Application full-stack Symfony (PHP) avec architecture MVC et authentification.', en: 'Full-stack Symfony (PHP) app with MVC architecture and authentication.' },
     details: { fr: 'Conception base de données, contrôleurs, vues Twig, gestion des utilisateurs et des emprunts.', en: 'Database design, controllers, Twig views, user and loan management.' },
@@ -222,7 +224,7 @@ export const projects = [
 
 export const academicWorks = [
   {
-    icon: <img src="/icons/compass.svg" alt="" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
+    icon: <Icon name="compass" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
     semester: 'S9',
     title: { fr: "Conception d'essieu de tracteur — Analyse EF", en: 'Tractor Axle Design — FE Analysis' },
     description: { fr: "Analyse EF complète (SolidWorks Simulation) d'un essieu de tracteur enfant soumis à rupture répétée : concentration de contraintes, contraintes résiduelles, coefficient de sécurité porté de 0,67 à 2,4. Inclut gamme de fabrication et PLM/SGDT.", en: "Complete FE analysis (SolidWorks Simulation) of a kids' tractor axle subjected to repeated failure: stress concentration, residual stresses, safety factor increased from 0.67 to 2.4. Includes manufacturing route and PLM/GDT." },
@@ -232,7 +234,7 @@ export const academicWorks = [
     tags: ['SolidWorks Simulation', 'Von Mises', 'PLM', 'SGDT', { fr: 'Gamme fabrication', en: 'Manufacturing route' }],
   },
   {
-    icon: <img src="/icons/truss.svg" alt="" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
+    icon: <Icon name="truss" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
     semester: 'S9',
     title: { fr: "Optimisation Topologique d'un Piston", en: 'Topological Optimization of a Piston' },
     description: { fr: "Étude et optimisation topologique d'un piston sous 3DExperience. Conception allégée avec maintien des performances mécaniques.", en: "Study and topological optimization of a piston under 3DExperience. Lightweight design while maintaining mechanical performance." },
@@ -243,7 +245,7 @@ export const academicWorks = [
     tags: ['3DExperience', { fr: 'Optimisation Topologique', en: 'Topological Optimization' }, { fr: 'Conception', en: 'Design' }],
   },
   {
-    icon: <img src="/icons/flame.svg" alt="" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
+    icon: <Icon name="flame" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
     semester: 'S9',
     title: { fr: 'Couplage Thermo-Mécanique (ANSYS)', en: 'Thermo-Mechanical Coupling (ANSYS)' },
     description: { fr: "Modélisation d'un flux mobile sur plaque rectangulaire sous ANSYS Workbench. Couplage multiphysique thermique-mécanique par éléments finis.", en: "Modeling of a moving heat flux on a rectangular plate under ANSYS Workbench. Multiphysics thermal-mechanical coupling via finite elements." },
@@ -254,7 +256,7 @@ export const academicWorks = [
     tags: ['ANSYS Workbench', { fr: 'Couplage Thermo-Mécanique', en: 'Thermo-Mechanical Coupling' }, 'PyMAPDL'],
   },
   {
-    icon: <img src="/icons/compass.svg" alt="" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
+    icon: <Icon name="compass" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
     semester: 'S8',
     title: { fr: 'Dynamique des Structures & EF 1D/2D', en: 'Structural Dynamics & 1D/2D FE' },
     description: { fr: "Application de la MEF : études 1D (propagation d'onde) et 2D (plaque avec trou central, éléments P1). Analyse modale et dynamique transitoire avec MATLAB.", en: "FEM application: 1D (wave propagation) and 2D (plate with central hole, P1 elements) studies. Modal and transient dynamic analysis with MATLAB." },
@@ -264,7 +266,7 @@ export const academicWorks = [
     tags: ['MATLAB', { fr: 'MEF 1D/2D', en: '1D/2D FEM' }, { fr: 'Éléments P1', en: 'P1 Elements' }, { fr: 'Dynamique', en: 'Dynamics' }],
   },
   {
-    icon: <img src="/icons/gear.svg" alt="" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
+    icon: <Icon name="gear" className="icon-svg" />, category: { fr: 'Dimensionnement', en: 'Design' },
     semester: 'S9',
     title: { fr: 'Dynamique des Structures S9', en: 'Structural Dynamics S9' },
     description: { fr: 'Analyse dynamique des structures : modes propres, fréquences, réponse temporelle. Notebook SymPy et simulations avancées.', en: 'Structural dynamic analysis: eigenmodes, frequencies, time response. SymPy notebook and advanced simulations.' },
@@ -274,7 +276,7 @@ export const academicWorks = [
     tags: ['SymPy', { fr: 'Dynamique', en: 'Dynamics' }, 'MEF', { fr: 'Analyse modale', en: 'Modal analysis' }],
   },
   {
-    icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
+    icon: <Icon name="sphere" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
     semester: 'S8/S9',
     title: { fr: 'Contact Hertzien Sphère-Plan', en: 'Sphere-Plane Hertzian Contact' },
     description: { fr: 'Analyse complète du contact élastique sphère-plan : pression hertzienne, zone de contact, contraintes internes. Étude paramétrique sur 6 matériaux.', en: 'Complete analysis of elastic sphere-plane contact: Hertzian pressure, contact area, internal stresses. Parametric study on 6 materials.' },
@@ -284,7 +286,7 @@ export const academicWorks = [
     tags: ['Hertz', { fr: 'Contact', en: 'Contact' }, { fr: 'Pression', en: 'Pressure' }, 'Python'],
   },
   {
-    icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
+    icon: <Icon name="sphere" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
     semester: 'S8',
     title: { fr: 'Contact Hertzien — 12 Configurations (DM1)', en: 'Hertzian Contact — 12 Configurations (DM1)' },
     description: { fr: 'Étude paramétrique du contact sphère-plan pour 12 configurations : variation du matériau et du rayon. Comparaison Tresca/Von Mises, profils de pression et carte de Bourlet.', en: 'Parametric study of sphere-plane contact for 12 configurations: material and radius variation. Tresca/Von Mises comparison, pressure profiles, and Bourlet map.' },
@@ -294,7 +296,7 @@ export const academicWorks = [
     tags: ['Hertz', 'Tresca', 'Von Mises', 'Bourlet', { fr: '12 cas', en: '12 cases' }],
   },
   {
-    icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
+    icon: <Icon name="sphere" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
     semester: 'S9',
     title: { fr: 'Analyse Complète Contacts Non-Adhésifs (DM3)', en: 'Complete Non-Adhesive Contact Analysis (DM3)' },
     description: { fr: 'Analyse des régimes élastique, élasto-plastique et plastique. Raideurs de contact, limites élastiques, comparaison multi-matériaux.', en: 'Analysis of elastic, elasto-plastic and plastic regimes. Contact stiffnesses, elastic limits, multi-material comparison.' },
@@ -304,7 +306,7 @@ export const academicWorks = [
     tags: [{ fr: 'Multi-régime', en: 'Multi-regime' }, { fr: 'Raideur', en: 'Stiffness' }, { fr: 'Limite élastique', en: 'Elastic limit' }, 'Tabor'],
   },
   {
-    icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
+    icon: <Icon name="sphere" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
     semester: 'S9',
     title: { fr: 'Effets des Efforts sur les Limites Élastiques (DM31)', en: 'Effects of Loads on Elastic Limits (DM31)' },
     description: { fr: 'Analyse des effets des efforts et pressions sur les limites élastiques pour 6 matériaux. Visualisation des seuils de plasticité.', en: 'Analysis of load and pressure effects on elastic limits for 6 materials. Visualization of plasticity thresholds.' },
@@ -314,7 +316,7 @@ export const academicWorks = [
     tags: [{ fr: 'Limite élastique', en: 'Elastic limit' }, { fr: 'Plasticité', en: 'Plasticity' }, 'Python', { fr: 'Analyse', en: 'Analysis' }],
   },
   {
-    icon: <img src="/icons/sphere.svg" alt="" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
+    icon: <Icon name="sphere" className="icon-svg" />, category: { fr: 'Tribologie', en: 'Tribology' },
     semester: 'S9',
     title: { fr: 'Contacts Adhésifs JKR sur Élastomères (DM4)', en: 'JKR Adhesive Contacts on Elastomers (DM4)' },
     description: { fr: "Modélisation du contact adhésif sphère-plan sur élastomères silicone (théorie JKR). Essais d'indentation et de frottement, courbes expérimentales.", en: "Modeling of sphere-plane adhesive contact on silicone elastomers (JKR theory). Indentation and friction tests, experimental curves." },
@@ -324,7 +326,7 @@ export const academicWorks = [
     tags: ['JKR', { fr: 'Adhésif', en: 'Adhesive' }, { fr: 'Élastomère', en: 'Elastomer' }, { fr: 'Frottement', en: 'Friction' }],
   },
   {
-    icon: <img src="/icons/fe2.svg" alt="" className="icon-svg" />, category: { fr: 'Méthodes Numériques', en: 'Numerical Methods' },
+    icon: <Icon name="fe2" className="icon-svg" />, category: { fr: 'Méthodes Numériques', en: 'Numerical Methods' },
     semester: 'S9',
     title: { fr: "Homogénéisation FE² — Matériaux Composites", en: "FE² Homogenization — Composite Materials" },
     description: { fr: "Homogénéisation par moyenne volumique d'un composite tissé (TRC) sous Abaqus. Modélisation RVE avec conditions aux limites périodiques (PBCs), approche FE² multi-échelle.", en: "Volume average homogenization of a woven composite (TRC) under Abaqus. RVE modeling with periodic boundary conditions (PBCs), multi-scale FE² approach." },
@@ -335,7 +337,7 @@ export const academicWorks = [
     tags: ['FE²', { fr: 'Homogénéisation', en: 'Homogenization' }, 'Abaqus', 'RVE', 'PBC', { fr: 'Composite', en: 'Composite' }],
   },
   {
-    icon: <img src="/icons/finance.svg" alt="" className="icon-svg" />, category: { fr: 'Finances', en: 'Finance' },
+    icon: <Icon name="finance" className="icon-svg" />, category: { fr: 'Finances', en: 'Finance' },
     semester: 'S8',
     title: { fr: 'Acquisition Bricorama — DCF & LBO', en: 'Bricorama Acquisition — DCF & LBO' },
     description: { fr: "Analyse financière complète de l'acquisition de Bricorama France : valorisation DCF, montage LBO, modélisation Python/Excel, rapports détaillés.", en: "Complete financial analysis of Bricorama France acquisition: DCF valuation, LBO structuring, Python/Excel modeling, detailed reports." },

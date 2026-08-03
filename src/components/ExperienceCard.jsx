@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { LuGithub } from 'react-icons/lu';
 import GlassCard from './GlassCard';
 
 function getText(val, lang) {
@@ -53,7 +54,9 @@ const ExperienceCard = ({ exp, delay, lang = 'fr' }) => {
                 <div className="exp-detail-links">
                   {exp.projectDetail.links.map((link, i) => (
                     <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="btn btn-detail-link" onClick={(e) => e.stopPropagation()}>
-                      {link.icon && <img src={`/icons/${link.icon}.svg`} alt="" className="icon-svg-inline" />}
+                      {link.icon === 'github'
+                        ? <LuGithub className="icon-svg-inline" />
+                        : link.icon && <img src={`/icons/${link.icon}.svg`} alt="" className="icon-svg-inline" />}
                       {getText(link.label, lang)}
                     </a>
                   ))}
