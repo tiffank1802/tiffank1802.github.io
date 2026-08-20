@@ -14,7 +14,7 @@ const translations = {
     nav_lang:      'EN',
 
     /* Hero */
-    hero_badge:       'Disponible Septembre/Octobre 2026 — Mobilité internationale',
+    hero_badge:       'Disponible CDD / CDI / Intérim — Septembre/Octobre 2026',
     hero_title_role:  'Ingénieur Mécanique',
     hero_subtitle:    'Conception produit, mécanique des structures et simulation numérique avancée. Double diplôme Centrale Lyon–ENISE & ENSPY — spécialisé en mécanique computationnelle, éléments finis et méthodes stochastiques.',
     hero_btn_projects:'Voir mes projets',
@@ -42,6 +42,8 @@ const translations = {
     /* Projects */
     proj_title:    'Projets',
     proj_subtitle: 'Projets de recherche, académiques et personnels en mécanique, simulation et développement.',
+    proj_mechanics_title: 'Projets Mécaniques',
+    proj_master_title:    'Projets de Master & Recherche',
 
     /* Academic */
     acad_title:    'Rapports Académiques',
@@ -49,7 +51,7 @@ const translations = {
 
     /* Contact */
     contact_title:    'Contact',
-    contact_subtitle: 'Disponible pour un stage de Master PFE, CDD ou CDI à partir de Septembre/Octobre 2026.',
+    contact_subtitle: 'Disponible pour CDD, CDI, intérim ou stage de Master PFE à partir de Septembre/Octobre 2026.',
     contact_me:       'Me contacter',
 
     /* Footer */
@@ -67,7 +69,7 @@ const translations = {
     nav_contact:   'Contact',
     nav_lang:      'FR',
 
-    hero_badge:       'Available September/October 2026 — International mobility',
+    hero_badge:       'Available for CDD / CDI / temporary contracts — Sep/Oct 2026',
     hero_title_role:  'Mechanical Engineer',
     hero_subtitle:    'Product design, structural mechanics and advanced numerical simulation. Dual degree Centrale Lyon–ENISE & ENSPY — specialized in computational mechanics, finite elements and stochastic methods.',
     hero_btn_projects:'View my projects',
@@ -91,12 +93,14 @@ const translations = {
 
     proj_title:    'Projects',
     proj_subtitle: 'Research, academic and personal projects in mechanics, simulation and development.',
+    proj_mechanics_title: 'Mechanical Projects',
+    proj_master_title:    'Master & Research Projects',
 
     acad_title:    'Academic Reports',
     acad_subtitle: 'Project reports, practical work and tutorials in structural design, tribology and numerical simulation.',
 
     contact_title:    'Contact',
-    contact_subtitle: 'Available for a Master internship, fixed-term or permanent contract from September/October 2026.',
+    contact_subtitle: 'Available for fixed-term (CDD), permanent (CDI), temporary contracts or a Master internship from September/October 2026.',
     contact_me:       'Contact me',
 
     footer: 'Designed and developed with passion. Powered by React & GitHub Pages.',

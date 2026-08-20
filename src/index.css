@@ -462,3 +462,40 @@ body {
     transition: none !important;
   }
 }
+
+/* ══ Page Projets — sections Mécanique / Master ══ */
+.projects-section { margin-bottom: 48px; }
+.projects-section-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 19px; font-weight: 700; margin-bottom: 8px;
+}
+.projects-section-ico {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 10px;
+  background: rgba(var(--accent-rgb), 0.12); color: var(--accent);
+}
+.projects-section-badge {
+  font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 100px;
+  background: rgba(var(--accent-rgb), 0.10); color: var(--accent);
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
+}
+.proj-context {
+  font-size: 11px; color: var(--accent); line-height: 1.5;
+  background: rgba(var(--accent-rgb), 0.07);
+  border-left: 2px solid var(--accent);
+  padding: 7px 12px; border-radius: 0 10px 10px 0; margin-bottom: 12px;
+}
+.proj-docs { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.proj-doc-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 7px 10px; border-radius: 10px;
+  background: rgba(var(--accent-rgb), 0.05);
+  border: 1px solid rgba(var(--accent-rgb), 0.08);
+}
+.proj-doc-label { font-size: 11px; font-weight: 600; color: var(--text-primary); line-height: 1.4; }
+.proj-doc-size { font-size: 10px; color: var(--text-tertiary); font-family: 'JetBrains Mono', monospace; font-weight: 400; }
+.proj-doc-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.btn-doc { padding: 5px 10px; font-size: 10px; }
+.btn-doc svg { vertical-align: -2px; }
+.proj-link { margin-top: 12px; }
+.project-card { cursor: default; }

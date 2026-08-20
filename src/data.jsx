@@ -347,3 +347,196 @@ export const academicWorks = [
     tags: ['DCF', 'LBO', { fr: 'Finance', en: 'Finance' }, 'Python', 'Excel'],
   },
 ];
+
+/* ─────────────────────────────────────────────
+   Catalogue de projets — organisé en 2 groupes :
+   'mechanics' (projets mécaniques & ingénierie)
+   'master'    (projets de master & recherche)
+   Chaque projet peut avoir 0..n documents PDF
+   (visualisation + téléchargement) et/ou un lien.
+   ───────────────────────────────────────────── */
+export const catalogProjects = [
+  /* ══════════════ PROJETS MÉCANIQUES ══════════════ */
+  {
+    icon: <Icon name="cart-lift" className="icon-svg" />,
+    group: 'mechanics',
+    title: { fr: 'Diable Élévateur Motorisé', en: 'Motorized Hand Truck' },
+    context: { fr: 'Projet de conception — Centrale Lyon–ENISE, cahier des charges industrie agroalimentaire.', en: 'Design project — Centrale Lyon–ENISE, agri-food industry specification.' },
+    description: { fr: "Conception complète d'un diable élévateur pour sacs de 25 kg (cycle ≤ 3 s) : matrice de choix multicritères, notice de calcul, liasse de définition SolidWorks et analyse de cycle de vie avec Sustainability.", en: "Complete design of a lifting hand truck for 25 kg bags (cycle ≤ 3 s): multi-criteria decision matrix, calculation report, SolidWorks definition package and life-cycle analysis with Sustainability." },
+    date: '2025 – 2026',
+    tags: ['SolidWorks', 'ACV', 'Sheet Metal', { fr: 'Cahier des charges', en: 'Specifications' }],
+  },
+  {
+    icon: <Icon name="axle" className="icon-svg" />,
+    group: 'mechanics',
+    title: { fr: 'Reconception Axe de Roue Motrice (Tracteur Enfant)', en: 'Drive Wheel Axle Redesign (Kids Tractor)' },
+    context: { fr: 'Projet de dimensionnement des structures S9 — Centrale Lyon–ENISE.', en: 'Structural design project S9 — Centrale Lyon–ENISE.' },
+    description: { fr: "Analyse EF de la rupture répétée d'un essieu : concentration de contraintes et contraintes résiduelles de traction identifiées, solution retenue réduisant la contrainte de 450 à 250 MPa et portant le coefficient de sécurité de 0,67 à 2,4.", en: "FE analysis of a repeatedly failing axle: stress concentration and tensile residual stresses identified; final solution reduces stress from 450 to 250 MPa and raises the safety factor from 0.67 to 2.4." },
+    date: 'S9 — 2025/26',
+    tags: ['SolidWorks Simulation', 'Von Mises', 'PLM', 'SGDT'],
+    files: [
+      { label: { fr: 'Rapport de calcul EF', en: 'FE calculation report' }, file: '/rapports/dimensionnement_s9_calcul.pdf', size: '10.5 MB' },
+    ],
+  },
+  {
+    icon: <Icon name="engine" className="icon-svg" />,
+    group: 'mechanics',
+    title: { fr: 'Architecture PLM — Micro-Moteur', en: 'PLM Architecture — Micro-Motor' },
+    context: { fr: 'Projet académique — gestion du cycle de vie produit, 3DExperience.', en: 'Academic project — product lifecycle management, 3DExperience.' },
+    description: { fr: "Gestion du cycle de vie d'un micro-moteur : recensement des documents par composant et processus de validation adapté à chaque mode de fabrication.", en: "Lifecycle management of a micro-motor: document inventory by component and validation process adapted to each manufacturing method." },
+    date: '2025',
+    tags: ['PLM', '3DExperience', { fr: 'Cycle de vie', en: 'Lifecycle' }],
+  },
+  {
+    icon: <Icon name="books" className="icon-svg" />,
+    group: 'mechanics',
+    title: { fr: 'Application Web — Gestion de Bibliothèque', en: 'Web App — Library Management' },
+    context: { fr: 'Projet personnel — développement full-stack.', en: 'Personal project — full-stack development.' },
+    description: { fr: 'Application full-stack Symfony (PHP) avec architecture MVC : conception de la base de données, contrôleurs, vues Twig, gestion des utilisateurs et des emprunts.', en: 'Full-stack Symfony (PHP) app with MVC architecture: database design, controllers, Twig views, user and loan management.' },
+    date: '2025',
+    tags: ['Symfony', 'PHP', 'MVC', 'MySQL'],
+  },
+  {
+    icon: <Icon name="sphere" className="icon-svg" />,
+    group: 'mechanics',
+    title: { fr: 'Dynamique des Structures — MEF 1D/2D & Modale', en: 'Structural Dynamics — 1D/2D FEM & Modal Analysis' },
+    context: { fr: 'Dimensionnement des structures S8 & S9 — Centrale Lyon–ENISE.', en: 'Structural design S8 & S9 — Centrale Lyon–ENISE.' },
+    description: { fr: "Applications de la méthode des éléments finis : propagation d'onde 1D, plaque avec trou central (éléments P1), analyse modale et dynamique transitoire sous MATLAB/SymPy.", en: "Finite element applications: 1D wave propagation, plate with central hole (P1 elements), modal and transient dynamic analysis with MATLAB/SymPy." },
+    date: 'S8/S9 — 2025/26',
+    tags: ['MATLAB', 'SymPy', 'MEF', { fr: 'Analyse modale', en: 'Modal analysis' }],
+    files: [
+      { label: { fr: 'Dynamique S8', en: 'Dynamics S8' }, file: '/rapports/dimensionnement_s8_dynamique.pdf', size: '8.2 MB' },
+      { label: { fr: 'Dynamique S9', en: 'Dynamics S9' }, file: '/rapports/dimensionnement_s9_dynamique.pdf', size: '4.8 MB' },
+    ],
+  },
+
+  /* ══════════════ PROJETS DE MASTER & RECHERCHE ══════════════ */
+  {
+    icon: <Icon name="fe2" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Homogénéisation FE² — Composites TRC', en: 'FE² Homogenization — TRC Composites' },
+    context: { fr: 'Projet de Master — Méthodes Numériques Avancées, Centrale Lyon–ENISE (2026), en binôme avec Gaston Kamdem.', en: 'Master project — Advanced Numerical Methods, Centrale Lyon–ENISE (2026), with Gaston Kamdem.' },
+    description: { fr: "Caractérisation multi-échelle des propriétés mécaniques effectives d'une plaque composite à renfort textile (TRC carbone/mortier) : homogénéisation analytique (Voigt/Reuss), VER modélisé sous Abaqus avec conditions aux limites périodiques, et mise en œuvre de la méthode direct-FE².", en: "Multi-scale characterization of the effective mechanical properties of a textile-reinforced composite plate (carbon/mortar TRC): analytical homogenization (Voigt/Reuss), RVE modeled in Abaqus with periodic boundary conditions, and direct-FE² implementation." },
+    date: '2026',
+    tags: ['FE²', { fr: 'Homogénéisation', en: 'Homogenization' }, 'Abaqus', 'RVE', 'PBC'],
+    files: [
+      { label: { fr: 'Rapport complet', en: 'Full report' }, file: '/documents/fe2-homogeneisation-trc/rapport.pdf', size: '866 KB' },
+      { label: { fr: 'Rapport détaillé (projet)', en: 'Detailed report (project)' }, file: '/documents/fe2-homogeneisation-trc/rapport-details.pdf', size: '2.2 MB' },
+      { label: { fr: 'Questions de théorie', en: 'Theory questions' }, file: '/documents/fe2-homogeneisation-trc/questions-theorie.pdf', size: '216 KB' },
+    ],
+  },
+  {
+    icon: <Icon name="matrix" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Réduction d\'Ordre — POD & PGD', en: 'Model Order Reduction — POD & PGD' },
+    context: { fr: 'Projet de Master — Méthodes Numériques Avancées, Centrale Lyon–ENISE (2026).', en: 'Master project — Advanced Numerical Methods, Centrale Lyon–ENISE (2026).' },
+    description: { fr: "Analyse POD (Proper Orthogonal Decomposition) et PGD (Proper Generalized Decomposition) : calcul des modes dominants, reconstruction de données bruitées, comparaison POD vs PGD et application à des données expérimentales.", en: "POD (Proper Orthogonal Decomposition) and PGD (Proper Generalized Decomposition) analysis: dominant mode computation, noisy-data reconstruction, POD vs PGD comparison and application to experimental data." },
+    date: '2026',
+    tags: ['POD', 'PGD', 'MATLAB', { fr: 'Réduction d\'ordre', en: 'Order reduction' }, { fr: 'Bruit', en: 'Noise' }],
+    files: [
+      { label: { fr: 'Rapport POD & PGD', en: 'POD & PGD report' }, file: '/documents/pod-reduction-ordre/rapport-pod-pgd.pdf', size: '501 KB' },
+      { label: { fr: 'Énoncé POD', en: 'POD assignment' }, file: '/documents/pod-reduction-ordre/rapport.pdf', size: '101 KB' },
+      { label: { fr: 'Présentation', en: 'Presentation' }, file: '/documents/pod-reduction-ordre/presentation.pdf', size: '5.4 MB' },
+    ],
+  },
+  {
+    icon: <Icon name="signal" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Jumeaux Numériques & Big Data', en: 'Digital Twins & Big Data' },
+    context: { fr: 'Projet de Master — Dimensionnement des structures, Centrale Lyon–ENISE (Déc. 2025), encadré par R. Ferrier.', en: 'Master project — Structural design, Centrale Lyon–ENISE (Dec. 2025), supervised by R. Ferrier.' },
+    description: { fr: "Étude d'un système poutre asservi : fonctions de transfert, commande en boucle ouverte/fermée, filtre de Kalman pour l'estimation d'état, et exploitation de données massives (Big Data) pour le diagnostic de structures.", en: "Study of a controlled beam system: transfer functions, open/closed-loop control, Kalman filter for state estimation, and Big Data exploitation for structural diagnostics." },
+    date: 'Déc. 2025',
+    tags: [{ fr: 'Asservissement', en: 'Control' }, { fr: 'Filtre de Kalman', en: 'Kalman filter' }, 'Big Data', 'MATLAB'],
+    files: [
+      { label: { fr: 'Rendu jumeaux numériques', en: 'Digital twin report' }, file: '/documents/jumeaux-numeriques/rapport.pdf', size: '194 KB' },
+      { label: { fr: 'Rendu Big Data', en: 'Big Data report' }, file: '/documents/jumeaux-numeriques/rendu-bigdata.pdf', size: '162 KB' },
+    ],
+  },
+  {
+    icon: <Icon name="truss" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Commande Optimale d\'une Poutre Flexible', en: 'Optimal Control of a Flexible Beam' },
+    context: { fr: 'Projet de simulation — Master Mécanique, Centrale Lyon–ENISE.', en: 'Simulation project — Master in Mechanics, Centrale Lyon–ENISE.' },
+    description: { fr: "Calcul d'une commande optimale assurant un déplacement imposé à l'extrémité d'une poutre flexible : régularisation, robustesse face aux perturbations et comparaison avec un régulateur PID.", en: "Computation of an optimal control achieving a prescribed tip displacement of a flexible beam: regularization, robustness to perturbations and comparison with a PID controller." },
+    date: '2025',
+    tags: [{ fr: 'Commande optimale', en: 'Optimal control' }, 'Newmark', 'PID', 'MATLAB'],
+    files: [
+      { label: { fr: 'Rapport de simulation', en: 'Simulation report' }, file: '/documents/commande-optimale/rapport.pdf', size: '68 KB' },
+    ],
+  },
+  {
+    icon: <Icon name="flame" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Transfert Thermique S9 — TD & DS', en: 'Heat Transfer S9 — Tutorials & Exam' },
+    context: { fr: 'TD de Master — Thermique S9, Centrale Lyon–ENISE, encadré par P. Bertrand.', en: 'Master tutorials — Heat Transfer S9, Centrale Lyon–ENISE, supervised by P. Bertrand.' },
+    description: { fr: "Résolution détaillée de problèmes de transfert thermique : convection forcée et naturelle, conduction, régimes transitoires et permanents (plaque chauffée, chambre, cylindre, tuyau isolé…).", en: "Detailed solutions of heat transfer problems: forced and natural convection, conduction, transient and steady regimes (heated plate, room, cylinder, insulated pipe…)." },
+    date: 'S9 — 2025/26',
+    tags: [{ fr: 'Convection', en: 'Convection' }, { fr: 'Conduction', en: 'Conduction' }, { fr: 'Transitoire', en: 'Transient' }],
+    files: [
+      { label: { fr: 'TD Thermique S9', en: 'Heat Transfer S9 tutorial' }, file: '/documents/thermique-s9/rapport.pdf', size: '188 KB' },
+      { label: { fr: 'TD n°1', en: 'Tutorial #1' }, file: '/documents/thermique-s9/td1.pdf', size: '1.3 MB' },
+      { label: { fr: 'Sujet DS 2022-23', en: '2022-23 exam' }, file: '/documents/thermique-s9/sujet-ds.pdf', size: '133 KB' },
+    ],
+  },
+  {
+    icon: <Icon name="briefcase" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'SHS — Management & Organisations', en: 'SHS — Management & Organizations' },
+    context: { fr: 'Projet de Master — Sciences Humaines et Sociales / Management S9, Centrale Lyon–ENISE.', en: 'Master project — Humanities & Social Sciences / Management S9, Centrale Lyon–ENISE.' },
+    description: { fr: "Synthèse critique et notes de lecture sur l'autonomie au travail, le leadership et la culture d'apprentissage dans les organisations contemporaines (Grasser & Noël, Saabye & Borup, modèle Haier).", en: "Critical synthesis and reading notes on autonomy at work, leadership and learning culture in contemporary organizations (Grasser & Noël, Saabye & Borup, Haier model)." },
+    date: 'S9 — 2025/26',
+    tags: [{ fr: 'Management', en: 'Management' }, { fr: 'Autonomie', en: 'Autonomy' }, { fr: 'Leadership', en: 'Leadership' }, 'SHS'],
+    files: [
+      { label: { fr: 'Synthèse critique', en: 'Critical synthesis' }, file: '/documents/shs-management/synthese-critique.pdf', size: '112 KB' },
+      { label: { fr: 'Note de lecture', en: 'Reading note' }, file: '/documents/shs-management/note-de-lecture.pdf', size: '146 KB' },
+    ],
+  },
+  {
+    icon: <Icon name="neurons" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'PINNs — Identification de Matériaux', en: 'PINNs — Material Identification' },
+    context: { fr: 'Projet de recherche — Centrale Lyon–ENISE, collaboration LTDS (2025).', en: 'Research project — Centrale Lyon–ENISE, LTDS collaboration (2025).' },
+    description: { fr: "Réseau de neurones physiquement informé (PINN) sous PyTorch pour l'identification inverse des paramètres de loi de comportement à partir d'essais de compression, avec contraintes physiques intégrées.", en: "Physics-informed neural network (PINN) in PyTorch for inverse identification of constitutive law parameters from compression tests, with embedded physical constraints." },
+    date: '2025',
+    tags: ['PINN', 'PyTorch', { fr: 'Identification inverse', en: 'Inverse identification' }, 'LTDS'],
+    link: 'https://huggingface.co/spaces/ktongue/ID_Mat_PINNs',
+  },
+  {
+    icon: <Icon name="chart" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Solveur EF 3D Non Linéaire — Critère de Dang Van', en: 'Nonlinear 3D FE Solver — Dang Van Criterion' },
+    context: { fr: 'Projet de recherche — Centrale Lyon–ENISE (2025-2026), en binôme avec Paul Lorthioir, encadré par Éric Feulvarch et Françoise Fauvin.', en: 'Research project — Centrale Lyon–ENISE (2025-2026), with Paul Lorthioir, supervised by Éric Feulvarch and Françoise Fauvin.' },
+    description: { fr: "Développement d'un solveur éléments finis 3D non linéaire (Python/C++) — statique, modale, dynamique transitoire — avec analyse des plans critiques et application du critère de fatigue multiaxiale de Dang Van, validé par comparaison avec Abaqus.", en: "Development of a nonlinear 3D finite element solver (Python/C++) — static, modal, transient dynamics — with critical plane analysis and application of the Dang Van multiaxial fatigue criterion, validated against Abaqus." },
+    date: '2025 – 2026',
+    tags: ['FEM', 'Python', 'C++', 'Dang Van', { fr: 'Fatigue', en: 'Fatigue' }],
+    files: [
+      { label: { fr: 'Rapport — Critère de Dang Van', en: 'Report — Dang Van criterion' }, file: '/documents/dang-van/rapport.pdf', size: '556 KB' },
+    ],
+    link: 'https://huggingface.co/spaces/ktongue/simulations_apps',
+  },
+  {
+    icon: <Icon name="grain" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Partitionnement Microstructural', en: 'Microstructural Partitioning' },
+    context: { fr: 'Projet académique — traitement d\'images, science des matériaux.', en: 'Academic project — image processing, materials science.' },
+    description: { fr: "Segmentation d'images microstructurales et caractérisation statistique des phases (NumPy, OpenCV, SciPy) : extraction de caractéristiques géométriques pour la description des microstructures.", en: "Microstructural image segmentation and statistical phase characterization (NumPy, OpenCV, SciPy): geometric feature extraction for microstructure description." },
+    date: '2025',
+    tags: ['Python', 'OpenCV', { fr: 'Segmentation', en: 'Segmentation' }, { fr: 'Matériaux', en: 'Materials' }],
+  },
+  {
+    icon: <Icon name="gear" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Tribologie & Contacts Mécaniques', en: 'Tribology & Mechanical Contacts' },
+    context: { fr: 'Série de DM de Master — Tribologie, Centrale Lyon–ENISE (S8/S9, 2025-2026).', en: 'Master assignment series — Tribology, Centrale Lyon–ENISE (S8/S9, 2025-2026).' },
+    description: { fr: "Étude des contacts hertziens (12 configurations), contacts adhésifs JKR sur élastomères, multi-régimes élastique/élasto-plastique/plastique et comparaison des critères Tresca, Von Mises et Tabor.", en: "Study of Hertzian contacts (12 configurations), JKR adhesive contacts on elastomers, elastic/elasto-plastic/plastic regimes and comparison of Tresca, Von Mises and Tabor criteria." },
+    date: 'S8/S9 — 2025/26',
+    tags: ['Hertz', 'JKR', 'Tresca', 'Von Mises', 'Tabor'],
+    files: [
+      { label: { fr: 'Analyse principale', en: 'Main analysis' }, file: '/rapports/tribologie_principal.pdf', size: '717 KB' },
+      { label: 'DM1', file: '/rapports/tribologie_dm1.pdf', size: '1 MB' },
+      { label: 'DM3', file: '/rapports/tribologie_dm3.pdf', size: '5.2 MB' },
+      { label: 'DM31', file: '/rapports/tribologie_dm31.pdf', size: '1.5 MB' },
+      { label: 'DM4', file: '/rapports/tribologie_dm4.pdf', size: '713 KB' },
+    ],
+  },
+];
