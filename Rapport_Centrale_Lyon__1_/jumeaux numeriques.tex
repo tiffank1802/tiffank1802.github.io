@@ -1,0 +1,290 @@
+\documentclass{rapportECL}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+% Gestion des marges pour A4 vertical
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
+% Définition des styles pour les blocs, sommes, etc.
+\tikzset{
+    block/.style = {draw, rectangle, minimum height=2.5em, minimum width=4em, align=center, thick},
+    sum/.style = {draw, circle, inner sep=2pt, thick},
+    input/.style = {coordinate},
+    output/.style = {coordinate},
+    line/.style = {draw, -Latex, thick}
+}
+% Informations du rapport
+\titre{Rendu Jumeaux numériques}\\
+% \large UE : Dimensionnement des structures (ENISE-5GM)}
+\eleves{Kevin \textsc{TONGUE}}
+\enseignant{Enseignant : Renaud \textsc{FERRIER}}
+\begin{document}
+%----------- Initialisation -------------------
+       
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+% \tabledematieres %Créer la table de matières
+
+\centerline{22 d\'ecembre 2025}
+
+\newpage
+
+\section{4.1. Travail pr\'eparatoire}
+
+\subsection{4.1.1. \'Etude du syst\`eme et de son asservissement}
+
+Le syst\`eme est compos\'e d'un moteur pilot\'e en courant $i$, avec une fonction de transfert $F_m$ donnant le couple $C_m = F_m i$. La transmission a une fonction de transfert $F_t$ telle que la force $f_A = F_t C_m$. La poutre est repr\'esent\'ee par une fonction de transfert $F$ ayant en entr\'ee $f_A$ et en sortie le vecteur de d\'eplacements $u$. Des projecteurs $\Pi_A$ et $\Pi_B$ extraient $u_A$ et $u_B$ de $u$.
+
+Q1) Sch\'ema bloc en boucle ouverte :
+
+\begin{tikzpicture}[node distance=2cm, auto]
+    \node [input] (input) {};
+    \node [block, right of=input] (Fm) {$F_m$};
+    \node [block, right of=Fm] (Ft) {$F_t$};
+    \node [block, right of=Ft] (F) {$F$};
+    \node [output, right of=F, node distance=3cm] (u) {};
+    \node [block, below of=F, node distance=2cm] (PiA) {$\Pi_A$};
+    \node [block, right of=PiA] (Gt) {$G_t$};
+    \node [output, right of=Gt] (theta) {};
+    \node [block, above of=F, node distance=2cm] (PiB) {$\Pi_B$};
+    \node [output, right of=PiB] (uB) {};
+
+    \path [line] (input) -- node {$i$} (Fm);
+    \path [line] (Fm) -- node {$C_m$} (Ft);
+    \path [line] (Ft) -- node {$f_A$} (F);
+    \path [line] (F) -- node {$u$} (u);
+    \path [line] (F) |- (PiA);
+    \path [line] (PiA) -- node {$u_A$} (Gt);
+    \path [line] (Gt) -- node {$\vartheta$} (theta);
+    \path [line] (F) |- (PiB);
+    \path [line] (PiB) -- node {$u_B$} (uB);
+\end{tikzpicture}
+
+Le moteur est associ\'e \`a un capteur angulaire mesurant $\vartheta = G_t u_A$.
+
+Q2) Relation entre $F_t$ et $G_t$ :
+
+On a : $\theta = G_t u_A \Rightarrow \dot{\theta} = G_t \dot{u_A}$
+
+et $f_A = F_t C_m$
+
+Hypoth\`ese : Conservation de l'\'energie (rendement unitaire)
+
+\[\Rightarrow C_m \dot{\theta} = f_A \dot{u_A}\]
+
+\[\Rightarrow C_m G_t \dot{u_A} = F_t C_m \dot{u_A}\]
+
+\[\Rightarrow G_t = F_t\]
+
+On souhaite $F_t G_t = 1$, c'est-\`a-dire $F_t = 1/G_t$. Cette relation est vraie sous les hypoth\`eses que la transmission est conservative (pas de pertes \'energ\'etiques), sans glissement, et en r\'egime quasi-statique o\`u la puissance est conserv\'ee : $C_m \dot{\vartheta} = f_A \dot{u_A}$.
+
+Q3) Int\'er\^et du jumeau num\'erique pour contr\^oler $u_B$ :
+
+Le syst\`eme industriel ne dispose pas de mesure de $u_B$. Un jumeau num\'erique permet d'estimer $u_B$ \`a partir du mod\`ele et des mesures disponibles (comme $u_A$ via $\vartheta$), afin de le contr\^oler en boucle ferm\'ee sans capteur direct.
+
+Q4) Sch\'ema bloc en boucle ferm\'ee avec mesure de $u_B$ :
+
+On utilise un t\'el\'em\`etre laser avec fonction de transfert $T$ pour mesurer $u_B$.
+
+\begin{tikzpicture}[node distance=2cm, auto]
+    \node [input] (input) {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (C) {$C$};
+    \node [block, right of=C] (Fm) {$F_m$};
+    \node [block, right of=Fm] (Ft) {$F_t$};
+    \node [block, right of=Ft] (F) {$F$};
+    \node [block, right of=F, node distance=3cm] (PiB) {$\Pi_B$};
+    \node [output, right of=PiB] (uB) {};
+    \node [block, below of=PiB, node distance=3cm] (T) {$T$};
+
+    \path [line] (input) -- node {$e$} (sum);
+    \path [line] (sum) -- (C);
+    \path [line] (C) -- node {$i$} (Fm);
+    \path [line] (Fm) -- node {$C_m$} (Ft);
+    \path [line] (Ft) -- node {$f_A$} (F);
+    \path [line] (F) -- node {$u$} (PiB);
+    \path [line] (PiB) -- node {$u_B$} (uB);
+    \path [line] (PiB) |- (T);
+    \path [line] (T) -| node [near end] {$-$} (sum);
+\end{tikzpicture}
+
+Q5) Sch\'ema bloc du syst\`eme asservi \`a l'aide du jumeau num\'erique (filtre de Kalman) :
+
+On utilise un filtre de Kalman $T_{kalman}$ prenant la commande $C_m$ (apr\`es inversion par $F_0^{-1}$ pour obtenir $f_A$) et la mesure filtr\'ee $\hat{u}_A$ pour estimer $\hat{u}$, puis extraire $\hat{u}_B$ via $\Pi_B$ pour le retour.
+
+\begin{tikzpicture}[node distance=2cm, auto]
+    \node [input] (input) {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (kctrl) {kctrl};
+    \node [block, right of=kctrl] (Fm) {$F_m$};
+    \node [block, right of=Fm] (Ft) {$F_t$};
+    \node [block, right of=Ft] (F) {$F$};
+    \node [block, right of=F, node distance=3cm] (PiB) {$\Pi_B$};
+    \node [output, right of=PiB] (uB) {};
+    \node [block, below of=F, node distance=2cm] (PiA) {$\Pi_A$};
+    \node [output, right of=PiA] (uA) {};
+    \node [block, below of=sum, node distance=4cm] (T0) {T0};
+    \node [block, right of=T0, node distance=4cm] (Tkalman) {$T_{kalman}$};
+    \node [block, right of=Tkalman, node distance=3cm] (Cm_inv) {$C_m^{-1}$};
+    \node [output, right of=Cm_inv] (C) {};
+
+    \path [line] (input) -- node {$e$} (sum);
+    \path [line] (sum) -- (kctrl);
+    \path [line] (kctrl) -- node {$i$} (Fm);
+    \path [line] (Fm) -- node {$C_m$} (Ft);
+    \path [line] (Ft) -- node {$f_A$} (F);
+    \path [line] (F) -- node {$u$} (PiB);
+    \path [line] (PiB) -- node {$u_B$} (uB);
+    \path [line] (F) -- (PiA);
+    \path [line] (PiA) -- node {$u_A$} (uA);
+    \path [line] (uA) |- (T0);
+    \path [line] (T0) -- node {$\bar{\theta}$} (Tkalman);
+    \path [line] (Fm) |- node [near start] {$C_m$} ++(0,-2cm) -| (Tkalman);
+    \path [line] (Tkalman) -- (Cm_inv);
+    \path [line] (Cm_inv) -- node {$C$} (C);
+    \path [line] (Tkalman) -| node [near end] {$\hat{u}_B$} ++(0,4cm) -| node [near end] {$-$} (sum);
+\end{tikzpicture}
+
+\subsection{4.1.2. \'Etude du filtre de Kalman}
+
+Q1) Expression de Q :
+
+\[ Q = B q B^T \]
+
+Proc\'edure de construction de Q
+
+Construction de D :
+
+- Construire un second membre $\xi = \begin{bmatrix} 0 \\ \vdots \\ 0 \\ \vdots \\ 0 \end{bmatrix} \leftarrow$ ddt de $u_a$
+
+- utiliser la fonction Newmark1StepMRHS avec les arguments : $(M, C, k, \xi, 0, 0, 0, dt, \beta, \gamma)$ dont les sorties sont les suivantes :
+
+\[ \begin{bmatrix} u, v, a \end{bmatrix} \]
+
+on obtient alors $\beta = \begin{bmatrix} u \\ v \\ a \end{bmatrix}$
+
+Construction de F :
+
+- Construire 2 Matrices :
+
+\[ M_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \quad \text{(identit\'e de taille N ddl)} \quad \text{(taille de } u) \]
+
+\[ M_2 = \begin{bmatrix} 0 & 1 \end{bmatrix} \quad \text{(z\'ero de taille N ddl)} \]
+
+Id\'ee: envoyer $\Gamma_3 = \begin{bmatrix} M_1 & M_2 & M_2 \\ M_2 & M_1 & M_2 \\ M_2 & M_2 & M_1 \end{bmatrix}$ dans Newmark,
+
+par morceaux :
+
+\[ U_0 = \begin{bmatrix} M_1 & M_2 & M_2 \end{bmatrix} \]
+
+\[ \alpha_0 = \begin{bmatrix} M_2 & M_1 & M_2 \end{bmatrix} \]
+
+\[ a_0 = \begin{bmatrix} M_2 & M_2 & M_1 \end{bmatrix} \]
+
+on obtient alors :
+
+\[ \begin{bmatrix} u, v, a \end{bmatrix} = \text{Newmark1StepMRHS}(M, C, k, \xi, U_0, \alpha_0, a_0, dt, \beta, \gamma) \]
+
+Construction de $FRF^T$ \`a l'\'etape de pr\'ediction :
+
+une fois $F$ \'evalu\'ee gr\^ace \`a la fonction Newmark \`a l'instant initial, si on a pas d'id\'ee prendre $P$ comme une matrice identit\'e. Elle n'actualisera au cours des pas de temps
+
+Forme de la matrice $H$ :
+
+\[ H = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix} \]
+
+\section{4.2. Travail durant la s\'eance et analyse des r\'esultats}
+
+\subsection{4.2.1. Syst\`eme en boucle ouverte}
+
+Q1) Observation de la position du point B sur la poutre (apr\`es compr\'ehension et lanc\'e du code) :
+
+L'\'evolution de la position du point B est semblable \`a celle du point A (forme sinuso\"idale). Elle poss\`ede un retard d'environ une demi-p\'eriode.
+
+On observe que le mod\`ele reste dans le bon intervalle que la mesure. Mais diff\'erent en amplitude.
+
+Q2) V\'erification de l'invariance de la solution quand on change l'appel de la fonction newmark2 par la boucle en commentaire :
+
+En effet la fonction newmark1stepMRHS effectue un pas de la fonction newmark2 et on obtient la m\^eme solution.
+
+La solution est bien la m\^eme.
+
+Q3) Construction et ajout de la perturbation \`a la force appliqu\'ee en A :
+
+L'ajout de la perturbation en A donne la figure ci-dessous.
+
+On observe que le d\'eplacement au point B est inchang\'e malgr\'e la perturbation en A sur l'effort.
+
+La perturbation a \'et\'e ajout\'ee \`a la force totale au point A. La solution est la m\^eme.
+
+Q4) Cas o\`u la sollicitation est un \'echelon de force :
+
+La solution subit une variation sur une p\'eriode d'environ 7 secondes et se stabilise par la suite. On peut conclure que le sch\'ema num\'erique est fiable dans le temps.
+
+La solution $U_0$ est la m\^eme pour un effort au point A type sinuso\"idale comme type \'echelon. On conclut donc que le mod\`ele num\'erique est stable.
+
+\subsection{4.2.2. Syst\`eme en boucle ferm\'ee avec mesure de $u_B$}
+
+Q1) Calcul analytique de la consigne, de sa d\'eriv\'ee et son int\'egrale :
+
+La consigne est la fonction de Heaviside en t=1s :
+
+\[ H(t - 1) = \begin{cases} 0 & \text{pour } t < 1 \\ 1 & \text{pour } t \ge 1 \end{cases} \]
+
+Sa d\'eriv\'ee est d\'efinie comme suit :
+
+\[ \frac{d}{dt} H(t - 1) = \delta(t - 1) \]
+
+Son int\'egrale est d\'efinie comme suit :
+
+\[ (t)H(t - 1) = \begin{cases} 0 & \text{pour } t < 1 \\ t & \text{pour } t \ge 1 \end{cases} \]
+
+Q2) Impl\'ementation du contr\^oleur PID :
+
+Cas sans bruit de mesure ni perturbation :
+
+On constate que le d\'eplacement est le m\^eme que celui en boucle ouverte.
+
+Cas sans bruit de mesure mais avec perturbation.
+
+Cas avec bruit de mesure et perturbation.
+
+Q3) Le contr\^ole du syst\`eme est-il plus facile ou plus difficile \`a contr\^oler ?
+
+On constate que l'amplitude du d\'eplacement est plus grande pour $nA=nx$ que pour $nA=nx/2$. On peut donc conclure que le syst\`eme est instable. Cette instabilit\'e n'est pas aussi si grande car elle converge vers la consigne apr\`es pratiquement le m\^eme temps de soit 10 it\'erations.
+
+\subsection{4.2.3. Filtre de Kalman}
+
+D\'eplacement et \'ecart types : compatibilit\'e avec ajout de la phase de correction.
+
+\subsection{4.2.4. Syst\`eme en boucle ferm\'ee sans mesure de $u_B$}
+
+Commentaire : le syst\`eme est moins pr\'ecis sur la pr\'ediction de l'\'etat. Il y a plus de bruit. Il est instable.
+\newpage
+Manipulations Réalisées
+1. Construction de la Commande Optimale sans Perturbation :
+   - Utilisation de la fonction forthodir pour calculer la commande optimale respectant la consigne de déplacement au bout de la poutre (étape à \(t = 1\) s).
+   - Paramètres fixés : \(\mu = 0.1\) (régularisation), \(nopt = 100\), \(\text{stagEps} = 10^{-4}\), intégration Newmark (\(\beta = 0.25\), \(\gamma = 0.5\)).
+   - Simulation du système avec la commande optimale pour vérifier le suivi de consigne.
+2. Étude de l'Impact de \(\mu\) :
+   - Test de \(\mu = 0.01\), \(0.1\), \(1\).
+   - Mesure de la vitesse de convergence (itérations, ratio résiduel), qualité de suivi (erreur moyenne/maximale), amplitude de commande.
+   - Génération de graphiques comparatifs pour les solutions et résidus.
+3. Comparaison avec Cas Perturbé :
+   - Calcul de la commande optimale sans perturbation.
+   - Simulation avec perturbation ajoutée (bruit sur la force à l'actionneur).
+   - Comparaison avec contrôle PID (avec/sans perturbation) via graphiques de déplacement au bout.
+Observations
+- Sans Perturbation : La commande optimale converge rapidement et assure un suivi quasi-parfait de la consigne, avec une amplitude de commande raisonnable (\(\approx 22\)).
+- Impact de \(\mu\) : Peu d'effet observable dans la plage testée ; tous les \(\mu\) convergent au même niveau résiduel, produisant des résultats similaires. \(\mu = 0.1\) est suffisant.
+- Avec Perturbation : Le contrôle optimal (ouvert) se dégrade face aux perturbations, tandis que le PID (fermé) maintient une meilleure robustesse. Cela souligne la limitation du contrôle ouvert en environnement incertain.
+Interprétations
+- Le contrôle optimal par forthodir est efficace pour des scénarios déterministes, offrant une commande anticipative idéale.
+- La régularisation \(\mu\) joue un rôle mineur ici, probablement car la convergence est limitée par la tolérance plutôt que par l'ill-conditionnement.
+- En présence de perturbations, un contrôle fermé (comme PID) est préférable au contrôle ouvert optimal pour l'adaptation en temps réel.
+- Faisabilité du Contrôle Non-Causal (Bonus) : Cette méthode calcule une commande optimale sur \(m > n\) pas futurs, mise à jour tous les \(n\) pas. Elle pourrait améliorer la performance si l'erreur de modèle est non-nulle (e.g., avec Kalman pour estimation d'état), mais le temps de calcul (plusieurs appels à forthodir par fenêtre) la rend peu pratique en temps réel, même avec optimisation. Elle est plus adaptée à des simulations off-line qu'à des applications embarquées.
+Ce travail illustre l'intérêt du contrôle optimal pour des trajectoires précises, tout en soulignant l'importance de la robustesse en environnement réel.
+\end{document}

@@ -1,0 +1,204 @@
+\documentclass{rapportECL}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{lipsum}
+\usepackage{siunitx}
+\sisetup{output-decimal-marker={,}}
+
+\title{Rapport ECL - Template} %Titre du fichier
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{TD Thermique S9} %Titre du fichier .pdf
+\sujet{THERMIQUE S9} %Nom du sujet
+\enseignant{Philippe \textsc{BERTRAND}} %Nom de l'enseignant
+\eleves{Kévin \textsc{TONGUE}}
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+
+%----------- Contenu du rapport ---------------
+
+\section*{Introduction}
+Ce rapport présente les solutions détaillées des exercices du TD de thermique S9. Les problèmes abordent différents aspects du transfert de chaleur : convection, conduction, régime transitoire et permanent.
+
+\section{Exercice 1 : Plaque réchauffée par flux d'air}
+
+\subsection*{Données}
+\begin{itemize}
+    \item Température de l'air : \( T_{\infty} = 200 \, ^\circ \text{C} \)
+    \item Coefficient de convection : \( h = 10 \, \text{W/m}^2 \cdot ^\circ \text{C} \)
+    \item Température initiale : \( T_i = 25 \, ^\circ \text{C} \)
+    \item Dimensions : \( 1 \, \text{m} \times 1 \, \text{m} \times 0.1 \, \text{m} \)
+    \item Conductivité thermique : \( \lambda = 150 \, \text{W/m} \cdot \text{K} \)
+    \item Capacité thermique massique : \( c_p = 400 \, \text{J/kg} \cdot \text{K} \)
+    \item Masse volumique : \( \rho = 2800 \, \text{kg/m}^3 \)
+    \item Temps : \( t = 60 \, \text{s} \)
+\end{itemize}
+
+\subsection*{Méthode de résolution}
+Le nombre de Biot est faible (\( \text{Bi} = h L_c / \lambda = 0.00333 < 0.1 \)), donc on utilise la méthode de la capacité thermique globale.
+
+\subsection*{Calculs}
+\begin{align*}
+\text{Volume : } & V = 0.1 \, \text{m}^3 \\
+\text{Surface d'échange : } & A = 2 \, \text{m}^2 \\
+\text{Constante de temps : } & \tau = \frac{\rho V c_p}{h A} = \frac{2800 \times 0.1 \times 400}{10 \times 2} = 5600 \, \text{s} \\
+\text{Temps réduit : } & \frac{t}{\tau} = \frac{60}{5600} = 0.010714 \\
+\text{Température : } & \frac{T - T_{\infty}}{T_i - T_{\infty}} = \exp\left(-\frac{t}{\tau}\right) = \exp(-0.010714) \approx 0.98934 \\
+& T = T_{\infty} + (T_i - T_{\infty}) \times 0.98934 = 200 + (-175) \times 0.98934
+\end{align*}
+
+\subsection*{Résultat}
+La température de surface après 1 minute est d'environ \textbf{26,9 °C}.
+
+\section{Exercice 2 : Plaque refroidie par flux d'eau}
+
+\subsection*{Données}
+\begin{itemize}
+    \item Température de l'eau : \( T_{\infty} = 5 \, ^\circ \text{C} \)
+    \item Coefficient de convection : \( h = 5000 \, \text{W/m}^2 \cdot ^\circ \text{C} \)
+    \item Température initiale : \( T_i = 200 \, ^\circ \text{C} \)
+    \item Mêmes propriétés et dimensions que l'Ex 1
+    \item Temps : \( t = 10 \, \text{s} \)
+\end{itemize}
+
+\subsection*{Méthode de résolution}
+Le nombre de Biot est élevé (\( \text{Bi} = 1.67 > 0.1 \)), donc on utilise l'approximation à un terme pour une plaque (épaisseur \( 2L = 0.1 \, \text{m} \), demi-épaisseur \( L = 0.05 \, \text{m} \)).
+
+\subsection*{Calculs}
+\begin{align*}
+\text{Diffusivité thermique : } & \alpha = \frac{\lambda}{\rho c_p} = \frac{150}{2800 \times 400} = 1.339 \times 10^{-4} \, \text{m}^2/\text{s} \\
+\text{Nombre de Fourier : } & \text{Fo} = \frac{\alpha t}{L^2} = \frac{1.339 \times 10^{-4} \times 10}{0.05^2} = 0.536 \\
+\text{Pour } \text{Bi} = 1.67 : & \zeta_1 \approx 1.0215, \quad C \approx 1.1607 \\
+\text{À la surface } (x/L = 1) : & \frac{T_s - T_{\infty}}{T_i - T_{\infty}} = C \exp(-\zeta_1^2 \text{Fo}) \cos(\zeta_1) \\
+& \approx 1.1607 \times \exp(-1.0435 \times 0.536) \times \cos(1.0215) \\
+& \approx 1.1607 \times 0.5717 \times 0.522 \approx 0.3465 \\
+& T_s = T_{\infty} + 0.3465 \times (T_i - T_{\infty}) = 5 + 0.3465 \times 195
+\end{align*}
+
+\subsection*{Résultat}
+La température de surface après 10 secondes est d'environ \textbf{72,6 °C}.
+
+\section{Exercice 3 : Chambre réchauffée par un radiateur}
+
+\subsection*{Données}
+\begin{itemize}
+    \item Puissance du radiateur : \( \dot{Q} = 500 \, \text{W} \)
+    \item Température extérieure : \( T_{\text{ext}} = -10 \, ^\circ \text{C} \)
+    \item Hauteur sous plafond : \( H = 2.5 \, \text{m} \)
+    \item Coefficients de convection :
+        \begin{itemize}
+            \item Intérieur : \( h_i = 20 \, \text{W/m}^2 \cdot \text{K} \)
+            \item Extérieur : \( h_o = 5 \, \text{W/m}^2 \cdot \text{K} \)
+        \end{itemize}
+    \item Mur : épaisseur \( 0.3 \, \text{m} \), conductivité \( \lambda_{\text{mur}} = 0.15 \, \text{W/m} \cdot \text{K} \)
+    \item Porte : dimensions \( 0.75 \, \text{m} \times 2 \, \text{m} \), épaisseur \( 0.05 \, \text{m} \), conductivité \( \lambda_{\text{porte}} = 0.5 \, \text{W/m} \cdot \text{K} \)
+    \item Pertes par le plafond et le sol négligeables
+\end{itemize}
+
+\subsection*{Hypothèses}
+La chambre est rectangulaire avec dimensions intérieures \( 4 \, \text{m} \times 3 \, \text{m} \) (d'après le plan schématique).
+
+\subsection*{Calculs}
+\begin{align*}
+\text{Aire totale des murs : } & 2 \times (4 + 3) \times 2.5 = 35 \, \text{m}^2 \\
+\text{Aire de la porte : } & 0.75 \times 2 = 1.5 \, \text{m}^2 \\
+\text{Aire nette des murs : } & 35 - 1.5 = 33.5 \, \text{m}^2 \\
+\text{Résistance mur : } & R_{\text{mur}} = \frac{1}{h_i} + \frac{e_{\text{mur}}}{\lambda_{\text{mur}}} + \frac{1}{h_o} = 0.05 + 2 + 0.2 = 2.25 \, \text{m}^2 \cdot \text{K/W} \\
+\text{Coefficient de transfert mur : } & U_{\text{mur}} = \frac{1}{2.25} \approx 0.4444 \, \text{W/m}^2 \cdot \text{K} \\
+\text{Résistance porte : } & R_{\text{porte}} = \frac{1}{h_i} + \frac{e_{\text{porte}}}{\lambda_{\text{porte}}} + \frac{1}{h_o} = 0.05 + 0.1 + 0.2 = 0.35 \, \text{m}^2 \cdot \text{K/W} \\
+\text{Coefficient de transfert porte : } & U_{\text{porte}} = \frac{1}{0.35} \approx 2.857 \, \text{W/m}^2 \cdot \text{K} \\
+\text{Bilan d'énergie : } & \dot{Q} = (U_{\text{mur}} A_{\text{mur}} + U_{\text{porte}} A_{\text{porte}}) (T_{\text{int}} - T_{\text{ext}}) \\
+& 500 = (0.4444 \times 33.5 + 2.857 \times 1.5) (T_{\text{int}} + 10) \\
+& 500 = (14.887 + 4.2855) (T_{\text{int}} + 10) = 19.1725 (T_{\text{int}} + 10) \\
+& T_{\text{int}} + 10 = \frac{500}{19.1725} \approx 26.08 \\
+& T_{\text{int}} \approx 16.08 \, ^\circ \text{C}
+\end{align*}
+
+\subsection*{Résultat}
+La température de l'air dans la chambre est d'environ \textbf{16,1 °C}.
+
+\section{Exercice 4 : Cylindre avec température de surface linéaire}
+
+\subsection*{Données}
+\begin{itemize}
+    \item Températures aux extrémités : \( T_1 = 100 \, ^\circ \text{C} \), \( T_2 = 200 \, ^\circ \text{C} \)
+    \item Longueur : \( L = 2 \, \text{m} \)
+    \item Diamètre : \( D = 0.1 \, \text{m} \)
+    \item Température du fluide : \( T_{\infty} = 50 \, ^\circ \text{C} \)
+    \item Coefficient de convection : \( h = 10 \, \text{W/m}^2 \cdot ^\circ \text{C} \)
+\end{itemize}
+
+\subsection*{Profil de température}
+\[
+T(x) = \frac{T_2 - T_1}{L} x + T_1 = 50x + 100 \quad (\text{x en m})
+\]
+
+\subsection*{Calculs}
+\begin{align*}
+\text{Surface différentielle : } & dA = \pi D \, dx \\
+\text{Flux local : } & q''(x) = h (T(x) - T_{\infty}) = h (50x + 50) = 50h (x+1) \\
+\text{Flux total : } & Q = \int_0^L q''(x) \, dA = \int_0^L 50h (x+1) \pi D \, dx \\
+& = 50h \pi D \int_0^2 (x+1) \, dx \\
+& \int_0^2 (x+1) \, dx = \left[ \frac{x^2}{2} + x \right]_0^2 = 2 + 2 = 4 \\
+& Q = 50 \times 10 \times \pi \times 0.1 \times 4 = 200 \pi
+\end{align*}
+
+\subsection*{Résultat}
+Le flux de chaleur total cédé au fluide est d'environ \textbf{628 W}.
+
+\section{Exercice 5 : Pertes thermiques d'un tuyau isolé}
+
+\subsection*{Données}
+\begin{itemize}
+    \item Diamètre intérieur : \( D_i = 0.15 \, \text{m} \)
+    \item Diamètre extérieur de l'acier : \( D_o = 0.16 \, \text{m} \)
+    \item Diamètre extérieur de l'isolant : \( D_{\text{ins}} = 0.17 \, \text{m} \)
+    \item Température de la vapeur : \( T_{\text{vapeur}} = 150 \, ^\circ \text{C} \)
+    \item Température ambiante : \( T_{\infty} = 25 \, ^\circ \text{C} \)
+    \item Coefficients de convection :
+        \begin{itemize}
+            \item Intérieur : \( h_i = 1000 \, \text{W/m}^2 \cdot ^\circ \text{C} \)
+            \item Extérieur : \( h_o = 10 \, \text{W/m}^2 \cdot ^\circ \text{C} \)
+        \end{itemize}
+    \item Conductivités :
+        \begin{itemize}
+            \item Acier : \( \lambda_{\text{acier}} = 30 \, \text{W/m} \cdot ^\circ \text{C} \)
+            \item Isolant : \( \lambda_{\text{isolant}} = 0.5 \, \text{W/m} \cdot ^\circ \text{C} \)
+        \end{itemize}
+\end{itemize}
+
+\subsection*{Calculs}
+\begin{align*}
+\text{Rayons : } & r_i = 0.075 \, \text{m}, \quad r_o = 0.08 \, \text{m}, \quad r_{\text{ins}} = 0.085 \, \text{m} \\
+\text{Résistances par unité de longueur : } & \\
+& R_{\text{conv,i}} = \frac{1}{h_i \pi D_i} \approx 0.002122 \, \text{m} \cdot ^\circ \text{C/W} \\
+& R_{\text{acier}} = \frac{\ln(r_o / r_i)}{2\pi \lambda_{\text{acier}}} \approx 0.0003424 \, \text{m} \cdot ^\circ \text{C/W} \\
+& R_{\text{isolant}} = \frac{\ln(r_{\text{ins}} / r_o)}{2\pi \lambda_{\text{isolant}}} \approx 0.01930 \, \text{m} \cdot ^\circ \text{C/W} \\
+& R_{\text{conv,o}} = \frac{1}{h_o \pi D_{\text{ins}}} \approx 0.18724 \, \text{m} \cdot ^\circ \text{C/W} \\
+\text{Résistance totale : } & R_{\text{tot}} \approx 0.20900 \, \text{m} \cdot ^\circ \text{C/W} \\
+\text{Flux par unité de longueur : } & q' = \frac{T_{\text{vapeur}} - T_{\infty}}{R_{\text{tot}}} = \frac{125}{0.20900}
+\end{align*}
+
+\subsection*{Résultat}
+Les pertes thermiques par unité de longueur sont d'environ \textbf{598 W/m}.
+
+\section*{Conclusion}
+Les exercices ont permis d'appliquer différentes méthodes de résolution en thermique : 
+\begin{itemize}
+    \item Capacité thermique globale pour les régimes transitoires avec faible nombre de Biot
+    \item Méthode analytique à un terme pour les régimes transitoires avec nombre de Biot élevé
+    \item Bilans d'énergie en régime permanent pour les systèmes complexes
+    \item Calcul intégral pour les surfaces à température variable
+    \item Résistances thermiques en série pour les systèmes multicouches
+\end{itemize}
+
+Les résultats obtenus sont cohérents avec les phénomènes physiques attendus.
+
+\end{document}

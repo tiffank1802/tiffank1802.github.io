@@ -1,0 +1,91 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% Style des sections
+\titleformat{\section}[block]
+{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+\titleformat{\subsection}[block]
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{Étude de Commande Optimale d'une Poutre Flexible}\\
+\vspace{0.5em}
+\normalsize Rapport de simulation
+\end{center}
+
+\section*{Démarche expérimentale}
+
+\subsection{1. Calcul de la commande optimale en régime nominal}
+La fonction \texttt{forthodir} a été utilisée pour déterminer la commande optimale assurant un déplacement imposé à l'extrémité de la poutre (échelon à \( t = 1 \, \text{s} \)).
+
+\textbf{Paramètres retenus :}
+\begin{itemize}[noitemsep]
+    \item Coefficient de régularisation : \( \mu = 0,1 \)
+    \item Nombre d'itérations : \( n_{\text{opt}} = 100 \)
+    \item Tolérance : \( \text{stagEps} = 10^{-4} \)
+    \item Schéma d'intégration de Newmark : \( \beta = 0,25 \), \( \gamma = 0,5 \)
+\end{itemize}
+
+La simulation du système piloté par cette commande confirme un suivi précis de la trajectoire souhaitée.
+
+\subsection{2. Influence du paramètre de régularisation \( \mu \)}
+Différentes valeurs (\( \mu = 0,01 \), \( 0,1 \), \( 1 \)) ont été testées afin d'évaluer :
+\begin{itemize}[noitemsep]
+    \item Vitesse de convergence (nombre d'itérations, évolution du résidu)
+    \item Qualité du suivi (erreur moyenne et maximale)
+    \item Amplitude de l'effort de commande
+\end{itemize}
+Des courbes comparatives (solutions et résidus) ont été générées.
+
+\subsection{3. Robustesse en présence de perturbations}
+\begin{itemize}
+    \item La commande optimale nominale a d'abord été calculée.
+    \item Une perturbation (bruit ajouté sur la force de l'actionneur) a ensuite été introduite en simulation.
+    \item Les performances ont été comparées à celles d'un régulateur PID (avec et sans perturbation), via l'observation du déplacement à l'extrémité.
+\end{itemize}
+
+\section*{Résultats et analyse}
+
+\paragraph{Régime nominal :}
+La commande optimale converge rapidement et assure un suivi quasi parfait de la consigne, avec une amplitude de commande modérée (environ \( 22 \, \text{N} \)).
+
+\paragraph{Impact de \( \mu \) :}
+Peu sensible dans la plage testée ; les trois valeurs conduisent à un résidu final similaire et à des performances pratiquement identiques. Le choix \( \mu = 0,1 \) s'avère approprié.
+
+\paragraph{Avec perturbations :}
+La commande optimale en boucle ouverte se révèle sensible aux perturbations, tandis que le PID (boucle fermée) conserve une meilleure robustesse. Ceci met en évidence la limite des stratégies purement anticipatives en environnement incertain.
+
+\section*{Interprétations et enseignements}
+
+\begin{itemize}
+    \item La méthode \texttt{forthodir} produit une commande optimale efficace dans un cadre déterministe, permettant un suivi de trajectoire précis.
+    
+    \item Le paramètre \( \mu \) a ici un effet secondaire, la convergence étant principalement gouvernée par la tolérance fixée plutôt que par un problème de conditionnement.
+    
+    \item Face à des perturbations, une commande en boucle fermée (type PID) est préférable pour son adaptation en temps réel.
+    
+    \item \textbf{Contrôle non causal (question bonus) :} Cette approche, qui calcule une commande sur un horizon futur élargi (\( m > n \)) et la met à jour périodiquement, pourrait théoriquement améliorer les performances si le modèle présente des erreurs. Toutefois, son coût calcul (appels répétés à \texttt{forthodir}) la rend peu adaptée au temps réel, même avec optimisation. Elle relève plutôt de la simulation hors ligne que de l'implantation embarquée.
+\end{itemize}
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.5pt}
+\vspace{0.5em}
+
+\noindent\textbf{Synthèse :} Ce travail démontre l'efficacité du contrôle optimal pour le suivi de trajectoire en l'absence d'incertitudes, tout en soulignant la nécessité d'intégrer des mécanismes de robustesse (boucle fermée, estimation) pour des applications réelles.
+
+\end{document}

@@ -1,0 +1,259 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{siunitx}
+
+\geometry{margin=2cm}
+
+\title{Sujet DS S9 2022-2023 \\ Transfert Thermique}
+\date{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Exercice 1 : Refroidissement d'une bille dans un bain}
+
+\subsection*{Énoncé}
+On considère une bille d'acier de petite taille de température initiale uniforme à un instant \( t = 0 \).  
+On supposera la température uniforme dans la bille car la dimension est petite, elle est en acier et donc sa conductivité est élevée.  
+
+\[ T = T_i \quad \text{à} \quad t = 0. \]  
+
+On plonge rapidement cette bille dans un bain à température maintenue constante \( T_0 \).
+
+Voici les questions auxquelles nous vous demandons de répondre :
+\begin{enumerate}
+    \item Émettez différentes hypothèses vous permettant de positionner le problème d'un point de vue dimensionnel et temporel mais également celle qui nous permettra de considérer la température uniforme dans le corps,
+    \item Réalisez le bilan thermique de cette problématique et identifiez l'équation bilan (équation différentielle)
+    \item Solutionnez l'équation différentielle et donnez la variation de la Température en fonction du temps, puis en fonction de la constante de temps et enfin en fonction de deux nombres sans dimensions (Biot et Fourier)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}
+    \item \textbf{Hypothèses} :
+    \begin{itemize}
+        \item La température dans la bille est uniforme à tout instant (hypothèse de régime thermique global). Ceci est justifié par :
+        \begin{itemize}
+            \item La petite taille de la bille.
+            \item La conductivité thermique élevée de l'acier.
+            \item Le nombre de Biot est petit (\(Bi \ll 1\)), ce qui signifie que la résistance interne à la conduction est négligeable devant la résistance externe à la convection.
+        \end{itemize}
+        \item Le bain est maintenu à température constante \(T_0\).
+        \item Le coefficient d'échange convectif \(h\) entre la bille et le bain est constant.
+        \item Les propriétés thermophysiques de la bille (masse volumique \(\rho\), chaleur spécifique \(c\), conductivité \(\lambda\)) sont constantes.
+        \item La bille est de forme sphérique, mais du fait de l'uniformité, on la traite comme un système global.
+    \end{itemize}
+
+    \item \textbf{Bilan thermique et équation différentielle} :
+    
+    \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+        \draw (0,0) circle (2);
+        \draw[->] (-2,0) -- (-1,0) node[midway,above] {$h$};
+        \draw[->] (2,0) -- (3,0) node[midway,above] {$T_0$};
+        \draw[dashed] (0,0) -- (2,0) node[midway,above] {$R$};
+        \node at (0,0) {$\bullet$};
+        \node at (0,0) [left] {$T(t)$};
+        \node at (3.5,0) {Bain};
+    \end{tikzpicture}
+    \caption{Schéma de la bille dans le bain}
+    \end{figure}
+    
+    Soit :
+    \begin{itemize}
+        \item \(V\) le volume de la bille, \(S\) sa surface.
+        \item \(T(t)\) la température de la bille à l'instant \(t\).
+    \end{itemize}
+    
+    Le flux de chaleur perdu par convection s'écrit :
+    \[
+    \Phi = h S \left( T - T_0 \right)
+    \]
+    Ce flux correspond à la diminution de l'énergie interne de la bille :
+    \[
+    - \rho V c \frac{dT}{dt} = h S \left( T - T_0 \right)
+    \]
+    D'où l'équation différentielle :
+    \[
+    \frac{dT}{dt} + \frac{h S}{\rho V c} \left( T - T_0 \right) = 0
+    \]
+    On pose la constante de temps :
+    \[
+    \tau = \frac{\rho V c}{h S}
+    \]
+    Pour une sphère de rayon \(R\) : \(V = \frac{4}{3}\pi R^3\), \(S = 4\pi R^2\), donc \(\frac{V}{S} = \frac{R}{3}\) et :
+    \[
+    \tau = \frac{\rho c R}{3h}
+    \]
+    
+    \item \textbf{Solution et expression sans dimension} :
+    
+    En posant \(\theta = T - T_0\), l'équation devient :
+    \[
+    \frac{d\theta}{dt} = -\frac{1}{\tau} \theta
+    \]
+    avec la condition initiale \(\theta(0) = T_i - T_0\). La solution est :
+    \[
+    \theta(t) = \theta(0) e^{-t/\tau}
+    \]
+    soit :
+    \[
+    T(t) = T_0 + \left( T_i - T_0 \right) e^{-t/\tau}
+    \]
+    
+    \textbf{Variation de température :}
+    \begin{itemize}
+        \item En fonction du temps : décroissance exponentielle de l'écart \(T - T_0\).
+        \item En fonction de la constante de temps \(\tau\) : après un temps \(t = \tau\), l'écart est réduit d'un facteur \(e^{-1} \approx 0,368\).
+    \end{itemize}
+    
+    \textbf{Nombres sans dimension :}
+    \begin{itemize}
+        \item Nombre de Biot : \(Bi = \dfrac{h L_c}{\lambda}\) avec \(L_c = \dfrac{V}{S} = \dfrac{R}{3}\).
+        \item Nombre de Fourier : \(Fo = \dfrac{\alpha t}{L_c^2}\) avec \(\alpha = \dfrac{\lambda}{\rho c}\) (diffusivité thermique).
+    \end{itemize}
+    
+    La solution s'exprime alors comme :
+    \[
+    \frac{T - T_0}{T_i - T_0} = e^{-Bi \cdot Fo}
+    \]
+    Cette forme est valable pour \(Bi \ll 1\) (approximation de température uniforme).
+\end{enumerate}
+
+\newpage
+
+\section*{Exercice 4 : Flux de chaleur perdu par un tuyau isolé}
+
+\subsection*{Énoncé}
+Évaluer le flux de chaleur perdu par unité de longueur d'un tuyau en acier de 150 mm de diamètre intérieur et 160 mm de diamètre extérieur, recouvert d'un isolant de 180 mm de diamètre extérieur. De la vapeur à 200 °C s'écoule dans le tuyau. Le coefficient de transfert de chaleur par convection à l'intérieur est \( h = 1000 \, \text{W/m}^2\text{C} \), le coefficient d'échange de chaleur à la surface extérieure est \( h = 15 \, \text{W/m}^\circ\text{C} \) et la température ambiante est égale à \( 25^\circ\text{C} \). \( \lambda_{\text{acier}} = 30 \, \text{W/m}^\circ\text{C} \), \( \lambda_{\text{isolant}} = 0.5 \, \text{W/m}^\circ\text{C} \)
+
+\subsection*{Solution}
+
+\subsubsection*{Schéma et données}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.8]
+    % Coordonnées des rayons
+    \def\ri{1.5}
+    \def\rac{1.6}
+    \def\riso{1.8}
+    
+    % Tracé des cercles
+    \draw (0,0) circle (\ri);
+    \draw (0,0) circle (\rac);
+    \draw (0,0) circle (\riso);
+    
+    % Rayons
+    \draw[dashed] (0,0) -- (\ri,0) node[midway,above] {$r_i$};
+    \draw[dashed] (0,0) -- (\rac,0) node[midway,above] {$r_{\text{ac}}$};
+    \draw[dashed] (0,0) -- (\riso,0) node[midway,above] {$r_{\text{iso}}$};
+    
+    % Labels
+    \node at (0.75,0.3) {Acier};
+    \node at (1.7,0.3) {Isolant};
+    \node at (2.2,0) {Air ambiant};
+    
+    % Flèches et températures
+    \draw[->] (-\ri,0) -- (-0.5,0) node[midway,above] {$T_{\infty,i}$};
+    \draw[->] (\riso,0) -- (2.5,0) node[midway,above] {$T_{\infty,e}$};
+    \node at (0,0) {$\bullet$};
+\end{tikzpicture}
+\caption{Coupe transversale du tuyau isolé}
+\end{figure}
+
+\textbf{Données :}
+\begin{itemize}
+    \item Rayon intérieur : \(r_i = 0,075\ \text{m}\)
+    \item Rayon extérieur de l'acier : \(r_{\text{ac}} = 0,08\ \text{m}\)
+    \item Rayon extérieur de l'isolant : \(r_{\text{iso}} = 0,09\ \text{m}\)
+    \item Température de la vapeur : \(T_{\infty,i} = 200^\circ \text{C}\)
+    \item Coefficient de convection intérieur : \(h_i = 1000\ \text{W·m}^{-2}\cdot^\circ\text{C}^{-1}\)
+    \item Coefficient de convection extérieur : \(h_e = 15\ \text{W·m}^{-2}\cdot^\circ\text{C}^{-1}\)
+    \item Température ambiante : \(T_{\infty,e} = 25^\circ \text{C}\)
+    \item Conductivité de l'acier : \(\lambda_{\text{ac}} = 30\ \text{W·m}^{-1}\cdot^\circ\text{C}^{-1}\)
+    \item Conductivité de l'isolant : \(\lambda_{\text{iso}} = 0,5\ \text{W·m}^{-1}\cdot^\circ\text{C}^{-1}\)
+\end{itemize}
+
+\subsubsection*{Résistance thermique par unité de longueur}
+Pour une longueur \(L = 1\ \text{m}\), les résistances thermiques (en \(\text{m·}^\circ\text{C·W}^{-1}\)) sont :
+
+\begin{enumerate}
+    \item \textbf{Convection intérieure} (surface \(2\pi r_i\)) :
+    \[
+    R_{\text{conv,i}} = \frac{1}{h_i \cdot 2\pi r_i} = \frac{1}{1000 \times 2\pi \times 0,075} \approx 0,002122
+    \]
+    
+    \item \textbf{Conduction dans l'acier} (entre \(r_i\) et \(r_{\text{ac}}\)) :
+    \[
+    R_{\text{cond,ac}} = \frac{\ln(r_{\text{ac}} / r_i)}{2\pi \lambda_{\text{ac}}} = \frac{\ln(0,08 / 0,075)}{2\pi \times 30} \approx 0,0003424
+    \]
+    
+    \item \textbf{Conduction dans l'isolant} (entre \(r_{\text{ac}}\) et \(r_{\text{iso}}\)) :
+    \[
+    R_{\text{cond,iso}} = \frac{\ln(r_{\text{iso}} / r_{\text{ac}})}{2\pi \lambda_{\text{iso}}} = \frac{\ln(0,09 / 0,08)}{2\pi \times 0,5} \approx 0,0375
+    \]
+    
+    \item \textbf{Convection extérieure} (surface \(2\pi r_{\text{iso}}\)) :
+    \[
+    R_{\text{conv,e}} = \frac{1}{h_e \cdot 2\pi r_{\text{iso}}} = \frac{1}{15 \times 2\pi \times 0,09} \approx 0,11789
+    \]
+\end{enumerate}
+
+\textbf{Résistance totale :}
+\[
+R'_{\text{tot}} = R_{\text{conv,i}} + R_{\text{cond,ac}} + R_{\text{cond,iso}} + R_{\text{conv,e}} \approx 0,15785\ \text{m·}^\circ\text{C·W}^{-1}
+\]
+
+\subsubsection*{Flux de chaleur perdu par unité de longueur}
+\[
+q' = \frac{T_{\infty,i} - T_{\infty,e}}{R'_{\text{tot}}} = \frac{200 - 25}{0,15785} \approx 1109\ \text{W·m}^{-1}
+\]
+
+\subsubsection*{Conclusion}
+Le flux de chaleur perdu par unité de longueur du tuyau isolé est d'environ \fbox{1,11 kW/m}.
+
+\newpage
+
+\section*{Annexe : Table de la fonction erreur}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+x & erf(x) & x & erf(x) & x & erf(x) & x & erf(x) \\
+\hline
+0 & 0 & 0.854271 & 0.773000 & 1.75879 & 0.987129 & 2.66332 & 0.999834 \\
+0.0502513 & 0.0566549 & 0.904523 & 0.799169 & 1.80905 & 0.989484 & 2.71357 & 0.999876 \\
+0.100503 & 0.113024 & 0.954774 & 0.823066 & 1.8593 & 0.991447 & 2.76382 & 0.999907 \\
+0.150754 & 0.168827 & 1.00503 & 0.844776 & 1.90955 & 0.993077 & 2.81407 & 0.999931 \\
+0.201005 & 0.223792 & 1.05528 & 0.864402 & 1.9598 & 0.994421 & 2.86432 & 0.999949 \\
+0.251256 & 0.277658 & 1.10553 & 0.882054 & 2.01005 & 0.995526 & 2.91457 & 0.999962 \\
+0.301508 & 0.330181 & 1.15578 & 0.89785 & 2.0603 & 0.996428 & 2.96482 & 0.999972 \\
+0.351759 & 0.381137 & 1.20603 & 0.911914 & 2.11055 & 0.997162 & 3.01508 & 0.99998 \\
+0.40201 & 0.430324 & 1.25528 & 0.924374 & 2.1608 & 0.997756 & 3.06533 & 0.999985 \\
+0.452261 & 0.477564 & 1.30653 & 0.953557 & 2.21106 & 0.998233 & 3.11558 & 0.999999 \\
+0.502513 & 0.522705 & 1.35678 & 0.944988 & 2.26131 & 0.998616 & 3.16583 & 0.999992 \\
+0.552764 & 0.565624 & 1.40704 & 0.953392 & 2.31156 & 0.999921 & 3.21608 & 0.999995 \\
+0.603015 & 0.606225 & 1.45729 & 0.960689 & 2.36181 & 0.999163 & 3.26633 & 0.999996 \\
+0.653266 & 0.64444 & 1.50754 & 0.966992 & 2.41206 & 0.999353 & 3.31688 & 0.999997 \\
+0.703518 & 0.680227 & 1.55779 & 0.972409 & 2.46231 & 0.999503 & 3.36683 & 0.999998 \\
+0.753769 & 0.713572 & 1.60804 & 0.977041 & 2.51256 & 0.99962 & 3.41709 & 0.999999 \\
+0.80402 & 0.744485 & 1.65629 & 0.980982 & 2.56281 & 0.99971 & 3.46734 & 0.999999 \\
+& & 1.70864 & 0.984318 & 2.61307 & 0.99978 & 3.51759 & 0.999999 \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{document}

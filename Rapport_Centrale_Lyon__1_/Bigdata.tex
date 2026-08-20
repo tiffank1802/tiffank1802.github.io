@@ -1,0 +1,194 @@
+\documentclass{rapportECL}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% Gestion des marges pour A4 vertical
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
+
+% Définition des styles pour les blocs, sommes, etc.
+\tikzset{
+    block/.style = {draw, rectangle, minimum height=2.5em, minimum width=4em, align=center, thick},
+    sum/.style = {draw, circle, inner sep=2pt, thick},
+    input/.style = {coordinate},
+    output/.style = {coordinate},
+    line/.style = {draw, -Latex, thick}
+}
+
+% Informations du rapport
+\titre{Rendu Jumeaux numériques}\\ 
+% \large UE : Dimensionnement des structures (ENISE-5GM)}
+\eleves{Kevin \textsc{TONGUE}}
+\enseignant{Enseignant : Renaud \textsc{FERRIER}}
+
+\begin{document}
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+% \tabledematieres %Créer la table de matières
+
+\vspace{1cm}
+
+\section*{4.1 Travail préparatoire}
+\subsection*{4.1.1 Étude d'un système et de son asservissement}
+
+Le système est composé d'un moteur piloté en courant $i$, avec une fonction de transfert $F_m$ donnant le couple $C_m = F_m i$. La transmission a une fonction de transfert $F_t$ telle que la force $f_A = F_t C_m$. La poutre est représentée par une fonction de transfert $F$ ayant en entrée $f_A$ et en sortie le vecteur de déplacements $u$. Des projecteurs $\Pi_A$ et $\Pi_B$ extraient $u_A$ et $u_B$ de $u$.
+
+\subsubsection*{Schéma blocs en boucle ouverte}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{tikzpicture}[auto, node distance=2cm]
+        % Noeuds de la chaîne principale
+        \node [input] (input) {};
+        \node [block, right=1cm of input] (F0) {$F_0$};
+        \node [block, right=1cm of F0] (Ft) {$F_t$};
+        \node [block, right=1cm of Ft] (F) {$F$};
+        \node [coordinate, right=1cm of F] (split) {};
+        
+        % Sorties parallèles
+        \node [block, above right=0.2cm and 1.5cm of split] (PiB) {$\Pi_B$};
+        \node [block, below right=0.2cm and 1.5cm of split] (PiA) {$\Pi_A$};
+        \node [output, right=1cm of PiB] (outB) {};
+        \node [output, right=1cm of PiA] (outA) {};
+
+        % Liaisons
+        \draw [line] (input) -- node {$I$} (F0);
+        \draw [line] (F0) -- node {$C_m$} (Ft);
+        \draw [line] (Ft) -- node {$f_A$} (F);
+        \draw [line] (F) -- node {$U$} (split);
+        
+        % Embranchement vers les projecteurs
+        \draw [line] (split) |- (PiB);
+        \draw [line] (split) |- (PiA);
+        \draw [line] (PiB) -- node {$U_B$} (outB);
+        \draw [line] (PiA) -- node {$U_A$} (outA);
+    \end{tikzpicture}
+    \caption{Schéma bloc du système en boucle ouverte}
+    \label{fig:sys_boucle_ouverte}
+\end{figure}
+
+Le moteur est associé à un capteur angulaire mesurant $\theta = G_t u_A$.
+
+\subsubsection*{Relation entre $F_t$ et $G_t$}
+
+On souhaite $F_t G_t = 1$, c'est-à-dire $F_t = 1/G_t$. Cette relation est vraie sous les hypothèses que la transmission est conservative (pas de pertes énergétiques), sans glissement, et en régime quasi-statique où la puissance est conservée : $C_m \dot{\theta} = f_A \dot{u_A}$.
+
+\subsubsection*{Intérêt du jumeau numérique pour contrôler $u_B$}
+
+Le système industriel ne dispose pas de mesure de $u_B$. Un jumeau numérique permet d'estimer $u_B$ à partir du modèle et des mesures disponibles (comme $u_A$ via $\theta$), afin de le contrôler en boucle fermée sans capteur direct.
+
+\subsubsection*{Schéma blocs en boucle fermée avec mesure de $u_B$}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[auto, node distance=1.5cm]
+        \node [input] (ref) {};
+        \node [sum, right=0.5cm of ref] (sum) {};
+        \node [block, right=1cm of sum] (F0) {$F_0$};
+        \node [block, right=1cm of F0] (Ft) {$F_t$};
+        \node [block, right=1cm of Ft] (F) {$F$};
+        \node [coordinate, right=1cm of F] (split) {};
+
+        % Sorties
+        \node [block, above right=0.2cm and 1.5cm of split] (PiB) {$\Pi_B$};
+        \node [block, below right=0.2cm and 1.5cm of split] (PiA) {$\Pi_A$};
+        \node [output, right=1cm of PiB] (outB) {};
+        \node [output, right=1cm of PiA] (outA) {};
+
+        % Retour capteur
+        \node [block, below=1cm of Ft] (C_inv) {$\hat{C}^{-1}$};
+        \node [block, right=.75cm of C_inv] (C) {$C$};
+
+        % Liaisons chaîne directe
+        \draw [line] (ref) -- node[pos=1] {$+$} node[near start, above] {$e$} (sum);
+        \draw [line] (sum) -- node {$I$} (F0); % e pour erreur ou signal commande
+        \draw [line] (F0) -- node {$C_m$} (Ft);
+        \draw [line] (Ft) -- node {$f_A$} (F);
+        \draw [line] (F) -- node {$U$} (split);
+        \draw [line] (split) |- (PiB);
+        \draw [line] (split) |- (PiA);
+        \draw [line] (PiB) -- node {$U_B$} (outB);
+        \draw [line] (PiA) -- node {$U_A$} (outA);
+
+        % Liaison de retour
+        \draw [line] (PiB.east) -- ++(0.5,0) |- (C.east); % Prise sur UB
+        \draw [line] (C) -- (C_inv);
+        \draw [line] (C_inv) -| node[pos=0.95] {$-$} (sum);
+    \end{tikzpicture}
+    \caption{Schéma bloc du système en boucle fermée avec mesure de $U_B$}
+    \label{fig:sys_boucle_fermee_mesure}
+\end{figure}
+
+On utilise un télémètre laser avec fonction de transfert $T$ pour mesurer $u_B$.
+
+\subsubsection*{Schéma bloc du système asservi avec jumeau numérique}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{tikzpicture}[auto, node distance=1.5cm]
+        % Chaîne directe
+        \node [input] (ref) {};
+        \node [sum, right=0.5cm of ref] (sum) {};
+        \node [block, right=0.8cm of sum] (K) {$K_{ctrl}$};
+        \node [block, right=0.8cm of K] (F0) {$F_0$};
+        \node [block, right=0.8cm of F0] (Ft) {$F_t$};
+        \node [block, right=0.8cm of Ft] (F) {$F$};
+        \node [coordinate, right=0.8cm of F] (split) {};
+        
+        \node [block, above right=0.2cm and 1cm of split] (PiB) {$\Pi_B$};
+        \node [block, below right=0.2cm and 1cm of split] (PiA) {$\Pi_A$};
+        \node [output, right=0.5cm of PiB] (outB) {};
+        \node [output, right=0.5cm of PiA] (outA) {};
+
+        % Chaîne Estimateur (Bas)
+        % Positionnement relatif complexe pour aligner avec l'image
+        \node [block, below=1.5cm of Ft] (F0_inv) {$F_0^{-1}$};
+        \node [block, below=1.5cm of F0_inv] (Kalman) {$T_{kalman}$};
+        \node [block, left=1cm of Kalman] (PiB_inv) {$\Pi_B^{-1}$}; % Notation de l'image
+        
+        \node [block, right=1cm of Kalman] (C_inv) {$\hat{C}^{-1}$};
+        \node [block, right=1cm of C_inv] (C) {$C$};
+
+        % --- TRACÉS ---
+        
+        % Chaîne principale
+        \draw [line] (ref) -- node[pos=1] {$+$} node[near start, above] {$e$} (sum);
+        \draw [line] (sum) -- node {$I$} (K);
+        \draw [line] (sum) -- (K);
+        \draw [line] (K) -- (F0);
+        \draw [line] (F0) -- node[name=cm_node] {$C_m$} (Ft);
+        \draw [line] (Ft) -- node {$f_A$} (F);
+        \draw [line] (F) -- node {$U$} (split);
+        \draw [line] (split) |- (PiB);
+        \draw [line] (split) |- (PiA);
+        \draw [line] (PiB) -- node[name=ub_node] {$U_B$} (outB);
+        \draw [line] (PiA) -- node[name=ua_node] {$U_A$} (outA);
+
+        % Entrées de l'estimateur (Kalman)
+        % 1. Branche venant de Cm (commande)
+        \draw [line] (cm_node.center) |- (F0_inv);
+        \draw [line] (F0_inv) |- node[pos=0.7, right] {$f_A^{-1}$} (Kalman.130); % Entrée haut-gauche Kalman
+
+        % 2. Branche venant de UA (mesure)
+        \draw [line] (ua_node.south) |- (C.east);
+        \draw [line] (C) -- (C_inv);
+        \draw [line] (C_inv) -- node[above] {$\hat{U}_A$} (Kalman);
+
+        % Sortie Estimateur et Feedback
+        \draw [line] (Kalman) -- node[above] {$\hat{U}$} (PiB_inv);
+        \draw [line] (PiB_inv) -| node[pos=0.05, above] {$\hat{U}_B$} node[pos=0.95] {$-$} (sum);
+    \end{tikzpicture}
+    \caption{Schéma bloc du système asservi avec jumeau numérique (filtre de Kalman)}
+    \label{fig:sys_jumeau_numerique}
+\end{figure}
+
+On utilise un filtre de Kalman $T_{kalman}$ prenant la commande $C_m$ (après inversion par $F_0^{-1}$ pour obtenir $f_A^{-1}$) et la mesure filtrée $\hat{U}_A$ pour estimer $\hat{U}$, puis extraire $\hat{U}_B$ via $\Pi_B^{-1}$ pour le retour.
+
+\end{document}

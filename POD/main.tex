@@ -1,0 +1,235 @@
+\documentclass{rapportECL}
+\usepackage{listings}
+\usepackage{xcolor} % For code highlighting
+\usepackage{amsmath} % Better math support
+
+\lstset{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{magenta},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    captionpos=b
+}
+
+\title{Analyse POD (Proper Orthogonal Decomposition)}
+\UE{Analyse de données et méthodes numériques} % Added UE from presentation context
+\sujet{Décomposition en Modes Propres Orthogonaux} % Added subject
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+\titre{Analyse POD : Décomposition en Modes Propres Orthogonaux}
+\enseignant{Éric \textsc{FEULVARCH}}
+\eleves{Kevin \textsc{TONGUE}}
+
+%----------- Initialisation -------------------
+\fairemarges
+\fairepagedegarde
+\tabledematieres
+
+%------------ Corps du rapport ----------------
+\section{Introduction à la POD}
+
+La Décomposition en Modes Propres Orthogonaux (POD), également appelée \emph{Proper Orthogonal Decomposition}, est une méthode mathématique permettant d'extraire les structures cohérentes dominantes d'un ensemble de données spatio-temporelles. Comme présenté dans le cours, cette technique est particulièrement utile en mécanique des fluides pour analyser des champs de vitesse ou de température, mais s'applique également à divers autres domaines (dynamique des structures, traitement du signal, etc.).
+
+Les principaux avantages de la POD, tels qu'énoncés dans la présentation, sont :
+\begin{itemize}
+    \item \textbf{Réduction de dimensionnalité} : Extraction des modes les plus importants pour une représentation efficace avec moins de degrés de liberté.
+    \item \textbf{Approche pilotée par les données} : Méthode purement data-driven ne nécessitant pas de connaissance a priori des équations gouvernantes.
+    \item \textbf{Compatibilité avec les méthodes numériques} : Intégration transparente avec des méthodes comme les Éléments Finis pour la modélisation d'ordre réduit (ROM).
+    \item \textbf{Réduction du bruit} : Filtrage des perturbations en se concentrant sur les modes dominants.
+    \item \textbf{Applications en temps réel} : Simulations et contrôle en temps réel grâce aux modèles d'ordre réduit.
+\end{itemize}
+
+Dans ce rapport, nous appliquons la POD à une matrice de données simulées représentant un champ spatio-temporel, en suivant les étapes décrites dans l'énoncé du problème et en utilisant MATLAB pour l'implémentation.
+
+\section{Calcul de la POD (Question 3.1)}
+
+\subsection{Formulation mathématique}
+Comme présenté dans le cours, la POD repose sur l'approximation d'un champ \( u(x,t) \) par une combinaison linéaire de modes spatiaux \( \phi_i(x) \) et de coefficients temporels \( a_i(t) \) :
+
+\[
+u(x,t) \approx \sum_{i=1}^{L} a_i(t) \phi_i(x)
+\]
+
+où \( L \) est le nombre de modes retenus (\( L \leq N \)).
+
+\subsection{Construction de la matrice de snapshots}
+Les données sont organisées dans une matrice \( X \) de taille \( N \times M \) où :
+\begin{itemize}
+    \item \( N = 800 \) : nombre de points spatiaux
+    \item \( M = 1000 \) : nombre de snapshots (réalisations temporelles)
+    \item Chaque colonne représente un snapshot \( u_k(x) = u(x,t_k) \)
+\end{itemize}
+
+\subsection{Centrage des données et matrice de corrélation}
+Comme indiqué dans l'énoncé, on commence par centrer les données (soustraction de la moyenne sur les snapshots) :
+
+\begin{lstlisting}[caption={Centrage des données et calcul de la matrice de corrélation}, label=code:centering]
+mean_u = mean(X, 2);
+X_centered = X - mean_u;
+C = (1/M) * X_centered * X_centered';
+\end{lstlisting}
+
+Cette formulation correspond à \( C = \frac{1}{\alpha} XX^T \) avec \( \alpha = M \), capturant les corrélations temporelles entre les snapshots.
+
+\subsection{Calcul des valeurs et vecteurs propres}
+On résout le problème aux valeurs propres de la matrice de corrélation :
+
+\begin{lstlisting}[caption={Calcul des modes POD}, label=code:eig]
+[vecp, valp] = eig(C);
+[lambda, idx] = sort(diag(valp), 'descend');
+phi = vecp(:, idx);
+\end{lstlisting}
+
+Les valeurs propres \( \lambda_i \) représentent l'énergie associée au i-ème mode, et sont organisées par ordre décroissant : \( \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \).
+
+\subsection{Analyse des valeurs propres}
+Comme visible sur la figure \ref{fig:eigen} et dans la présentation (page 28), les valeurs propres décroissent rapidement. Cette décroissance exponentielle est caractéristique de systèmes où l'énergie est concentrée dans quelques modes dominants. D'après la présentation, avec \( L=5 \) modes, on capture déjà \( 98.5\% \) de l'énergie (gain mémoire équivalent), ce qui confirme l'efficacité de la réduction dimensionnelle.
+
+Les valeurs les plus significatives sont les premières de la liste triée. Pour nos données simulées (composées de quelques termes sinusoïdaux et exponentiels dominants), on s'attend à ce que les 2-5 premières valeurs propres soient plusieurs ordres de grandeur plus grandes que les suivantes.
+
+\insererfigure{images/eigenvalues.png}{12cm}{Valeurs propres triées par ordre décroissant (λ₁ ≥ λ₂ ≥ ... ≥ λ_N)}{fig:eigen}
+
+\section{Interprétation des modes POD (Question 3.2)}
+
+
+\section{Reconstruction des données (Question 3.3)}
+
+\subsection{Méthode de reconstruction}
+La reconstruction des données originales utilise \( k \) premiers modes selon la formule :
+
+\[
+X_{\text{POD}} = \phi_{(:,1:k)} \cdot a_{(1:k,:)} + \text{mean\_u}
+\]
+
+\subsection{Calcul de l'erreur}
+L'erreur relative de reconstruction (norme de Frobenius) est calculée pour différents \( k \) :
+
+\begin{lstlisting}[caption={Reconstruction et calcul d'erreur}, label=code:reconstruction]
+for k = [1, 3, 5]
+    X_POD_centered = phi(:,1:k) * a(1:k,:);
+    X_POD = X_POD_centered + mean_u;
+    error = norm(X - X_POD, 'fro') / norm(X, 'fro');
+    disp(['Erreur relative pour k=' num2str(k) ': ' num2str(error)]);
+end
+\end{lstlisting}
+
+\subsection{Résultats et analyse}
+Les erreurs obtenues confirment la théorie présentée en cours :
+\begin{itemize}
+    \item \( k=1 \) : Erreur ≈ 0.427 - Seul le motif dominant est capturé.
+    \item \( k=3 \) : Erreur ≈ 0.232 - Ajout des variations clés supplémentaires.
+    \item \( k=5 \) : Erreur ≈ 0.049 - Capture environ 95\% de l'énergie.
+\end{itemize}
+
+Ces résultats sont cohérents avec la présentation qui montre (pages 31-37) que la qualité de reconstruction s'améliore avec \( L \), tout en offrant des gains significatifs en stockage (98.5\% pour \( L=5 \)).
+
+\insererfigure{images/X_POD_k1.png}{7cm}{Reconstruction avec k=1 mode}{fig:rec1}
+\insererfigure{images/X_POD_k3.png}{7cm}{Reconstruction avec k=3 modes}{fig:rec3}
+\insererfigure{images/X_POD_k5.png}{7cm}{Reconstruction avec k=5 modes}{fig:rec5}
+
+\subsection{Compromis précision-réduction}
+Comme discuté dans l'énoncé et la présentation, l'influence du nombre de modes sur la reconstruction présente un compromis :
+\begin{itemize}
+    \item \textbf{Augmentation de \( k \)} : Améliore la qualité (erreur décroissante) en incluant plus de caractéristiques détaillées.
+    \item \textbf{Diminution de \( k \)} : Augmente les avantages de réduction dimensionnelle (coût computationnel et stockage réduits).
+\end{itemize}
+
+Le choix optimal consiste généralement à sélectionner le plus petit \( k \) tel que l'énergie cumulative dépasse un seuil donné :
+
+\[
+\frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^N \lambda_i} \geq \text{seuil (e.g., 99\%)}
+\]
+
+Pour nos données, \( k=5 \) représente un bon équilibre entre précision (erreur ≈ 5\%) et efficacité (gain de 98.5\% en mémoire).
+
+\section{Application aux données bruitées (Question 3.4)}
+
+\subsection{Ajout de bruit}
+Comme demandé dans l'énoncé, on ajoute un bruit gaussien aux données originales :
+
+\begin{lstlisting}[caption={Ajout de bruit et POD sur données bruitées}, label=code:noisy]
+X_noisy = X + 0.5 * randn(N, M);
+mean_u_noisy = mean(X_noisy, 2);
+X_noisy_centered = X_noisy - mean_u_noisy;
+C_noisy = (1/M) * X_noisy_centered * X_noisy_centered';
+[vecp_noisy, valp_noisy] = eig(C_noisy);
+[lambda_noisy, idx_noisy] = sort(diag(valp_noisy), 'descend');
+phi_noisy = vecp_noisy(:, idx_noisy);
+\end{lstlisting}
+
+\insererfigure{images/X_noisy.png}{8cm}{Matrice X avec bruit gaussien ajouté}{fig:noisy}
+
+\subsection{Comparaison des modes}
+La comparaison des modes avec et sans bruit révèle la robustesse de la POD :
+
+\begin{lstlisting}[caption={Comparaison des modes avec/sans bruit}, label=code:compare]
+for i = 1:5
+    sign_factor = sign(sum(phi(:,i) .* phi_noisy(:,i)));
+    diff = norm(phi(:,i) - sign_factor * phi_noisy(:,i));
+    disp(['Différence de norme pour le mode ' num2str(i) ': ' num2str(diff)]);
+end
+\end{lstlisting}
+
+Les résultats montrent que :
+\begin{itemize}
+    \item Les premiers modes sont très similaires (différences faibles, e.g., 0.059 pour le mode 1).
+    \item La POD agit comme un filtre passe-bas, concentrant le signal dans les modes dominants.
+    \item Le bruit est principalement rejeté dans les modes de plus haut indice, qui sont ensuite tronqués.
+\end{itemize}
+
+Cette robustesse au bruit est l'un des avantages clés de la POD mentionné dans la présentation (page 6).
+
+\insererfigure{images/noisy_mode1.png}{8cm}{Mode POD 1 calculé sur données bruitées}{fig:noisy_mode1}
+
+\section{Discussion des résultats}
+
+Nos résultats expérimentaux corroborent parfaitement les principes théoriques présentés dans le cours sur la POD :
+
+\subsection{Concentration de l'énergie}
+La décroissance rapide des valeurs propres (figure \ref{fig:eigen}) illustre la concentration de l'énergie dans les premiers modes. Ce phénomène permet une réduction dimensionnelle significative avec une perte d'information minimale, confirmant les avantages présentés dans le cours.
+
+\subsection{Structures cohérentes}
+Les modes spatiaux extraits (figures \ref{fig:spatial_modes}) révèlent les structures cohérentes dominantes du système. La similarité entre le mode 1 et la fonction \( \cos(2x) \) valide l'extraction correcte des composantes séparables de la formule de génération des données.
+
+\subsection{Dynamique temporelle}
+Les coefficients temporels (figure \ref{fig:temporal_coeffs}) capturent efficacement l'évolution dynamique du système, avec des fréquences correspondant aux termes \( \sin(3t) \) et \( \cos(0.5t) \) de la génération des données.
+
+\subsection{Efficacité de reconstruction}
+Les erreurs de reconstruction (0.049 pour \( k=5 \)) démontrent l'efficacité de l'approximation POD. Comme illustré dans la présentation (pages 31-37), même avec un petit nombre de modes, on obtient une représentation fidèle des données originales.
+
+\subsection{Robustesse au bruit}
+La similarité entre les modes calculés sur données propres et bruitées confirme la capacité de la POD à filtrer le bruit tout en préservant les structures principales, un avantage souligné dans la présentation.
+
+\section{Conclusion}
+
+Ce rapport a appliqué la méthode de Décomposition en Modes Propres Orthogonaux (POD) à des données simulées spatio-temporelles, en suivant rigoureusement les étapes décrites dans l'énoncé du problème et illustrées dans la présentation du cours.
+
+Les principaux résultats obtenus sont :
+\begin{itemize}
+    \item Décroissance exponentielle des valeurs propres, permettant une réduction dimensionnelle efficace.
+    \item Extraction de modes spatiaux révélant les structures cohérentes dominantes.
+    \item Calcul de coefficients temporels capturant la dynamique du système.
+    \item Reconstruction précise avec erreur relative de 0.049 pour seulement 5 modes.
+    \item Robustesse démontrée face au bruit gaussien ajouté.
+\end{itemize}
+
+Ces observations valident pleinement les principes POD enseignés : la méthode offre un compromis optimal entre précision et efficacité computationnelle, avec des applications potentielles en modélisation d'ordre réduit, analyse de données expérimentales, et filtrage de bruit.
+
+Comme mentionné dans la conclusion de la présentation, la POD fournit une représentation compacte et interprétable des systèmes complexes, constituant une base solide pour des techniques avancées comme la Décomposition Modale Dynamique (DMD).
+
+\section*{Annexe : Code MATLAB complet}
+Le code MATLAB complet est disponible dans le fichier \texttt{POD\_Analysis.m}, joint à ce rapport. Il implémente l'ensemble des étapes décrites ci-dessus, de la génération des données à l'analyse des résultats.
+
+\appendix
+\section{Code MATLAB principal}
+\lstinputlisting[caption={Code complet POD\_Analysis.m}, label=code:full]{POD_Analysis.m}
+
+\end{document}

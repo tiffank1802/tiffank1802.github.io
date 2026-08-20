@@ -1,0 +1,449 @@
+\documentclass{rapportECL}
+\usepackage{lipsum}
+\usepackage{overpic}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\title{Rapport - Méthodes Numériques Avancées} %Titre du fichier
+
+
+
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{Méthodes Multi-Échelles et Homogénéisation} %Titre du fichier .pdf
+
+\enseignant{Anicet \textsc{DANSOU}} %Nom de l'enseignant
+
+\eleves{Gaston \textsc{KAMDEM .T}\\ Kevin \textsc{TONGUE} } %Noms des étudiants
+
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+\UEU{ENISE-5GM}
+% \section*{Informations étudiant}
+% \begin{tabular}{|l|l|}
+% \hline
+% NOM (LETTRES CAPITALES) & Prénoms (LETTRES CAPITALES) \\
+% \hline
+%  & \\
+% \hline
+% \end{tabular}
+
+\section{Méthodes multi-échelles}
+
+\subsection*{1) Différences entre essais au laboratoire et modélisation numérique}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\textbf{Essais au laboratoire :} Mesures physiques réelles sur échantillons, incluent des incertitudes expérimentales, sont coûteux et longs, mais fournissent des données réelles et représentatives du comportement matériau.
+
+\textbf{Modélisation numérique :} Simulations sur ordinateur basées sur des équations et modèles physiques, moins coûteuses, permettent d'étudier des configurations complexes ou dangereuses, mais dépendent de la validité des modèles et conditions aux limites.
+\end{tcolorbox}
+
+\subsection*{2) Exemples de matériaux homogènes et hétérogènes}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\textbf{Homogènes :} Acier standard, verre, polymères purs (à une échelle macroscopique), aluminium.
+
+\textbf{Hétérogènes :} Béton (granulats + ciment), composites fibreux (fibres + matrice), bois, matériaux cellulaires (mousses).
+\end{tcolorbox}
+
+\subsection*{3) L'homogénéité est-elle toujours valable quoi que soit l'échelle d'observation ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+Non, l'homogénéité est une notion relative à l'échelle d'observation. Un matériau peut apparaître homogène à l'échelle macroscopique (ex : béton) mais être hétérogène à l'échelle microscopique (granulats, pores, fissures).
+\end{tcolorbox}
+
+\subsection*{4) Qu'est-ce qu'une échelle en simulation numérique et pourquoi est-ce important ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+L'échelle définit le niveau de détail physique considéré (nanométrique, micrométrique, millimétrique, macroscopique). Elle est cruciale car :
+\begin{itemize}[noitemsep]
+\item Elle détermine les phénomènes physiques pertinents à modéliser
+\item Elle influence la taille des discrétisations nécessaires
+\item Elle définit les modèles constitutifs appropriés
+\item Elle impacte directement le coût de calcul
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{5) Peut-on simuler des problèmes multi-échelles avec des méthodes directes de simulation traditionnelles ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+Généralement non, car les méthodes directes (comme les éléments finis classiques) nécessitent une discrétisation fine à toutes les échelles simultanément, ce qui conduit à des modèles extrêmement grands et coûteux en calcul pour des problèmes multi-échelles.
+\end{tcolorbox}
+
+\subsection*{6) Qu'est-ce qu'une cellule représentative (RVE) ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+Un \textbf{Representative Volume Element (RVE)} est un volume élémentaire :
+\begin{itemize}[noitemsep]
+\item Suffisamment grand pour être statistiquement représentatif de la microstructure complète
+\item Suffisamment petit pour être considéré comme un point matériel à l'échelle macroscopique
+\item Permet de relier les propriétés microscopiques aux propriétés macroscopiques effectives
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{7) Quels sont les principaux objectifs de l'homogénéisation ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\begin{itemize}[noitemsep]
+\item Déterminer les propriétés effectives d'un matériau hétérogène
+\item Relier le comportement microscopique au comportement macroscopique
+\item Réduire la complexité de modélisation des hétérogénéités
+\item Prédire le comportement de matériaux composites ou multiphasiques
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{8) Discuter des limites de l'homogénéisation.}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\begin{itemize}[noitemsep]
+\item Suppose une séparation d'échelles claire (micro << macro)
+\item Peut négliger les effets de taille ou les localisations extrêmes
+\item Difficile à appliquer si la microstructure n'est pas périodique ou statistiquement homogène
+\item Limitations pour les comportements fortement non linéaires
+\item Dépend de la définition d'un RVE approprié
+\end{itemize}
+\end{tcolorbox}
+
+\section{Méthodes analytiques}
+
+\subsection*{9) Comment détermine-t-on les propriétés effectives dans les méthodes analytiques ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+Par des solutions mathématiques approximatives ou exactes des équations de la mécanique appliquées à un RVE, souvent en utilisant :
+\begin{itemize}[noitemsep]
+\item Des hypothèses simplificatrices (géométries simples : sphères, cylindres)
+\item Des solutions de référence (inclusion dans matrice infinie)
+\item Des méthodes de perturbation ou développement asymptotique
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{10) Quelles sont les approximations de Voigt et Reuss ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\begin{itemize}[noitemsep]
+\item \textbf{Approximation de Voigt} : Hypothèse de déformation uniforme dans toutes les phases → donne une \textbf{borne supérieure} des modules élastiques.
+\[
+C_{\text{eff}}^{\text{Voigt}} = \sum_{i=1}^{n} f_i C_i
+\]
+\item \textbf{Approximation de Reuss} : Hypothèse de contrainte uniforme dans toutes les phases → donne une \textbf{borne inférieure} des modules élastiques.
+\[
+S_{\text{eff}}^{\text{Reuss}} = \sum_{i=1}^{n} f_i S_i
+\]
+où $f_i$ est la fraction volumique, $C_i$ la rigidité, $S_i$ la souplesse.
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{11) Quels sont les avantages et les limites des méthodes analytiques d'homogénéisation ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\textbf{Avantages :}
+\begin{itemize}[noitemsep]
+\item Rapides à mettre en œuvre et peu coûteuses en calcul
+\item Permettent une compréhension physique des phénomènes
+\item Formules explicites permettant des analyses paramétriques
+\item Utiles pour des estimations préliminaires
+\end{itemize}
+
+\textbf{Limites :}
+\begin{itemize}[noitemsep]
+\item Restreintes à des géométries simples et idéalisées
+\item Hypothèses souvent fortes (linéarité, élasticité parfaite)
+\item Incapables de traiter des microstructures complexes
+\item Précision limitée pour des contrastes de propriétés élevés
+\end{itemize}
+\end{tcolorbox}
+
+\section{Méthodes numériques}
+
+\subsection*{12) Expliquer la notion de conditions aux limites périodiques.}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+Les \textbf{conditions aux limites périodiques} sont imposées sur les bords du RVE pour simuler un matériau infini périodique :
+\begin{itemize}[noitemsep]
+\item Les déplacements sur des bords opposés sont couplés
+\item Assurent la continuité des champs de déplacement et de contrainte
+\item Permettent d'éviter les effets de bord artificiels
+\item S'expriment mathématiquement par : $u_i^+ - u_i^- = \bar{\varepsilon}_{ij} (x_j^+ - x_j^-)$
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{13) Quelles sont les approches numériques pour les matériaux non linéaires ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\begin{itemize}[noitemsep]
+\item Méthodes incrémentales avec algorithmes itératifs (Newton-Raphson)
+\item Homogénéisation numérique par RVE avec lois de comportement non linéaires
+\item Schémas de couplage micro-macro (méthode FE²)
+\item Techniques de réduction de modèle (POD, base réduite)
+\item Méthodes sans maillage (meshless) pour grandes déformations
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{14) Comment fonctionne la méthode FE² (Finite Element Squared) ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+La méthode \textbf{FE²} est une approche multi-échelle hiérarchique :
+\begin{enumerate}[noitemsep]
+\item À chaque point d'intégration de la macro-structure, on associe un RVE
+\item La macro-structure fournit les déformations au RVE
+\item Le RVE résolu par EF renvoie les contraintes effectives et les modules tangents
+\item Les deux échelles sont couplées itérativement
+\item Boucle de convergence jusqu'à satisfaction des équations d'équilibre aux deux échelles
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection*{15) Quelles sont les challenges/perspectives d'avenir pour les méthodes numériques multiséchelles ?}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\textbf{Challenges :}
+\begin{itemize}[noitemsep]
+\item Coût de calcul élevé pour des problèmes 3D complexes
+\item Passage d'échelles pour les comportements fortement non linéaires
+\item Validation expérimentale des prédictions multi-échelles
+\item Traitement des incertitudes sur la microstructure
+\end{itemize}
+
+\textbf{Perspectives :}
+\begin{itemize}[noitemsep]
+\item Utilisation de l'IA et du machine learning pour la réduction de modèles
+\item Couplage avec des données expérimentales (Digital Twins)
+\item Extension aux problèmes dynamiques et couplés multi-physiques
+\item Développement de méthodes hybrides analytiques-numériques
+\end{itemize}
+\end{tcolorbox}
+
+\subsection*{16) Pour un RVE élastique linéaire en contraintes planes...}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=blue!75!black]
+\textbf{Propriétés effectives à déterminer :}
+\begin{itemize}[noitemsep]
+\item Module de Young effectif $E_{\text{eff}}$
+\item Coefficient de Poisson effectif $\nu_{\text{eff}}$
+\item Module de cisaillement effectif $G_{\text{eff}}$
+\end{itemize}
+
+\textbf{Simulations sur le RVE :}
+\begin{enumerate}[noitemsep]
+\item \textbf{Chargement en traction uniaxiale suivant X} : permet d'obtenir $E_{\text{eff}}^{xx}$ et $\nu_{\text{eff}}^{xy}$
+\item \textbf{Chargement en traction uniaxiale suivant Y} : permet d'obtenir $E_{\text{eff}}^{yy}$ et $\nu_{\text{eff}}^{yx}$
+\item \textbf{Chargement en cisaillement} : permet d'obtenir $G_{\text{eff}}^{xy}$
+\end{enumerate}
+Ces simulations utilisent des conditions aux limites périodiques pour extraire la réponse moyenne contrainte-déformation.
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+
+
+\section{Projet-MéthodesNumériqueavancées}
+
+\subsection{Introduction}
+
+Les bétons renforcés par textiles (Textile Reinforced Concrete, TRC) sont des matériaux composites associant une matrice cimentaire à des renforts textiles continus, généralement constitués de fibres non métalliques telles que le carbone, le verre ou le basalte. Contrairement au béton armé classique, l’utilisation de fibres non corrosives permet de réduire l’enrobage et d’améliorer la durabilité des structures.
+
+Le comportement mécanique des TRC est fortement anisotrope et dépend de paramètres multi-échelles : propriétés des fibres, comportement quasi-fragile de la matrice, qualité de l’interface fibre--matrice et géométrie du renfort textile. Une modélisation rigoureuse nécessite donc une approche multi-échelle reliant les mécanismes microscopiques aux propriétés macroscopiques.
+
+L’objectif de ce travail est de déterminer les propriétés mécaniques effectives d’une plaque de TRC unidirectionnelle par des méthodes d’homogénéisation analytiques et numériques, en s’appuyant sur la définition d’un volume élémentaire représentatif (VER).
+
+
+\subection*{Description des matériaux et données}
+
+La plaque étudiée est constituée d’une matrice cimentaire renforcée par des mèches de fibres carbone continues de type T700SC 12K. Les fibres carbone sont caractérisées par un module d’Young élevé et une résistance en traction importante, ce qui en fait un renfort particulièrement efficace pour les sollicitations en traction.
+
+Les propriétés mécaniques retenues pour les constituants sont :
+\begin{itemize}
+    \item Fibres carbone : $E_f = \SI{200}{GPa}$
+    \item Matrice cimentaire : $E_m = \SI{25}{GPa}$
+\end{itemize}
+
+La plaque présente les dimensions suivantes :
+\[
+L = \SI{550}{mm}, \quad l = \SI{99}{mm}, \quad e = \SI{6.69}{mm}
+\]
+
+La section droite de la plaque vaut :
+\begin{equation}
+S_{\text{plaque}} = l \times e = 662.31 \ \text{mm}^2
+\end{equation}
+
+La section nominale de fibres fournie par le textile est donnée par :
+\[
+A_f^{\text{textile}} = \SI{92}{mm^2.m^{-1}}
+\]
+
+
+
+\newpage
+\subsection{Définition du Volume Élémentaire Représentatif}
+
+Le Volume Élémentaire Représentatif (VER) est défini comme le plus petit volume du composite dont la réponse mécanique moyenne est représentative de celle du matériau macroscopique. Il doit être suffisamment grand pour contenir les hétérogénéités caractéristiques du matériau, tout en restant aussi petit que possible afin de limiter le coût de calcul, notamment dans une perspective d’homogénéisation numérique.
+
+Dans le cas d’un béton renforcé par textile (TRC) unidirectionnel, la microstructure présente une organisation périodique dans les directions transverses aux fibres. Les mèches de fibres carbone sont parallèles entre elles, régulièrement espacées sur la largeur de la plaque et continues sur toute sa longueur. Ces caractéristiques justifient l’hypothèse de périodicité spatiale transverse et permettent de définir un VER basé sur une seule mèche entourée de matrice cimentaire.
+
+La section totale de fibres contenue dans la plaque est déterminée à partir de la donnée textile :
+\begin{equation}
+A_f = 92 \times 0.099 = 9.11 \ \text{mm}^2
+\end{equation}
+
+La section droite de la plaque étant :
+\begin{equation}
+S_{\text{plaque}} = 662.31 \ \text{mm}^2,
+\end{equation}
+le taux volumique de fibres vaut :
+\begin{equation}
+V_f = \frac{A_f}{S_{\text{plaque}}} = 0.01375
+\end{equation}
+
+La plaque contenant $N = 18$ mèches de fibres, la section de fibres associée à une mèche est :
+\begin{equation}
+A_{\text{m\`eche}} = \frac{A_f}{N} = 0.506 \ \text{mm}^2
+\end{equation}
+
+Afin de respecter la périodicité transverse du matériau et de conserver exactement le taux volumique de fibres, le VER est défini comme la portion de matériau associée à une mèche. La section correspondante est alors :
+\begin{equation}
+S_{\text{VER}} = \frac{S_{\text{plaque}}}{N} = 36.80 \ \text{mm}^2
+\end{equation}
+
+En choisissant une section carrée de même aire, on obtient une dimension caractéristique :
+\begin{equation}
+a = \sqrt{S_{\text{VER}}} = 6.07 \ \text{mm}
+\end{equation}
+
+Le VER retenu est donc un volume cubique de dimensions $6.07 \times 6.07 \times 6.07$ mm$^3$, contenant une mèche de fibres centrée dans une matrice cimentaire. Ce choix correspond au plus petit volume périodique permettant de reproduire fidèlement la microstructure et le comportement mécanique moyen du composite.
+
+
+\newpage
+
+\section{Homogénéisation analytique}
+
+L’homogénéisation analytique permet d’estimer les propriétés mécaniques effectives du TRC à partir de celles de ses constituants. Le matériau est modélisé comme un composite biphasé composé de fibres carbone continues et d’une matrice cimentaire parfaitement liée. L’analyse est conduite dans le domaine élastique linéaire, avant fissuration de la matrice, conformément aux observations expérimentales .
+
+\subsection{Propriétés des constituants}
+
+Les propriétés mécaniques utilisées sont :
+\begin{itemize}
+    \item Fibres carbone T700SC : $E_f = \SI{200}{GPa}$,
+    \item Matrice cimentaire : $E_m = \SI{25}{GPa}$.
+\end{itemize}
+
+Ces valeurs sont cohérentes avec les données expérimentales disponibles pour les composites TRC \cite{Valeri2020,May2019}.
+
+\subsection{Module longitudinal effectif}
+
+Dans la direction des fibres, on suppose une déformation uniforme des constituants ($\varepsilon_f = \varepsilon_m$). Le modèle de Voigt est alors appliqué  :
+\begin{equation}
+E_L = V_f E_f + V_m E_m,
+\end{equation}
+avec $V_m = 1 - V_f$.
+
+En utilisant les fractions volumiques calculées précédemment :
+\begin{equation}
+E_L = (0.01375)(200) + (0.98625)(25) = \SI{27.41}{GPa}.
+\end{equation}
+
+\subsection{Module transverse effectif}
+
+Dans la direction transverse, la matrice constitue le principal chemin porteur et la contribution des fibres est limitée. Une borne inférieure du module transverse peut être obtenue à l’aide du modèle de Reuss :
+\begin{equation}
+\frac{1}{E_T} = \frac{V_f}{E_f} + \frac{V_m}{E_m}.
+\end{equation}
+
+Compte tenu du faible taux volumique de fibres, le module transverse est très proche de celui de la matrice :
+\begin{equation}
+E_T \approx E_m = \SI{25}{GPa}.
+\end{equation}
+
+Le composite présente ainsi une anisotropie marquée, avec une rigidité plus élevée dans la direction longitudinale que dans la direction transverse.
+
+
+
+
+\newpage
+\subsection{Comparaison et discussion}
+
+Les résultats issus de l’homogénéisation analytique et numérique sont comparés. Le modèle de Voigt fournit une estimation cohérente du module longitudinal pour un composite à fibres continues alignées.
+
+Les résultats numériques permettent de mieux capturer l’influence de la géométrie réelle du VER et confirment la validité des hypothèses analytiques pour une première estimation des propriétés mécaniques.
+
+
+
+
+
+
+\subection{Perspective : approche direct-FE$^2$}
+
+L’approche direct-FE$^2$ consiste à associer un calcul microscopique sur le VER à chaque point d’intégration du modèle macroscopique. Le tenseur de déformation macroscopique est imposé au VER, dont la réponse est moyennée pour fournir la contrainte macroscopique.
+
+Cette méthode permet de prendre en compte les effets non linéaires et l’évolution des propriétés effectives du composite, au prix d’un coût de calcul élevé.
+
+
+
+
+
+\newpage
+\subsection{Conclusion}
+
+Ce travail a mis en évidence l’intérêt d’une approche multi-échelle pour la modélisation des TRC. La définition rigoureuse du VER et l’homogénéisation analytique ont permis d’estimer les propriétés effectives du composite.
+Les perspectives incluent l’introduction de comportements non linéaires, l’endommagement de la matrice et la mise en œuvre d’une approche direct-FE$^2$ pour une modélisation plus fidèle du comportement réel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
