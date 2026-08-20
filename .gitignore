@@ -3,6 +3,5 @@ dist
 .wrangler
 *.log
 .DS_Store
-./dem_mcm_project/
-./.gitignore
-
+/ENISE/
+/dem_mcm_project/
