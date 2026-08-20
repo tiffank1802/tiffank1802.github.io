@@ -36,3 +36,18 @@ Mechanical engineering student specializing in **numerical simulation**, **finit
 Portfolio personnel — [tiffank1802.github.io](https://tiffank1802.github.io)  
 Construit avec **React**, **Vite** et **Framer Motion**. Thème Liquid Glass. Déployé sur GitHub Pages.  
 Le CV (LaTeX) est automatiquement compilé via GitHub Actions à chaque push.
+
+---
+
+### ☁️ Déploiement Cloudflare Pages
+
+Le projet est prêt pour Cloudflare Pages avec un worker en mode avancé : `public/_worker.js` est copié automatiquement dans `dist/_worker.js` par Vite pendant le build.
+
+Configuration recommandée dans Cloudflare Pages :
+
+- **Framework preset** : Vite
+- **Build command** : `npm run build`
+- **Build output directory** : `dist`
+- **Node.js** : 20+
+
+Le worker sert les assets statiques via `env.ASSETS`, renvoie `index.html` pour les routes SPA React Router, et affiche `404.html` pour les fichiers inexistants.
