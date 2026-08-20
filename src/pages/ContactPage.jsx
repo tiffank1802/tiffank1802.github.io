@@ -25,13 +25,13 @@ const ContactPage = () => {
               <span className="contact-icon">
                 <LuMail size={18} />
               </span>
-              <span>kevin.tongue@etu.enise.fr</span>
+              <a href="mailto:tonguekevin00@gmail.com">tonguekevin00@gmail.com</a>
             </div>
             <div className="contact-row">
               <span className="contact-icon">
                 <LuLinkedin size={18} />
               </span>
-              <a href="https://www.linkedin.com/in/ktongue" target="_blank" rel="noopener noreferrer">linkedin.com/in/ktongue</a>
+              <a href="https://www.linkedin.com/in/tongue-kevin-52b100330" target="_blank" rel="noopener noreferrer">linkedin.com/in/tongue-kevin-52b100330</a>
             </div>
             <div className="contact-row">
               <span className="contact-icon">
@@ -51,10 +51,11 @@ const ContactPage = () => {
         <GlassCard delay={0.1}>
           <h2 className="section-title" style={{ marginBottom: 20 }}>{isFr ? 'Disponibilité' : 'Availability'}</h2>
           <ul className="avail-list">
-            <li><span className="dot-green" /> {isFr ? 'Stage PFE (5–6 mois)' : 'Master Internship (5–6 months)'}</li>
-            <li><span className="dot-green" /> {isFr ? 'Alternance' : 'Work-Study'}</li>
             <li><span className="dot-green" /> CDD</li>
             <li><span className="dot-green" /> CDI</li>
+            <li><span className="dot-green" /> {isFr ? 'Intérim' : 'Temporary contract'}</li>
+            <li><span className="dot-green" /> {isFr ? 'Stage PFE (5–6 mois)' : 'Master Internship (5–6 months)'}</li>
+            <li><span className="dot-green" /> {isFr ? 'Alternance' : 'Work-Study'}</li>
           </ul>
           <p className="avail-note">
             {isFr

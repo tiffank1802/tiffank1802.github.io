@@ -11,8 +11,8 @@ Mechanical engineering student specializing in **numerical simulation**, **finit
 
 **Core expertise:** FEM, DEM, PINNs, tribology, fatigue, homogenization, Python/PyTorch, CAD (SolidWorks, CATIA), Abaqus, ANSYS.
 
-📬 kevin.tongue@etu.enise.fr  
-🔗 [linkedin.com/in/ktongue](https://linkedin.com/in/ktongue)  
+📬 tonguekevin00@gmail.com  
+🔗 [linkedin.com/in/tongue-kevin-52b100330](https://www.linkedin.com/in/tongue-kevin-52b100330)  
 🐙 [github.com/tiffank1802](https://github.com/tiffank1802)  
 🤗 [huggingface.co/ktongue](https://huggingface.co/ktongue)
 
@@ -24,8 +24,8 @@ Mechanical engineering student specializing in **numerical simulation**, **finit
 
 **Expertises clés :** MEF, DEM, PINNs, tribologie, fatigue, homogénéisation, Python/PyTorch, CAO (SolidWorks, CATIA), Abaqus, ANSYS.
 
-📬 kevin.tongue@etu.enise.fr  
-🔗 [linkedin.com/in/ktongue](https://linkedin.com/in/ktongue)  
+📬 tonguekevin00@gmail.com  
+🔗 [linkedin.com/in/tongue-kevin-52b100330](https://www.linkedin.com/in/tongue-kevin-52b100330)  
 🐙 [github.com/tiffank1802](https://github.com/tiffank1802)  
 🤗 [huggingface.co/ktongue](https://huggingface.co/ktongue)
 
