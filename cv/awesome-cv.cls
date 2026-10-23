@@ -648,13 +648,17 @@
 }
 
 % Define an environment for cvskill
+% Custom layout: fixed-width label column (3.4cm, left aligned) followed by a
+% left aligned skillset column that fills the remaining text width. This keeps
+% every skill category label aligned on a single vertical axis, regardless of
+% the label length, and removes the right alignment of the default layout.
 \newenvironment{cvskills}{%
   \vspace{\acvSectionContentTopSkip}
   \vspace{-3.0mm}
   \begin{center}
-    \setlength\tabcolsep{2ex}
+    \setlength\tabcolsep{1.2ex}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth * \real{0.9}}}
+    \begin{tabular*}{\textwidth}{@{} L{3.4cm} L{\textwidth - 3.4cm - 2.4ex} @{}}
 }{%
     \end{tabular*}
   \end{center}

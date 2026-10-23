@@ -87,7 +87,7 @@ export const experiences = [
     tags: ['DEM', 'Markov', 'Python', 'PyTorch', 'UQ', 'DoE'],
     projectDetail: {
       description: { fr: "Couplage simulations DEM (Discrete Element Method) avec chaînes de Markov inhomogènes pour caractériser et prédire la ségrégation granulaire dans un mélangeur à tambour rotatif. Neuf méthodes de partitionnement spatial (cartésien, cylindrique, Voronoï, octree, physique, adaptatif, etc.) sont comparées systématiquement. Les matrices de transition sont construites à partir des trajectoires DEM et propagées pour prédire l'évolution du mélange. Une application Streamlit interactive permet de visualiser les résultats en 3D.", en: "Coupling DEM (Discrete Element Method) simulations with inhomogeneous Markov chains to characterize and predict granular segregation in a rotating drum mixer. Nine spatial partitioning methods (Cartesian, cylindrical, Voronoi, octree, physics-based, adaptive, etc.) are systematically compared. Transition matrices are built from DEM trajectories and propagated to predict mixture evolution. An interactive Streamlit app enables 3D visualization of results." },
-      repo: 'https://github.com/tiffank1802/MyStudio',
+      repo: 'https://github.com/tiffank1802/DEM-MCM-Coupling',
       bucket: 'https://huggingface.co/buckets/ktongue/DEM_MCM',
       images: [
         {
@@ -96,7 +96,8 @@ export const experiences = [
         },
       ],
       links: [
-        { label: { fr: 'Code source (GitHub)', en: 'Source code (GitHub)' }, url: 'https://github.com/tiffank1802/MyStudio', icon: 'github' },
+        { label: { fr: 'Rapport de stage — mémoire de Master (PDF, 64 p.)', en: "Master's thesis report (PDF, 64 pp.)" }, url: '/rapports/rapport-stage-dem-mcm.pdf', icon: 'pdf' },
+        { label: { fr: 'Code source (GitHub)', en: 'Source code (GitHub)' }, url: 'https://github.com/tiffank1802/DEM-MCM-Coupling', icon: 'github' },
         { label: { fr: 'Données brutes (bucket HF)', en: 'Raw data (HF bucket)' }, url: 'https://huggingface.co/buckets/ktongue/DEM_MCM', icon: 'huggingface' },
       ],
     },
