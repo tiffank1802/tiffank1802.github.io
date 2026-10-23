@@ -24,6 +24,8 @@ Les anciennes pages `/experience`, `/projects`, `/academic` et `/skills` restent
 - **Interface** : CSS responsive et composants réutilisables, avec prise en charge FR/EN.
 - **Données** : contenu descriptif dans `src/data.jsx`; sélection et regroupement des contenus par parcours dans `src/data/pathways.js`; traductions dans `src/i18n/translations.js`.
 - **CV** : deux sources LaTeX dans `cv/cv.tex` (ingénierie) et `cv/cv-research.tex` (master/recherche), avec le modèle Awesome-CV local.
+  Le modèle `cv/awesome-cv.cls` est personnalisé : l'environnement `cvskills` utilise une colonne de libellés fixe de 3,4 cm, alignée à gauche, suivie de la colonne des compétences (l'espacement `\tabcolsep` passe à `1.2ex`).
+- **Rapports** : les PDF consultables depuis le site sont servis depuis `public/rapports/` (par exemple `public/rapports/rapport-stage-dem-mcm.pdf`, le mémoire de Master DEM/Markov). Les CV LaTeX pointent directement vers ces fichiers via une URL absolue.
 
 ## Développement local
 
