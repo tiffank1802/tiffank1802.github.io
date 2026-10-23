@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { t } from '../i18n/translations';
 import { academicWorks } from '../data';
 import AcademicCard from '../components/AcademicCard';
-import PdfModal from '../components/PdfModal';
+const PdfModal = lazy(() => import('../components/PdfModal'));
 
 const semesters = [...new Set(academicWorks.map(w => w.semester))].sort();
 
@@ -45,7 +45,11 @@ const AcademicPage = () => {
       </motion.div>
 
       <AnimatePresence>
-        {viewPdf && <PdfModal work={viewPdf} onClose={() => setViewPdf(null)} />}
+        {viewPdf && (
+          <Suspense fallback={<div className="pdf-status" role="status">{lang === 'fr' ? 'Chargement du lecteur PDF…' : 'Loading PDF viewer…'}</div>}>
+            <PdfModal work={viewPdf} onClose={() => setViewPdf(null)} />
+          </Suspense>
+        )}
       </AnimatePresence>
     </section>
   );

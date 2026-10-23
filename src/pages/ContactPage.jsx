@@ -49,18 +49,18 @@ const ContactPage = () => {
         </GlassCard>
 
         <GlassCard delay={0.1}>
-          <h2 className="section-title" style={{ marginBottom: 20 }}>{isFr ? 'Disponibilité' : 'Availability'}</h2>
-          <ul className="avail-list">
-            <li><span className="dot-green" /> CDD</li>
-            <li><span className="dot-green" /> CDI</li>
-            <li><span className="dot-green" /> {isFr ? 'Intérim' : 'Temporary contract'}</li>
-            <li><span className="dot-green" /> {isFr ? 'Stage PFE (5–6 mois)' : 'Master Internship (5–6 months)'}</li>
-            <li><span className="dot-green" /> {isFr ? 'Alternance' : 'Work-Study'}</li>
-          </ul>
+          <h2 className="section-title" style={{ marginBottom: 20 }}>{isFr ? 'Situation actuelle' : 'Current position'}</h2>
+          <div className="contact-current-role">
+            <span className="dot-green" />
+            <div>
+              <strong>{isFr ? 'Ingénieur simulation' : 'Simulation Engineer'}</strong>
+              <span>EP MECA · {isFr ? 'depuis le 1er octobre 2026' : 'since 1 October 2026'}</span>
+            </div>
+          </div>
           <p className="avail-note">
             {isFr
-              ? 'Ouvert aux opportunités en France et à l\'international — conception mécanique, simulation numérique, R&D.'
-              : 'Open to opportunities in France and internationally — mechanical design, numerical simulation, R&D.'}
+              ? 'Activité orientée vers la modélisation et la simulation numérique d’un système de refroidissement de datacenter.'
+              : 'Current work focuses on modelling and numerical simulation of a datacenter cooling system.'}
           </p>
         </GlassCard>
 

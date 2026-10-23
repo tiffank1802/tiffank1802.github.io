@@ -1,0 +1,125 @@
+% !TEX TS-program = xelatex
+\documentclass[11pt, a4paper]{awesome-cv}
+\geometry{left=1.45cm, top=1.25cm, right=1.45cm, bottom=1.25cm, footskip=.6cm}
+\fontdir[fonts/]
+\colorlet{awesome}{awesome-red}
+\setbool{acvSectionColorHighlight}{true}
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+\name{Kevin}{Tongue}
+\position{Computational Mechanics \& Scientific Machine Learning}
+\address{Saint-Étienne, France}
+\mobile{(+33) 6 98 06 37 69}
+\email{tonguekevin00@gmail.com}
+\github{tiffank1802}
+\linkedin{tongue-kevin-52b100330}
+
+\begin{document}
+\makecvheader
+
+\cvsection{Profile}
+\begin{cvparagraph}
+Mechanical engineer with two engineering degrees and a Master's degree in Numerical Solid Mechanics from Centrale Lyon -- ENISE, awarded in September 2026. My work combines computational mechanics and scientific machine learning: PDE-based modelling, finite elements, model order reduction (POD, PGD), Physics-Informed Neural Networks and data-driven models built from high-fidelity simulations. Simulation Engineer at EP MECA since October 2026; interested in research at the interface of physics and AI for efficient, physically consistent modelling.
+\end{cvparagraph}
+
+\cvsection{Education}
+\begin{cventries}
+  \cventry
+    {Engineering degrees in General Mechanical Engineering and Design \& Simulation; Master's in Numerical Solid Mechanics}
+    {Centrale Lyon -- ENISE}
+    {Saint-Étienne, France}
+    {2024 -- September 2026}
+    {
+      \begin{cvitems}
+        \item Numerical methods for PDEs: finite elements, variational formulations, Navier--Stokes methods and nonlinear mechanics.
+        \item Model order reduction (POD, PGD), uncertainty quantification and design of experiments.
+        \item Scientific machine learning: clustering, regression, neural networks, optimal control and Physics-Informed Neural Networks.
+      \end{cvitems}
+    }
+  \cventry
+    {Engineering cycle (M1 Mechanics) and B.Sc. in Physical Sciences}
+    {National Advanced School of Engineering of Yaoundé (ENSPY)}
+    {Yaoundé, Cameroon}
+    {2019 -- 2024}
+    {Mechanical engineering and physical sciences, including materials and manufacturing.}
+\end{cventries}
+
+\cvsection{Professional \& Research Experience}
+\begin{cventries}
+  \cventry
+    {Simulation Engineer}
+    {EP MECA}
+    {France}
+    {1 October 2026 -- Present}
+    {
+      \begin{cvitems}
+        \item Modelling and numerical simulation of a datacenter cooling system.
+        \item Building the physical model, defining boundary conditions and analysing thermal fields to support design decisions.
+      \end{cvitems}
+    }
+  \cventry
+    {Master's Research Intern}
+    {IMT Mines Saint-Étienne and IMT Mines Albi}
+    {France}
+    {9 March -- 17 September 2026}
+    {
+      \begin{cvitems}
+        \item Built a data-driven reduced model of granular segregation by coupling DEM simulations with an inhomogeneous Markov chain; estimated transition matrices from large Parquet simulation datasets.
+        \item Developed an object-oriented Python library for spatial partitioning, clustering-based state definition, post-processing and XDMF/HDF5 export to ParaView; performed Monte Carlo sensitivity analyses.
+      \end{cvitems}
+    }
+  \cventry
+    {Engineering Intern -- Industrial Diagnostics \& Preventive Maintenance}
+    {SOPECAM}
+    {Yaoundé, Cameroon}
+    {May -- September 2024}
+    {Diagnosed pump failures using vibration and temperature sensor data; applied FMEA and developed preventive-maintenance software.}
+\end{cventries}
+
+\cvsection{Selected Projects}
+\begin{cventries}
+  \cventry
+    {Physics-Informed Neural Network for Inverse Material Identification}
+    {Centrale Lyon -- ENISE, collaboration with LTDS}
+    {Saint-Étienne, France}
+    {October 2025 -- March 2026}
+    {
+      \begin{cvitems}
+        \item Built a PyTorch PINN trained on FEM-generated data, embedding heat-conduction and elasticity PDEs in the loss through automatic differentiation to identify constitutive-law parameters.
+        \item Deployed the application on Hugging Face Spaces.
+      \end{cvitems}
+    }
+  \cventry
+    {Fatigue Failure Predictor -- Dang Van Criterion}
+    {Centrale Lyon -- ENISE, team project}
+    {Saint-Étienne, France}
+    {October 2025 -- March 2026}
+    {Implemented two Python methods for multiaxial fatigue assessment, validated against reference cases and ChronoCad; the geometric method runs approximately 160 times faster than the angular method.}
+  \cventry
+    {Digital Twin of a Soft Robot}
+    {Advanced FEM Modelling practical project}
+    {Centrale Lyon -- ENISE}
+    {October -- December 2025}
+    {Combined FEM assembly, Newmark time integration, Kalman filtering and PID/LQR control in MATLAB; used real-time data assimilation to reconstruct displacement fields from indirect sensors.}
+  \cventry
+    {Reduced-Order Modelling: POD and PGD}
+    {Numerical Mechanics coursework}
+    {Centrale Lyon -- ENISE}
+    {2025 -- 2026}
+    {Implemented snapshot POD with projection and greedy space-time PGD enrichment, including truncation-error analysis.}
+\end{cventries}
+
+\cvsection{Technical Skills}
+\begin{cvskills}
+  \cvskill{Scientific ML}{PyTorch, PINNs, neural networks, regression, clustering, automatic differentiation}
+  \cvskill{Applied mathematics}{PDE modelling, finite elements, Navier--Stokes methods, POD, PGD, uncertainty quantification, Markov chains}
+  \cvskill{Scientific computing}{Python (NumPy, SciPy, PyTorch, pandas, Matplotlib), MATLAB/Simulink, C++ (Eigen, deal.II -- in progress), Fortran (basics), Linux, Git}
+  \cvskill{Simulation}{Abaqus, SolidWorks Simulation, ParaView, HDF5/XDMF data pipelines}
+  \cvskill{Languages}{French (native), English (B2, TOEIC)}
+\end{cvskills}
+
+\cvsection{Certifications}
+\begin{cvparagraph}
+MATLAB (MathWorks) \quad\textbar\quad Google Advanced Data Analytics \quad\textbar\quad IBM Data Analyst
+\end{cvparagraph}
+\end{document}

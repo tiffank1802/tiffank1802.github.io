@@ -2,13 +2,16 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { LanguageProvider } from './context/LanguageContext';
 import Navigation from './components/Navigation';
-import HomePage from './pages/HomePage';
-import SkillsPage from './pages/SkillsPage';
-import ExperiencePage from './pages/ExperiencePage';
-import ProjectsPage from './pages/ProjectsPage';
-import AcademicPage from './pages/AcademicPage';
-import ContactPage from './pages/ContactPage';
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const SkillsPage = lazy(() => import('./pages/SkillsPage'));
+const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const AcademicPage = lazy(() => import('./pages/AcademicPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const PathPage = lazy(() => import('./pages/PathPage'));
+const CvPage = lazy(() => import('./pages/CvPage'));
 
 export default function App() {
   const location = useLocation();
@@ -99,14 +102,19 @@ export default function App() {
 
       <div className="main-content">
         <AnimatePresence mode="wait">
+          <Suspense fallback={<div className="route-loading" role="status">Chargement…</div>}>
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/parcours/ingenieur" element={<PathPage type="engineer" />} />
+            <Route path="/parcours/master" element={<PathPage type="master" />} />
+            <Route path="/cv" element={<CvPage />} />
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/academic" element={<AcademicPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
+          </Suspense>
         </AnimatePresence>
 
         <footer className="footer">

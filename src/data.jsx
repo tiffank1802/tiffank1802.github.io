@@ -57,11 +57,26 @@ export const skillCategories = [
 
 export const experiences = [
   {
+    path: 'engineer',
+    icon: <Icon name="factory" className="icon-svg" />,
+    title: { fr: 'Ingénieur simulation', en: 'Simulation Engineer' },
+    org: 'EP MECA',
+    orgLogos: [],
+    date: { fr: 'Depuis le 1er octobre 2026', en: 'Since 1 October 2026' },
+    location: { fr: 'France', en: 'France' },
+    details: [
+      { fr: 'Modélisation et simulation numérique d’un système de refroidissement de datacenter.', en: 'Modelling and numerical simulation of a datacenter cooling system.' },
+      { fr: 'Construction du modèle physique, définition des conditions aux limites et analyse des champs thermiques pour éclairer les choix de conception.', en: 'Building the physical model, defining boundary conditions and analysing thermal fields to support design decisions.' },
+    ],
+    tags: ['Simulation', 'Thermique', 'Python'],
+  },
+  {
     icon: <Icon name="grad-cap" className="icon-svg" />,
+    path: 'master',
     title: { fr: 'Stage de Master — Couplage Déterministe-Stochastique (DEM + Markov)', en: 'Master Internship — Deterministic-Stochastic Coupling (DEM + Markov)' },
     org: 'IMT Mines Albi & IMT Mines Saint-Étienne',
     orgLogos: ['/logos/albi.png', '/logos/emse.png'],
-    date: 'Mar. 2026 – Sep. 2026',
+    date: { fr: '9 mars – 17 septembre 2026', en: '9 March – 17 September 2026' },
     location: { fr: 'Albi / Saint-Étienne', en: 'Albi / Saint-Étienne' },
     details: [
       { fr: "Couplage simulations DEM avec chaînes de Markov inhomogènes pour caractériser la ségrégation granulaire.", en: "Coupling DEM simulations with inhomogeneous Markov chains to characterize granular segregation." },
@@ -88,25 +103,27 @@ export const experiences = [
   },
   {
     icon: <Icon name="chart" className="icon-svg" />,
-    title: { fr: 'Projet de Recherche — Solveur EF 3D Non Linéaire (Critère de Dang Van)', en: 'Research Project — Nonlinear 3D FE Solver (Dang Van Criterion)' },
+    path: 'master',
+    title: { fr: 'Projet de Recherche — Prédicteur de Fatigue (Critère de Dang Van)', en: 'Research Project — Fatigue Predictor (Dang Van Criterion)' },
     org: 'Centrale Lyon – ENISE',
     orgLogos: ['/logos/centrale-lyon.png'],
     date: { fr: 'Oct. 2025 – Mar. 2026', en: 'Oct. 2025 – Mar. 2026' },
     location: { fr: 'Saint-Étienne', en: 'Saint-Étienne' },
     details: [
-      { fr: "Implémentation d'un solveur éléments finis 3D non linéaire (Python/C++) : statique, modal, dynamique transitoire.", en: "Implementation of a nonlinear 3D finite element solver (Python/C++): static, modal, transient dynamics." },
-      { fr: 'Application et validation du critère de fatigue multiaxiale de Dang Van (méthodologie Agard et al.).', en: 'Application and validation of the Dang Van multiaxial fatigue criterion (Agard et al. methodology).' },
-      { fr: 'Validation croisée avec solutions analytiques et Abaqus.', en: 'Cross-validation with analytical solutions and Abaqus.' },
+      { fr: 'Développé deux implémentations Python de l’évaluation de fatigue multiaxiale selon le critère de Dang Van : méthode angulaire et méthode géométrique.', en: 'Implemented two Python approaches to multiaxial fatigue assessment using the Dang Van criterion: angular and geometric methods.' },
+      { fr: 'Validé les résultats sur des cas de référence et par comparaison avec ChronoCad.', en: 'Validated results on reference cases and against ChronoCad.' },
+      { fr: 'La méthode géométrique est environ 160 fois plus rapide que la méthode angulaire.', en: 'The geometric method is approximately 160 times faster than the angular method.' },
       { fr: 'Application web déployée sur Hugging Face Spaces.', en: 'Web application deployed on Hugging Face Spaces.' },
     ],
-    tags: ['FEM', 'Python', 'C++', 'Dang Van', 'Fatigue', 'Hugging Face'],
+    tags: ['Python', 'Dang Van', 'Fatigue', 'Hugging Face'],
   },
   {
     icon: <Icon name="neurons" className="icon-svg" />,
+    path: 'master',
     title: { fr: "Projet de Recherche — PINNs pour l'Identification de Matériaux", en: 'Research Project — PINNs for Material Identification' },
     org: 'Centrale Lyon – ENISE (collab. LTDS)',
     orgLogos: ['/logos/centrale-lyon.png'],
-    date: '2025',
+    date: { fr: 'Oct. 2025 – Mar. 2026', en: 'Oct. 2025 – Mar. 2026' },
     location: { fr: 'Saint-Étienne', en: 'Saint-Étienne' },
     details: [
       { fr: "Développement d'un PINN sous PyTorch couplant deep learning et contraintes physiques.", en: "Development of a PINN in PyTorch coupling deep learning with physical constraints." },
@@ -118,6 +135,7 @@ export const experiences = [
   },
   {
     icon: <Icon name="gear" className="icon-svg" />,
+    path: 'engineer',
     title: { fr: 'Projets Académiques — Tribologie et Contacts Mécaniques', en: 'Academic Projects — Tribology and Mechanical Contacts' },
     org: 'Centrale Lyon – ENISE',
     orgLogos: ['/logos/centrale-lyon.png'],
@@ -133,6 +151,7 @@ export const experiences = [
   },
   {
     icon: <Icon name="axle" className="icon-svg" />,
+    path: 'engineer',
     title: { fr: 'Projet Académique — Reconception Axe de Roue Motrice (Tracteur Enfant)', en: 'Academic Project — Drive Wheel Axle Redesign (Kids Tractor)' },
     org: 'Centrale Lyon – ENISE',
     orgLogos: ['/logos/centrale-lyon.png'],
@@ -147,6 +166,7 @@ export const experiences = [
   },
   {
     icon: <Icon name="factory" className="icon-svg" />,
+    path: 'engineer',
     title: { fr: 'Stage Ingénieur — Diagnostics Industriels & Maintenance Préventive', en: 'Engineering Internship — Industrial Diagnostics & Preventive Maintenance' },
     org: 'SOPECAM',
     orgLogos: [],
@@ -161,6 +181,7 @@ export const experiences = [
   },
   {
     icon: <Icon name="cnc" className="icon-svg" />,
+    path: 'engineer',
     title: { fr: 'Stage Technicien — Conception & Fabrication CNC 3 Axes', en: 'Technician Internship — 3-Axis CNC Design & Manufacturing' },
     org: 'FabLab – ENSPY',
     orgLogos: ['/logos/enspy.png'],
@@ -356,6 +377,15 @@ export const academicWorks = [
    (visualisation + téléchargement) et/ou un lien.
    ───────────────────────────────────────────── */
 export const catalogProjects = [
+  {
+    icon: <Icon name="signal" className="icon-svg" />,
+    group: 'master',
+    title: { fr: 'Jumeau numérique d’un robot souple', en: 'Digital Twin of a Soft Robot' },
+    context: { fr: 'Travail pratique de modélisation éléments finis avancée, Centrale Lyon–ENISE.', en: 'Advanced FEM modelling practical project, Centrale Lyon–ENISE.' },
+    description: { fr: 'Assemblage éléments finis et intégration temporelle de Newmark sous MATLAB ; filtre de Kalman et commande PID/LQR. Assimilation de données en temps réel pour reconstruire le champ de déplacement à partir de capteurs indirects.', en: 'Finite element assembly and Newmark time integration in MATLAB; Kalman filtering and PID/LQR control. Real-time data assimilation reconstructs the displacement field from indirect sensors.' },
+    date: { fr: 'Oct. – Déc. 2025', en: 'Oct. – Dec. 2025' },
+    tags: ['FEM', 'Newmark', 'Kalman', 'PID/LQR', 'MATLAB'],
+  },
   /* ══════════════ PROJETS MÉCANIQUES ══════════════ */
   {
     icon: <Icon name="cart-lift" className="icon-svg" />,
@@ -495,19 +525,19 @@ export const catalogProjects = [
     icon: <Icon name="neurons" className="icon-svg" />,
     group: 'master',
     title: { fr: 'PINNs — Identification de Matériaux', en: 'PINNs — Material Identification' },
-    context: { fr: 'Projet de recherche — Centrale Lyon–ENISE, collaboration LTDS (2025).', en: 'Research project — Centrale Lyon–ENISE, LTDS collaboration (2025).' },
+    context: { fr: 'Projet de recherche — Centrale Lyon–ENISE, collaboration LTDS (oct. 2025–mars 2026).', en: 'Research project — Centrale Lyon–ENISE, LTDS collaboration (Oct. 2025–Mar. 2026).' },
     description: { fr: "Réseau de neurones physiquement informé (PINN) sous PyTorch pour l'identification inverse des paramètres de loi de comportement à partir d'essais de compression, avec contraintes physiques intégrées.", en: "Physics-informed neural network (PINN) in PyTorch for inverse identification of constitutive law parameters from compression tests, with embedded physical constraints." },
-    date: '2025',
+    date: { fr: 'Oct. 2025 – Mar. 2026', en: 'Oct. 2025 – Mar. 2026' },
     tags: ['PINN', 'PyTorch', { fr: 'Identification inverse', en: 'Inverse identification' }, 'LTDS'],
     link: 'https://huggingface.co/spaces/ktongue/ID_Mat_PINNs',
   },
   {
     icon: <Icon name="chart" className="icon-svg" />,
     group: 'master',
-    title: { fr: 'Solveur EF 3D Non Linéaire — Critère de Dang Van', en: 'Nonlinear 3D FE Solver — Dang Van Criterion' },
-    context: { fr: 'Projet de recherche — Centrale Lyon–ENISE (2025-2026), en binôme avec Paul Lorthioir, encadré par Éric Feulvarch et Françoise Fauvin.', en: 'Research project — Centrale Lyon–ENISE (2025-2026), with Paul Lorthioir, supervised by Éric Feulvarch and Françoise Fauvin.' },
-    description: { fr: "Développement d'un solveur éléments finis 3D non linéaire (Python/C++) — statique, modale, dynamique transitoire — avec analyse des plans critiques et application du critère de fatigue multiaxiale de Dang Van, validé par comparaison avec Abaqus.", en: "Development of a nonlinear 3D finite element solver (Python/C++) — static, modal, transient dynamics — with critical plane analysis and application of the Dang Van multiaxial fatigue criterion, validated against Abaqus." },
-    date: '2025 – 2026',
+    title: { fr: 'Prédicteur de Fatigue — Critère de Dang Van', en: 'Fatigue Predictor — Dang Van Criterion' },
+    context: { fr: 'Projet de recherche — Centrale Lyon–ENISE (oct. 2025–mars 2026), en binôme avec Paul Lorthioir, encadré par Éric Feulvarch et Françoise Fauvin.', en: 'Research project — Centrale Lyon–ENISE (Oct. 2025–Mar. 2026), with Paul Lorthioir, supervised by Éric Feulvarch and Françoise Fauvin.' },
+    description: { fr: 'Deux implémentations Python de l’évaluation de fatigue multiaxiale selon Dang Van (méthode angulaire et méthode géométrique), validées sur des cas de référence et comparées à ChronoCad. La méthode géométrique est environ 160 fois plus rapide.', en: 'Two Python implementations of multiaxial fatigue assessment using Dang Van (angular and geometric methods), validated on reference cases and against ChronoCad. The geometric method is approximately 160 times faster.' },
+    date: { fr: 'Oct. 2025 – Mar. 2026', en: 'Oct. 2025 – Mar. 2026' },
     tags: ['FEM', 'Python', 'C++', 'Dang Van', { fr: 'Fatigue', en: 'Fatigue' }],
     files: [
       { label: { fr: 'Rapport — Critère de Dang Van', en: 'Report — Dang Van criterion' }, file: '/documents/dang-van/rapport.pdf', size: '556 KB' },
@@ -540,3 +570,11 @@ export const catalogProjects = [
     ],
   },
 ];
+
+// Datasets dédiés aux parcours, filtrés à partir du catalogue commun.
+export const engineerExperiences = experiences.filter(item => item.path === 'engineer');
+export const masterExperiences = experiences.filter(item => item.path === 'master');
+export const engineerProjects = catalogProjects.filter(item => item.group === 'mechanics');
+export const masterProjects = catalogProjects.filter(item => item.group === 'master');
+export const engineerCoursework = academicWorks.filter(item => ['Dimensionnement', 'Finances'].includes(item.category.fr));
+export const masterCoursework = academicWorks.filter(item => !['Dimensionnement', 'Finances'].includes(item.category.fr));

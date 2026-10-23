@@ -499,3 +499,104 @@ body {
 .btn-doc svg { vertical-align: -2px; }
 .proj-link { margin-top: 12px; }
 .project-card { cursor: default; }
+
+/* ══ Parcours dédiés et page CV ══ */
+.path-page { padding-top: 58px; }
+.path-hero {
+  padding: clamp(26px, 5vw, 54px);
+  margin-bottom: 64px;
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(226,244,239,.48));
+  box-shadow: 0 24px 70px rgba(23, 63, 58, .08);
+}
+.path-kicker { display: flex; align-items: center; gap: 9px; color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; margin-bottom: 18px; }
+.path-hero .page-subtitle { margin-bottom: 24px; max-width: 760px; }
+.path-focus { display: flex; flex-direction: column; gap: 5px; max-width: 720px; padding: 15px 18px; margin: 0 0 24px; border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; background: rgba(var(--accent-rgb), .07); color: var(--text-secondary); font-size: 13px; line-height: 1.55; }
+.path-focus strong { color: var(--text-primary); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.path-section { padding: 20px 0 46px; }
+.path-section-heading { margin-bottom: 28px; }
+.path-section-heading .section-title { margin-bottom: 8px; }
+.path-end-card { padding: 28px; border-radius: 20px; background: rgba(var(--accent-rgb), .06); border: 1px solid rgba(var(--accent-rgb), .12); text-align: center; }
+.path-end-card h2 { font-size: 21px; margin-bottom: 8px; }
+.path-end-card p { color: var(--text-secondary); margin-bottom: 18px; font-size: 14px; }
+.cv-page { padding-top: 58px; }
+.cv-version-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.cv-version-card { min-height: 330px; display: flex; flex-direction: column; align-items: flex-start; padding: 30px; }
+.cv-version-icon { width: 50px; height: 50px; display: grid; place-items: center; color: var(--accent); background: rgba(var(--accent-rgb), .1); border-radius: 15px; margin-bottom: 18px; }
+.cv-version-badge { display: inline-block; padding: 5px 10px; border-radius: 100px; color: var(--accent); background: rgba(var(--accent-rgb), .08); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 11px; }
+.cv-version-card h2 { font-size: 22px; margin-bottom: 10px; }
+.cv-version-card > .glass-content-wrap > p { color: var(--text-secondary); font-size: 14px; line-height: 1.65; }
+.cv-version-meta { display: flex; align-items: center; gap: 8px; color: var(--text-tertiary); font-size: 12px; margin-top: auto; padding-top: 24px; }
+.cv-version-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+.cv-note { margin-top: 22px; color: var(--text-tertiary); font-size: 12px; }
+
+@media (max-width: 768px) {
+  .glass-nav { max-width: calc(100vw - 20px); overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
+  .glass-nav::-webkit-scrollbar { display: none; }
+  .nav-links { width: max-content; flex: 0 0 auto; }
+  .nav-link { padding: 7px 9px; }
+  .cv-version-grid { grid-template-columns: 1fr; }
+  .cv-version-card { min-height: 280px; }
+}
+.contact-current-role { display: flex; align-items: flex-start; gap: 11px; padding: 14px; margin-bottom: 14px; border-radius: 12px; background: rgba(var(--accent-rgb), .07); }
+.contact-current-role .dot-green { margin-top: 5px; }
+.contact-current-role strong, .contact-current-role span { display: block; }
+.contact-current-role strong { color: var(--text-primary); font-size: 14px; margin-bottom: 4px; }
+.contact-current-role span { color: var(--text-secondary); font-size: 12px; }
+.cv-version-card .glass-content-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: flex-start; }
+.route-loading { min-height: 45vh; display: grid; place-items: center; color: var(--text-tertiary); font-size: 13px; }
+
+/* Navigation layout reset: keep positioning in CSS (not in motion transforms). */
+.glass-nav {
+  top: 14px;
+  left: 50%;
+  bottom: auto;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.glass-nav::-webkit-scrollbar { display: none; }
+.nav-brand { flex: 0 0 auto; flex-direction: row; align-items: center; gap: 8px; margin: 0; white-space: nowrap; }
+.nav-logo { padding: 7px; }
+.nav-name { font-size: 10px; }
+.nav-links { flex: 0 0 auto; flex-direction: row; align-items: center; gap: 3px; width: max-content; }
+.nav-link { padding: 8px 10px; font-size: 11px; }
+.lang-toggle { flex: 0 0 auto; margin: 0 0 0 2px; }
+.main-content { padding: 92px 28px 0; }
+
+@media (max-width: 768px) {
+  .glass-nav {
+    top: 10px;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    gap: 7px;
+    padding: 8px 9px;
+    border-radius: 16px;
+  }
+  .nav-brand { display: flex; }
+  .nav-name { display: none; }
+  .nav-links { flex: 1 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { flex: 0 0 auto; padding: 7px 9px; font-size: 10px; }
+  .lang-toggle { padding: 6px 9px; font-size: 10px; }
+  .main-content { padding: 76px 16px 0; }
+}
+.cv-pdf-pending { display: inline-flex; align-items: center; padding: 10px 12px; border-radius: 100px; color: var(--text-tertiary); background: rgba(255,255,255,.45); font-size: 11px; line-height: 1.25; }
+.education-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.education-card { padding: 24px; }
+.education-period { display: block; color: var(--accent); font: 600 11px 'JetBrains Mono', monospace; margin-bottom: 12px; }
+.education-card h3 { font-size: 16px; margin-bottom: 8px; }
+.education-card p { color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
+.education-card strong { font-size: 12px; color: var(--text-primary); }
+@media (max-width: 768px) { .education-grid { grid-template-columns: 1fr; } }

@@ -10,6 +10,13 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      const spaRedirect = sessionStorage.getItem('spa-redirect');
+      if (spaRedirect) {
+        sessionStorage.removeItem('spa-redirect');
+        history.replaceState(null, '', spaRedirect);
+      }
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
