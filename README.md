@@ -1,53 +1,60 @@
-# 👨‍💻 Kevin Tongue
+# Kevin Tongue — Portfolio
 
-**Ingénieur en Génie Mécanique — Master en Simulation Numérique du Solide**  
-Centrale Lyon – ENISE | IMT Mines Albi & Saint-Étienne
+Portfolio bilingue (français / anglais) consacré à mes parcours en ingénierie mécanique, simulation numérique et recherche appliquée.
 
----
+- **Site** : [tiffank1802.github.io](https://tiffank1802.github.io)
+- **E-mail** : tonguekevin00@gmail.com
+- **LinkedIn** : [tongue-kevin-52b100330](https://www.linkedin.com/in/tongue-kevin-52b100330)
+- **GitHub** : [tiffank1802](https://github.com/tiffank1802)
+- **Hugging Face** : [ktongue](https://huggingface.co/ktongue)
 
-### 🇬🇧 English
+## Organisation du portfolio
 
-Mechanical engineering student specializing in **numerical simulation**, **finite elements**, and **structural mechanics**. My work bridges **deterministic and stochastic methods** (DEM + Markov chains), **physics-informed deep learning** (PINNs), and **multiaxial fatigue** (Dang Van criterion). I'm passionate about using computation to understand and predict the mechanical behavior of materials and structures.
+Le site distingue deux parcours, ainsi qu'une page indépendante pour les CV téléchargeables :
 
-**Core expertise:** FEM, DEM, PINNs, tribology, fatigue, homogenization, Python/PyTorch, CAD (SolidWorks, CATIA), Abaqus, ANSYS.
+- `/parcours/ingenieur` — conception mécanique, fabrication, maintenance industrielle, calcul et simulation appliquée. Inclut notamment l’expérience chez EP MECA, les stages et les projets de conception.
+- `/parcours/master` — formation en mécanique numérique, expériences de recherche, PINNs, réduction d’ordre, fatigue, jumeau numérique et travaux académiques. Les rapports disponibles sont consultables depuis leurs cartes.
+- `/cv` — accès aux CV PDF « Ingénierie mécanique » et « Master & recherche ».
 
-📬 tonguekevin00@gmail.com  
-🔗 [linkedin.com/in/tongue-kevin-52b100330](https://www.linkedin.com/in/tongue-kevin-52b100330)  
-🐙 [github.com/tiffank1802](https://github.com/tiffank1802)  
-🤗 [huggingface.co/ktongue](https://huggingface.co/ktongue)
+Les anciennes pages `/experience`, `/projects`, `/academic` et `/skills` restent accessibles comme vues transversales du portfolio.
 
----
+## Architecture technique
 
-### 🇫🇷 Français
+- **Frontend** : React 18, Vite, React Router, Framer Motion.
+- **Interface** : CSS responsive et composants réutilisables, avec prise en charge FR/EN.
+- **Données** : contenu descriptif dans `src/data.jsx`; sélection et regroupement des contenus par parcours dans `src/data/pathways.js`; traductions dans `src/i18n/translations.js`.
+- **CV** : deux sources LaTeX dans `cv/cv.tex` (ingénierie) et `cv/cv-research.tex` (master/recherche), avec le modèle Awesome-CV local.
 
-Étudiant en génie mécanique, spécialisé en **simulation numérique**, **éléments finis** et **mécanique des structures**. Mes projets combinent **méthodes déterministes et stochastiques** (DEM + chaînes de Markov), **deep learning physique** (PINNs) et **fatigue multiaxiale** (critère de Dang Van). Passionné par l'utilisation du calcul pour comprendre et prédire le comportement mécanique des matériaux et des structures.
+## Développement local
 
-**Expertises clés :** MEF, DEM, PINNs, tribologie, fatigue, homogénéisation, Python/PyTorch, CAO (SolidWorks, CATIA), Abaqus, ANSYS.
+```bash
+npm ci
+npm run dev
+```
 
-📬 tonguekevin00@gmail.com  
-🔗 [linkedin.com/in/tongue-kevin-52b100330](https://www.linkedin.com/in/tongue-kevin-52b100330)  
-🐙 [github.com/tiffank1802](https://github.com/tiffank1802)  
-🤗 [huggingface.co/ktongue](https://huggingface.co/ktongue)
+Construire le site :
 
----
+```bash
+npm run build
+```
 
-### ⚙️ Site
+## Génération des CV PDF
 
-Portfolio personnel — [tiffank1802.github.io](https://tiffank1802.github.io)  
-Construit avec **React**, **Vite** et **Framer Motion**. Thème Liquid Glass. Déployé sur GitHub Pages.  
-Le CV (LaTeX) est automatiquement compilé via GitHub Actions à chaque push.
+Le workflow GitHub Actions `.github/workflows/build-cv.yml` compile les deux documents avec XeLaTeX à chaque modification des sources, puis publie :
 
----
+- `cv/cv.pdf` et `public/cv.pdf` — CV ingénierie mécanique (copié aussi à la racine sous `cv.pdf` pour compatibilité) ;
+- `public/cv-recherche.pdf` — CV master et recherche.
 
-### ☁️ Déploiement Cloudflare Pages
+Pour compiler localement, installer XeLaTeX et les dépendances TeX Live utilisées par le workflow, puis exécuter :
 
-Le projet est prêt pour Cloudflare Pages avec un worker en mode avancé : `public/_worker.js` est copié automatiquement dans `dist/_worker.js` par Vite pendant le build.
+```bash
+cd cv
+xelatex -interaction=nonstopmode -halt-on-error cv.tex
+xelatex -interaction=nonstopmode -halt-on-error cv.tex
+xelatex -interaction=nonstopmode -halt-on-error cv-research.tex
+xelatex -interaction=nonstopmode -halt-on-error cv-research.tex
+```
 
-Configuration recommandée dans Cloudflare Pages :
+## Déploiement
 
-- **Framework preset** : Vite
-- **Build command** : `npm run build`
-- **Build output directory** : `dist`
-- **Node.js** : 20+
-
-Le worker sert les assets statiques via `env.ASSETS`, renvoie `index.html` pour les routes SPA React Router, et affiche `404.html` pour les fichiers inexistants.
+Le site est construit avec `npm run build` et déployé sur GitHub Pages par `.github/workflows/deploy.yml`. Le projet reste également compatible avec Cloudflare Pages : preset Vite, commande `npm run build`, répertoire de sortie `dist`.

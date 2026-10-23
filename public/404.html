@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>tiffank1802</title>
+    <meta name="robots" content="noindex" />
+    <title>Page not found — Kevin Tongue</title>
     <script>
-      sessionStorage.redirect = location.href
+      sessionStorage.setItem('spa-redirect', location.pathname + location.search + location.hash);
+      location.replace('/');
     </script>
-    <meta http-equiv="refresh" content="0;URL='/'">
   </head>
-  <body></body>
+  <body><p>Redirecting…</p></body>
 </html>

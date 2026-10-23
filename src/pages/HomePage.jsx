@@ -40,11 +40,11 @@ const HomePage = () => {
           </motion.p>
 
           <motion.div className="hero-actions" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}>
-            <a href="/projects" className="btn btn-primary">
+            <a href="/parcours/master" className="btn btn-primary">
               {t('hero_btn_projects', lang)}
               <LuArrowRight size={16} />
             </a>
-            <a href="cv.pdf" download className="btn btn-card">
+            <a href="/cv" className="btn btn-card">
               <LuDownload size={16} />
               {t('hero_btn_cv', lang)}
             </a>
@@ -103,7 +103,7 @@ const HomePage = () => {
               <span className="info-icon"><Icon name="books" className="icon-svg" /></span>
               <div>
                 <div className="info-label">{t('info_availability', lang)}</div>
-                <div className="info-value">Sept./Oct. 2026</div>
+                <div className="info-value">{t('current_role_value', lang)}</div>
               </div>
             </div>
           </GlassCard>

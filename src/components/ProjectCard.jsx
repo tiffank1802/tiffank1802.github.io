@@ -14,7 +14,7 @@ const ProjectCard = ({ project, delay, lang = 'fr', onView }) => {
     <GlassCard delay={delay} className="project-card">
       <div className="project-header">
         <div className="project-icon">{project.icon}</div>
-        {project.date && <span className="acad-semester">{project.date}</span>}
+        {project.date && <span className="acad-semester">{getText(project.date, lang)}</span>}
       </div>
 
       <h3 className="project-title">{getText(project.title, lang)}</h3>
